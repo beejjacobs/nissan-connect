@@ -1,0 +1,25 @@
+{
+  "name": "nissan-connect",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "jsdoc2md": "jsdoc2md src/*.js > docs/README.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/beejjacobs/nissan-connect.git"
+  },
+  "author": {
+    "name": "Ben Jacobs",
+    "email": "ben@benjacobs.co.uk"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/beejjacobs/nissan-connect/issues"
+  },
+  "homepage": "https://github.com/beejjacobs/nissan-connect#readme",
+  "devDependencies": {
+    "jsdoc-to-markdown": "^3.0.0"
+  }
+}
