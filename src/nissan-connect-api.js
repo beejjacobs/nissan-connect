@@ -5,6 +5,8 @@ class NissanConnectApi {
    * @param {string} config.baseUrl
    * @param {string} config.initialAppString
    * @param {object} config.endPoints
+   * @param {string} config.endPoints.app
+   * @param {string} config.endPoints.login
    * @param {string} config.endPoints.batteryStatus
    * @param {string} config.endPoints.batteryStatusResult
    * @param {string} config.endPoints.batteryRemoteCharging
@@ -20,8 +22,16 @@ class NissanConnectApi {
    * @param {string} config.endPoints.scheduledACRemote
    * @param {string} config.endPoints.driveAnalysis
    * @param {string} config.endPoints.priceSimulator
+   * @param {string} region
    */
-  constructor(config) {
+  constructor(config, region) {
+    this.baseUrl = config.baseUrl;
+    this.initialAppString = config.initialAppString;
+    this.endPoints = config.endPoints;
+    this.region = region;
+  }
+
+  async login(username, password) {
 
   }
 }

@@ -2,6 +2,8 @@
   "baseUrl": "https://gdcportalgw.its-mo.com/gworchest_160803A/gdc/",
   "initialAppString": "geORNtsZe5I4lRGjG9GZiA",
   "endPoints": {
+    "app": "InitialApp.php",
+    "login": "UserLoginRequest.php",
     "batteryStatus": "BatteryStatusCheckRequest.php",
     "batteryStatusResult": "BatteryStatusCheckResultRequest.php",
     "batteryRemoteCharging": "BatteryRemoteChargingRequest.php",
