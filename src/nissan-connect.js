@@ -11,38 +11,38 @@ class NissanConnect {
    * @param {string} password
    * @param {string} [region=NE]
    */
-    constructor(username, password, region = NissanConnect.Region.Europe) {
-      this.api = new Api(config, region);
+  constructor(username, password, region = NissanConnect.Region.Europe) {
+    this.api = new Api(config, region);
     /**
      *
      * @type {Leaf|null}
      */
-      this.leaf = null;
+    this.leaf = null;
     /**
      *
      * @type {CustomerInfo|null}
      */
-      this.customerInfo = null;
+    this.customerInfo = null;
     /**
      *
      * @type {string|null}
      */
-      this.sessionId = null;
+    this.sessionId = null;
 
-      this.api.login(username, password)
-          .then(loginResponse => {
-            NissanConnect.log('logged in');
-            this.leaf = loginResponse.leaf;
-            this.customerInfo = loginResponse.customerInfo;
-            this.sessionId = loginResponse.sessionId;
-            NissanConnect.log('Nickname: ' + loginResponse.leaf.nickname);
-            NissanConnect.log('Email: ' + loginResponse.customerInfo.email);
-          })
-          .catch(e => {
-            NissanConnect.error(e);
-          });
+    this.api.login(username, password)
+        .then(loginResponse => {
+          NissanConnect.log('logged in');
+          this.leaf = loginResponse.leaf;
+          this.customerInfo = loginResponse.customerInfo;
+          this.sessionId = loginResponse.sessionId;
+          NissanConnect.log('Nickname: ' + loginResponse.leaf.nickname);
+          NissanConnect.log('Email: ' + loginResponse.customerInfo.email);
+        })
+        .catch(e => {
+          NissanConnect.error(e);
+        });
 
-    }
+  }
 
   static log(message) {
     console.log('[NissanConnect] ' + message);
