@@ -6,11 +6,17 @@
 <dt><a href="#NissanConnect">NissanConnect</a></dt>
 <dd><p>Nissan Connect class</p>
 </dd>
+<dt><a href="#BatteryStatus">BatteryStatus</a></dt>
+<dd></dd>
 <dt><a href="#CustomerInfo">CustomerInfo</a></dt>
+<dd></dd>
+<dt><a href="#DriveAnalysis">DriveAnalysis</a></dt>
 <dd></dd>
 <dt><a href="#Leaf">Leaf</a></dt>
 <dd></dd>
 <dt><a href="#LoginResponse">LoginResponse</a></dt>
+<dd></dd>
+<dt><a href="#UpdateResultResponse">UpdateResultResponse</a></dt>
 <dd></dd>
 </dl>
 
@@ -21,6 +27,14 @@
 <dd></dd>
 <dt><a href="#Config">Config</a> : <code>object</code></dt>
 <dd></dd>
+<dt><a href="#DateSummary">DateSummary</a> : <code>object</code></dt>
+<dd></dd>
+<dt><a href="#PersonalData">PersonalData</a> : <code>object</code></dt>
+<dd></dd>
+<dt><a href="#Advice">Advice</a> : <code>object</code></dt>
+<dd></dd>
+<dt><a href="#DriveAnalysisJson">DriveAnalysisJson</a> : <code>object</code></dt>
+<dd></dd>
 <dt><a href="#VehicleInfoResponse">VehicleInfoResponse</a> : <code>object</code></dt>
 <dd></dd>
 <dt><a href="#VehicleResponse">VehicleResponse</a> : <code>object</code></dt>
@@ -30,6 +44,10 @@
 <dt><a href="#CustomerInfoResponse">CustomerInfoResponse</a> : <code>object</code></dt>
 <dd></dd>
 <dt><a href="#LoginResponseJson">LoginResponseJson</a> : <code>object</code></dt>
+<dd></dd>
+<dt><a href="#HoursMinutes">HoursMinutes</a> : <code>object</code></dt>
+<dd></dd>
+<dt><a href="#UpdateResultResponseJson">UpdateResultResponseJson</a> : <code>object</code></dt>
 <dd></dd>
 </dl>
 
@@ -42,6 +60,9 @@
     * [new NissanConnectApi(config, region)](#new_NissanConnectApi_new)
     * [.connect()](#NissanConnectApi+connect) ⇒ <code>Promise.&lt;string&gt;</code>
     * [.login(username, password)](#NissanConnectApi+login) ⇒ [<code>Promise.&lt;LoginResponse&gt;</code>](#LoginResponse)
+    * [.requestUpdate(leaf, customerInfo)](#NissanConnectApi+requestUpdate) ⇒ <code>Promise.&lt;string&gt;</code>
+    * [.requestUpdateResult(leaf, customerInfo, resultKey)](#NissanConnectApi+requestUpdateResult) ⇒ <code>Promise.&lt;(UpdateResultResponse\|null)&gt;</code>
+    * [.getDrivingAnalysis(leaf, customerInfo)](#NissanConnectApi+getDrivingAnalysis) ⇒ <code>Promise.&lt;\*&gt;</code>
     * [.request(endPoint, data)](#NissanConnectApi+request) ⇒ <code>Promise.&lt;\*&gt;</code>
 
 <a name="new_NissanConnectApi_new"></a>
@@ -62,10 +83,41 @@
 ### nissanConnectApi.login(username, password) ⇒ [<code>Promise.&lt;LoginResponse&gt;</code>](#LoginResponse)
 **Kind**: instance method of [<code>NissanConnectApi</code>](#NissanConnectApi)  
 
-| Param |
-| --- |
-| username | 
-| password | 
+| Param | Type |
+| --- | --- |
+| username | <code>string</code> | 
+| password | <code>string</code> | 
+
+<a name="NissanConnectApi+requestUpdate"></a>
+
+### nissanConnectApi.requestUpdate(leaf, customerInfo) ⇒ <code>Promise.&lt;string&gt;</code>
+**Kind**: instance method of [<code>NissanConnectApi</code>](#NissanConnectApi)  
+
+| Param | Type |
+| --- | --- |
+| leaf | [<code>Leaf</code>](#Leaf) | 
+| customerInfo | [<code>CustomerInfo</code>](#CustomerInfo) | 
+
+<a name="NissanConnectApi+requestUpdateResult"></a>
+
+### nissanConnectApi.requestUpdateResult(leaf, customerInfo, resultKey) ⇒ <code>Promise.&lt;(UpdateResultResponse\|null)&gt;</code>
+**Kind**: instance method of [<code>NissanConnectApi</code>](#NissanConnectApi)  
+
+| Param | Type |
+| --- | --- |
+| leaf | [<code>Leaf</code>](#Leaf) | 
+| customerInfo | [<code>CustomerInfo</code>](#CustomerInfo) | 
+| resultKey | <code>string</code> | 
+
+<a name="NissanConnectApi+getDrivingAnalysis"></a>
+
+### nissanConnectApi.getDrivingAnalysis(leaf, customerInfo) ⇒ <code>Promise.&lt;\*&gt;</code>
+**Kind**: instance method of [<code>NissanConnectApi</code>](#NissanConnectApi)  
+
+| Param | Type |
+| --- | --- |
+| leaf | [<code>Leaf</code>](#Leaf) | 
+| customerInfo | [<code>CustomerInfo</code>](#CustomerInfo) | 
 
 <a name="NissanConnectApi+request"></a>
 
@@ -85,6 +137,16 @@ Make a request to the Nissan Connect end point
 Nissan Connect class
 
 **Kind**: global class  
+
+* [NissanConnect](#NissanConnect)
+    * [new NissanConnect(username, password, [region])](#new_NissanConnect_new)
+    * [.leaf](#NissanConnect+leaf) : [<code>Leaf</code>](#Leaf) \| <code>null</code>
+    * [.customerInfo](#NissanConnect+customerInfo) : [<code>CustomerInfo</code>](#CustomerInfo) \| <code>null</code>
+    * [.sessionId](#NissanConnect+sessionId) : <code>string</code> \| <code>null</code>
+    * [.loggedIn](#NissanConnect+loggedIn) : <code>boolean</code>
+    * [.login()](#NissanConnect+login) ⇒ <code>Promise.&lt;\*&gt;</code>
+    * [.getUpdate()](#NissanConnect+getUpdate) ⇒ [<code>Promise.&lt;UpdateResultResponse&gt;</code>](#UpdateResultResponse)
+
 <a name="new_NissanConnect_new"></a>
 
 ### new NissanConnect(username, password, [region])
@@ -95,6 +157,105 @@ Nissan Connect class
 | password | <code>string</code> |  | 
 | [region] | <code>string</code> | <code>&quot;NE&quot;</code> | 
 
+<a name="NissanConnect+leaf"></a>
+
+### nissanConnect.leaf : [<code>Leaf</code>](#Leaf) \| <code>null</code>
+**Kind**: instance property of [<code>NissanConnect</code>](#NissanConnect)  
+<a name="NissanConnect+customerInfo"></a>
+
+### nissanConnect.customerInfo : [<code>CustomerInfo</code>](#CustomerInfo) \| <code>null</code>
+**Kind**: instance property of [<code>NissanConnect</code>](#NissanConnect)  
+<a name="NissanConnect+sessionId"></a>
+
+### nissanConnect.sessionId : <code>string</code> \| <code>null</code>
+**Kind**: instance property of [<code>NissanConnect</code>](#NissanConnect)  
+<a name="NissanConnect+loggedIn"></a>
+
+### nissanConnect.loggedIn : <code>boolean</code>
+**Kind**: instance property of [<code>NissanConnect</code>](#NissanConnect)  
+<a name="NissanConnect+login"></a>
+
+### nissanConnect.login() ⇒ <code>Promise.&lt;\*&gt;</code>
+**Kind**: instance method of [<code>NissanConnect</code>](#NissanConnect)  
+<a name="NissanConnect+getUpdate"></a>
+
+### nissanConnect.getUpdate() ⇒ [<code>Promise.&lt;UpdateResultResponse&gt;</code>](#UpdateResultResponse)
+**Kind**: instance method of [<code>NissanConnect</code>](#NissanConnect)  
+<a name="BatteryStatus"></a>
+
+## BatteryStatus
+**Kind**: global class  
+
+* [BatteryStatus](#BatteryStatus)
+    * [new BatteryStatus(info)](#new_BatteryStatus_new)
+    * [.range](#BatteryStatus+range) ⇒ <code>number</code>
+    * [.rangeWithAc](#BatteryStatus+rangeWithAc) ⇒ <code>number</code>
+    * [.chargeLevel](#BatteryStatus+chargeLevel) ⇒ <code>string</code>
+    * [.chargeMode](#BatteryStatus+chargeMode) ⇒ <code>string</code>
+    * [.pluginState](#BatteryStatus+pluginState) ⇒ <code>string</code>
+    * [.isCharging](#BatteryStatus+isCharging) ⇒ <code>string</code>
+    * [.chargeStatus](#BatteryStatus+chargeStatus) ⇒ <code>string</code>
+    * [.capacity](#BatteryStatus+capacity) ⇒ <code>Number</code>
+    * [.chargeState](#BatteryStatus+chargeState) ⇒ <code>Number</code>
+    * [.timeToFull](#BatteryStatus+timeToFull) ⇒ [<code>HoursMinutes</code>](#HoursMinutes)
+    * [.timeToFull6kW](#BatteryStatus+timeToFull6kW) ⇒ [<code>HoursMinutes</code>](#HoursMinutes)
+
+<a name="new_BatteryStatus_new"></a>
+
+### new BatteryStatus(info)
+
+| Param | Type |
+| --- | --- |
+| info | [<code>UpdateResultResponseJson</code>](#UpdateResultResponseJson) | 
+
+<a name="BatteryStatus+range"></a>
+
+### batteryStatus.range ⇒ <code>number</code>
+Range in metres
+
+**Kind**: instance property of [<code>BatteryStatus</code>](#BatteryStatus)  
+<a name="BatteryStatus+rangeWithAc"></a>
+
+### batteryStatus.rangeWithAc ⇒ <code>number</code>
+Range with AC on in metres
+
+**Kind**: instance property of [<code>BatteryStatus</code>](#BatteryStatus)  
+<a name="BatteryStatus+chargeLevel"></a>
+
+### batteryStatus.chargeLevel ⇒ <code>string</code>
+**Kind**: instance property of [<code>BatteryStatus</code>](#BatteryStatus)  
+<a name="BatteryStatus+chargeMode"></a>
+
+### batteryStatus.chargeMode ⇒ <code>string</code>
+**Kind**: instance property of [<code>BatteryStatus</code>](#BatteryStatus)  
+<a name="BatteryStatus+pluginState"></a>
+
+### batteryStatus.pluginState ⇒ <code>string</code>
+**Kind**: instance property of [<code>BatteryStatus</code>](#BatteryStatus)  
+<a name="BatteryStatus+isCharging"></a>
+
+### batteryStatus.isCharging ⇒ <code>string</code>
+**Kind**: instance property of [<code>BatteryStatus</code>](#BatteryStatus)  
+<a name="BatteryStatus+chargeStatus"></a>
+
+### batteryStatus.chargeStatus ⇒ <code>string</code>
+**Kind**: instance property of [<code>BatteryStatus</code>](#BatteryStatus)  
+<a name="BatteryStatus+capacity"></a>
+
+### batteryStatus.capacity ⇒ <code>Number</code>
+**Kind**: instance property of [<code>BatteryStatus</code>](#BatteryStatus)  
+<a name="BatteryStatus+chargeState"></a>
+
+### batteryStatus.chargeState ⇒ <code>Number</code>
+**Kind**: instance property of [<code>BatteryStatus</code>](#BatteryStatus)  
+<a name="BatteryStatus+timeToFull"></a>
+
+### batteryStatus.timeToFull ⇒ [<code>HoursMinutes</code>](#HoursMinutes)
+**Kind**: instance property of [<code>BatteryStatus</code>](#BatteryStatus)  
+<a name="BatteryStatus+timeToFull6kW"></a>
+
+### batteryStatus.timeToFull6kW ⇒ [<code>HoursMinutes</code>](#HoursMinutes)
+**Kind**: instance property of [<code>BatteryStatus</code>](#BatteryStatus)  
 <a name="CustomerInfo"></a>
 
 ## CustomerInfo
@@ -146,6 +307,53 @@ Nissan Connect class
 
 ### customerInfo.country ⇒ <code>string</code>
 **Kind**: instance property of [<code>CustomerInfo</code>](#CustomerInfo)  
+<a name="DriveAnalysis"></a>
+
+## DriveAnalysis
+**Kind**: global class  
+
+* [DriveAnalysis](#DriveAnalysis)
+    * [new DriveAnalysis(info)](#new_DriveAnalysis_new)
+    * [.summary](#DriveAnalysis+summary) ⇒ [<code>DateSummary</code>](#DateSummary)
+    * [.targetDate](#DriveAnalysis+targetDate) ⇒ <code>string</code>
+    * [.averageEconomy](#DriveAnalysis+averageEconomy) ⇒ <code>Number</code>
+    * [.averageEconomyLevel](#DriveAnalysis+averageEconomyLevel) ⇒ <code>number</code>
+    * [.economyUnits](#DriveAnalysis+economyUnits) ⇒ <code>string</code>
+
+<a name="new_DriveAnalysis_new"></a>
+
+### new DriveAnalysis(info)
+
+| Param | Type |
+| --- | --- |
+| info | [<code>DriveAnalysisJson</code>](#DriveAnalysisJson) | 
+
+<a name="DriveAnalysis+summary"></a>
+
+### driveAnalysis.summary ⇒ [<code>DateSummary</code>](#DateSummary)
+**Kind**: instance property of [<code>DriveAnalysis</code>](#DriveAnalysis)  
+<a name="DriveAnalysis+targetDate"></a>
+
+### driveAnalysis.targetDate ⇒ <code>string</code>
+**Kind**: instance property of [<code>DriveAnalysis</code>](#DriveAnalysis)  
+<a name="DriveAnalysis+averageEconomy"></a>
+
+### driveAnalysis.averageEconomy ⇒ <code>Number</code>
+In units of [economyUnits](#DriveAnalysis+economyUnits)
+
+**Kind**: instance property of [<code>DriveAnalysis</code>](#DriveAnalysis)  
+<a name="DriveAnalysis+averageEconomyLevel"></a>
+
+### driveAnalysis.averageEconomyLevel ⇒ <code>number</code>
+1 (below average) - 5 (very good)
+
+**Kind**: instance property of [<code>DriveAnalysis</code>](#DriveAnalysis)  
+<a name="DriveAnalysis+economyUnits"></a>
+
+### driveAnalysis.economyUnits ⇒ <code>string</code>
+e.g. miles/kWh
+
+**Kind**: instance property of [<code>DriveAnalysis</code>](#DriveAnalysis)  
 <a name="Leaf"></a>
 
 ## Leaf
@@ -159,6 +367,7 @@ Nissan Connect class
     * [.dmcId](#Leaf+dmcId) ⇒ <code>string</code>
     * [.nickname](#Leaf+nickname) ⇒ <code>string</code>
     * [.sessionId](#Leaf+sessionId) ⇒ <code>string</code>
+    * [.gdcUserId](#Leaf+gdcUserId) ⇒ <code>string</code>
 
 <a name="new_Leaf_new"></a>
 
@@ -192,6 +401,10 @@ Nissan Connect class
 
 ### leaf.sessionId ⇒ <code>string</code>
 **Kind**: instance property of [<code>Leaf</code>](#Leaf)  
+<a name="Leaf+gdcUserId"></a>
+
+### leaf.gdcUserId ⇒ <code>string</code>
+**Kind**: instance property of [<code>Leaf</code>](#Leaf)  
 <a name="LoginResponse"></a>
 
 ## LoginResponse
@@ -201,6 +414,7 @@ Nissan Connect class
     * [new LoginResponse(responseJson)](#new_LoginResponse_new)
     * [.customerInfo](#LoginResponse+customerInfo) : [<code>CustomerInfo</code>](#CustomerInfo)
     * [.leaf](#LoginResponse+leaf) : [<code>Leaf</code>](#Leaf)
+    * [.sessionId](#LoginResponse+sessionId) : <code>string</code>
 
 <a name="new_LoginResponse_new"></a>
 
@@ -218,6 +432,36 @@ Nissan Connect class
 
 ### loginResponse.leaf : [<code>Leaf</code>](#Leaf)
 **Kind**: instance property of [<code>LoginResponse</code>](#LoginResponse)  
+<a name="LoginResponse+sessionId"></a>
+
+### loginResponse.sessionId : <code>string</code>
+**Kind**: instance property of [<code>LoginResponse</code>](#LoginResponse)  
+<a name="UpdateResultResponse"></a>
+
+## UpdateResultResponse
+**Kind**: global class  
+
+* [UpdateResultResponse](#UpdateResultResponse)
+    * [new UpdateResultResponse(info)](#new_UpdateResultResponse_new)
+    * [.batteryStatus](#UpdateResultResponse+batteryStatus) : [<code>BatteryStatus</code>](#BatteryStatus)
+    * [.updateTime](#UpdateResultResponse+updateTime) ⇒ <code>string</code>
+
+<a name="new_UpdateResultResponse_new"></a>
+
+### new UpdateResultResponse(info)
+
+| Param | Type |
+| --- | --- |
+| info | [<code>UpdateResultResponseJson</code>](#UpdateResultResponseJson) | 
+
+<a name="UpdateResultResponse+batteryStatus"></a>
+
+### updateResultResponse.batteryStatus : [<code>BatteryStatus</code>](#BatteryStatus)
+**Kind**: instance property of [<code>UpdateResultResponse</code>](#UpdateResultResponse)  
+<a name="UpdateResultResponse+updateTime"></a>
+
+### updateResultResponse.updateTime ⇒ <code>string</code>
+**Kind**: instance property of [<code>UpdateResultResponse</code>](#UpdateResultResponse)  
 <a name="EndPoints"></a>
 
 ## EndPoints : <code>object</code>
@@ -255,6 +499,59 @@ Nissan Connect class
 | baseUrl | <code>string</code> | 
 | initialAppString | <code>string</code> | 
 | endPoints | [<code>EndPoints</code>](#EndPoints) | 
+
+<a name="DateSummary"></a>
+
+## DateSummary : <code>object</code>
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| TargetDate | <code>string</code> | 
+| ElectricMileage | <code>string</code> | 
+| ElectricMileageLevel | <code>string</code> | 
+| PowerConsumptMoter | <code>string</code> | 
+| PowerConsumptMoterLevel | <code>string</code> | 
+| PowerConsumptMinus | <code>string</code> | 
+| PowerConsumptMinusLevel | <code>string</code> | 
+| PowerConsumptMinusLevel | <code>string</code> | 
+| PowerConsumptAUX | <code>string</code> | 
+| PowerConsumptAUXLevel | <code>string</code> | 
+
+<a name="PersonalData"></a>
+
+## PersonalData : <code>object</code>
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| DateSummary | [<code>DateSummary</code>](#DateSummary) | 
+| ElectricCostScale | <code>string</code> | 
+
+<a name="Advice"></a>
+
+## Advice : <code>object</code>
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| title | <code>string</code> | 
+| body | <code>string</code> | 
+
+<a name="DriveAnalysisJson"></a>
+
+## DriveAnalysisJson : <code>object</code>
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| DriveAnalysisBasicScreenResponsePersonalData: | [<code>PersonalData</code>](#PersonalData) | 
+| AdviceList | <code>object</code> | 
+| AdviceList.Advice | [<code>Advice</code>](#Advice) | 
 
 <a name="VehicleInfoResponse"></a>
 
@@ -319,4 +616,37 @@ Nissan Connect class
 | vehicleInfo | [<code>Array.&lt;VehicleInfoResponse&gt;</code>](#VehicleInfoResponse) | 
 | vehicle | [<code>VehicleResponse</code>](#VehicleResponse) | 
 | CustomerInfo | [<code>CustomerInfoResponse</code>](#CustomerInfoResponse) | 
+
+<a name="HoursMinutes"></a>
+
+## HoursMinutes : <code>object</code>
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| hours | <code>string</code> | 
+| minutes | <code>string</code> | 
+
+<a name="UpdateResultResponseJson"></a>
+
+## UpdateResultResponseJson : <code>object</code>
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| timeStamp | <code>string</code> |  |
+| cruisingRangeAcOn | <code>string</code> |  |
+| cruisingRangeAcOff | <code>string</code> |  |
+| currentChargeLevel | <code>string</code> |  |
+| chargeMode | <code>string</code> |  |
+| pluginState | <code>string</code> |  |
+| charging | <code>string</code> |  |
+| chargeStatus | <code>string</code> |  |
+| batteryDegradation | <code>string</code> |  |
+| batteryCapacity | <code>string</code> |  |
+| timeRequiredToFull | [<code>HoursMinutes</code>](#HoursMinutes) |  |
+| timeRequiredToFull200 | [<code>HoursMinutes</code>](#HoursMinutes) |  |
+| timeRequiredToFull200_6kW | [<code>HoursMinutes</code>](#HoursMinutes) | /** |
 

@@ -34,7 +34,7 @@ class NissanConnect {
   }
 
   /**
-   * @returns {Promise.<>}
+   * @returns {Promise.<*>}
    */
   async login() {
     this.loggedIn = false;
@@ -68,8 +68,28 @@ class NissanConnect {
         return e;
       }
     } else {
-      await this.login();
+      try {
+        await this.login();
+      } catch (e) {
+        return e;
+      }
       return this.getUpdate();
+    }
+  }
+
+  /**
+   * @returns {Promise.<DriveAnalysis>}
+   */
+  async getDrivingAnalysis() {
+    if(this.loggedIn) {
+      return this.api.getDrivingAnalysis(this.leaf, this.customerInfo);
+    } else {
+      try {
+        await this.login();
+      } catch (e) {
+        return e;
+      }
+      return this.getDrivingAnalysis();
     }
   }
 

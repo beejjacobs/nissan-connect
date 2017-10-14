@@ -2,6 +2,7 @@ const request = require('request-promise-native');
 const crypto = require('crypto');
 const LoginResponse = require('./responses/login-response');
 const UpdateResultResponse = require('./responses/update-result-response');
+const DriveAnalysis = require('./responses/drive-analysis');
 
 /**
  * @typedef {object} EndPoints
@@ -98,7 +99,7 @@ class NissanConnectApi {
    * @param {Leaf} leaf
    * @param {CustomerInfo} customerInfo
    * @param {string} resultKey
-   * @returns {Promise.<*>}
+   * @returns {Promise.<UpdateResultResponse|null>}
    */
   async requestUpdateResult(leaf, customerInfo, resultKey) {
     NissanConnectApi.log('requesting update result');
@@ -113,6 +114,24 @@ class NissanConnectApi {
         .then(res => {
           return res.responseFlag === '1' ? new UpdateResultResponse(res) : null;
         });
+  }
+
+  /**
+   *
+   * @param {Leaf} leaf
+   * @param {CustomerInfo} customerInfo
+   * @returns {Promise.<*>}
+   */
+  async getDrivingAnalysis(leaf, customerInfo) {
+    NissanConnectApi.log('get driving analysis');
+    return this.request(this.endPoints.driveAnalysis, {
+      lg: customerInfo.language,
+      DCMID: leaf.dmcId,
+      VIN: leaf.vin,
+      tz: customerInfo.timezone,
+      custom_sessionid: leaf.sessionId
+    })
+        .then(res => new DriveAnalysis(res));
   }
 
   /**
