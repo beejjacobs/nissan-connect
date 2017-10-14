@@ -63,7 +63,7 @@ class NissanConnectApi {
    */
   async login(username, password) {
     const key = await this.connect();
-    NissanConnectApi.log('login');
+    NissanConnectApi.log('logging in');
     return this.request(this.endPoints.login, {
       UserId: username,
       Password: NissanConnectApi.encryptPassword(password, key)
@@ -105,7 +105,7 @@ class NissanConnectApi {
   }
 
   static log(message) {
-    console.log('NissanConnectApi ' + message);
+    console.log('[NissanConnectApi] ' + message);
   }
 }
 

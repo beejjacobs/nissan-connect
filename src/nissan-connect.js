@@ -16,9 +16,23 @@ class NissanConnect {
 
       this.api.login(username, password)
           .then(t => {
-            console.log(t);
+            NissanConnect.log('logged in');
+            NissanConnect.log('Nickname: ' + t.leaf.nickname);
+            NissanConnect.log('Email: ' + t.customerInfo.email);
+          })
+          .catch(e => {
+            NissanConnect.error(e);
           });
+
     }
+
+  static log(message) {
+    console.log('[NissanConnect] ' + message);
+  }
+
+  static error(message) {
+    console.error('[NissanConnect] ' + message);
+  }
 }
 
 NissanConnect.Region = {
