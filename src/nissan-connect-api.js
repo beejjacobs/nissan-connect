@@ -79,10 +79,8 @@ class NissanConnectApi {
    */
   async request(endPoint, data) {
     const defaults = {
-      form: {
-        initial_app_strings: this.initialAppString,
-        RegionCode: this.region
-      }
+      initial_app_strings: this.initialAppString,
+      RegionCode: this.region
     };
     const options = {
       uri: this.baseUrl + endPoint,
@@ -93,7 +91,7 @@ class NissanConnectApi {
     Object.assign(options.form, defaults, data);
     return request(options)
         .then(res => {
-          if (res.status !== '200') {
+          if (res.status !== 200) {
             return Promise.reject(res.status);
           }
           return res;
