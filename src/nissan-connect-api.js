@@ -1,6 +1,7 @@
 const request = require('request-promise-native');
 const crypto = require('crypto');
 const LoginResponse = require('./responses/login-response');
+const UpdateResultResponse = require('./responses/update-result-response');
 
 /**
  * @typedef {object} EndPoints
@@ -84,10 +85,33 @@ class NissanConnectApi {
       DCMID: leaf.dmcId,
       VIN: leaf.vin,
       tz: customerInfo.timezone,
-      UserId: leaf.gdcUserId
+      UserId: leaf.gdcUserId,
+      custom_sessionid: leaf.sessionId
     })
         .then(res => {
           return res.resultKey;
+        });
+  }
+
+  /**
+   *
+   * @param {Leaf} leaf
+   * @param {CustomerInfo} customerInfo
+   * @param {string} resultKey
+   * @returns {Promise.<*>}
+   */
+  async requestUpdateResult(leaf, customerInfo, resultKey) {
+    NissanConnectApi.log('requesting update result');
+    return this.request(this.endPoints.batteryStatusResult, {
+      lg: customerInfo.language,
+      DCMID: leaf.dmcId,
+      VIN: leaf.vin,
+      tz: customerInfo.timezone,
+      resultKey: resultKey,
+      custom_sessionid: leaf.sessionId
+    })
+        .then(res => {
+          return res.responseFlag === '1' ? new UpdateResultResponse(res) : null;
         });
   }
 

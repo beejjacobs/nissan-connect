@@ -33,6 +33,9 @@ class NissanConnect {
     this.loggedIn = false;
   }
 
+  /**
+   * @returns {Promise.<>}
+   */
   async login() {
     this.loggedIn = false;
     return this.api.login(this.username, this.password)
@@ -45,16 +48,24 @@ class NissanConnect {
         });
   }
 
+  /**
+   * @returns {Promise.<UpdateResultResponse>}
+   */
   async getUpdate() {
     if (this.loggedIn) {
       try {
-        return await this.api.requestUpdate(this.leaf, this.customerInfo);
-      } catch (e) {
-        if (e >= 400) {
-          NissanConnect.error('error, retrying...');
-          await this.login();
-          return this.getUpdate();
+        const key = await this.api.requestUpdate(this.leaf, this.customerInfo);
+        let updateInfo = await this.api.requestUpdateResult(this.leaf, this.customerInfo, key);
+        while (updateInfo === null) {
+          NissanConnect.log('retrying requestUpdateResult');
+          [updateInfo] = await Promise.all([
+            this.api.requestUpdateResult(this.leaf, this.customerInfo, key),
+            NissanConnect.timeout(5000) //wait 5 seconds before continuing
+          ]);
         }
+        return updateInfo;
+      } catch (e) {
+        return e;
       }
     } else {
       await this.login();
@@ -68,6 +79,10 @@ class NissanConnect {
 
   static error(message) {
     console.error('[NissanConnect] ' + message);
+  }
+
+  static timeout(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 }
 
