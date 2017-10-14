@@ -57,8 +57,8 @@ class NissanConnectApi {
 
   /**
    *
-   * @param username
-   * @param password
+   * @param {string} username
+   * @param {string} password
    * @returns {Promise.<LoginResponse>}
    */
   async login(username, password) {
@@ -69,6 +69,26 @@ class NissanConnectApi {
       Password: NissanConnectApi.encryptPassword(password, key)
     })
         .then(res => new LoginResponse(res));
+  }
+
+  /**
+   *
+   * @returns {Promise.<string>}
+   * @param {Leaf} leaf
+   * @param {CustomerInfo} customerInfo
+   */
+  async requestUpdate(leaf, customerInfo) {
+    NissanConnectApi.log('requesting update');
+    return this.request(this.endPoints.batteryStatus, {
+      lg: customerInfo.language,
+      DCMID: leaf.dmcId,
+      VIN: leaf.vin,
+      tz: customerInfo.timezone,
+      UserId: leaf.gdcUserId
+    })
+        .then(res => {
+          return res.resultKey;
+        });
   }
 
   /**
@@ -92,6 +112,7 @@ class NissanConnectApi {
     return request(options)
         .then(res => {
           if (res.status !== 200) {
+            console.error(res);
             return Promise.reject(res.status);
           }
           return res;

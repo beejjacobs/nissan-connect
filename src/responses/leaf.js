@@ -56,6 +56,14 @@ class Leaf {
   get sessionId() {
     return this.vehicleInfo.custom_sessionid;
   }
+
+  /**
+   *
+   * @returns {string}
+   */
+  get gdcUserId() {
+    return this.profile.gdcUserId;
+  }
 }
 
 module.exports = Leaf;
