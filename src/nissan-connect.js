@@ -13,6 +13,11 @@ class NissanConnect {
    */
     constructor(username, password, region = NissanConnect.Region.Europe) {
       this.api = new Api(config, region);
+
+      this.api.login(username, password)
+          .then(t => {
+            console.log(t);
+          });
     }
 }
 

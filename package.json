@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "jsdoc2md": "jsdoc2md src/*.js > docs/README.md"
+    "jsdoc2md": "jsdoc2md src/**/*.js > docs/README.md"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,10 @@
   },
   "homepage": "https://github.com/beejjacobs/nissan-connect#readme",
   "devDependencies": {
-    "jsdoc-to-markdown": "^3.0.0"
+    "jsdoc-to-markdown": "next"
+  },
+  "dependencies": {
+    "request": "^2.83.0",
+    "request-promise-native": "^1.0.5"
   }
 }

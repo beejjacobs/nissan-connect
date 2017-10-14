@@ -1,3 +1,6 @@
+const request = require('request-promise-native');
+const crypto = require('crypto');
+
 class NissanConnectApi {
   /**
    *
@@ -31,8 +34,65 @@ class NissanConnectApi {
     this.region = region;
   }
 
-  async login(username, password) {
+  async connect() {
+    NissanConnectApi.log('connecting');
+    return this.request(this.endPoints.app, {
+        lg: 'en-US',
+    })
+        .then(res => {
+          return res.baseprm;
+        });
+  }
 
+  /**
+   *
+   * @param username
+   * @param password
+   * @returns {Promise.<void>}
+   */
+  async login(username, password) {
+    const key = await this.connect();
+    NissanConnectApi.log('login');
+    return this.request(this.endPoints.login, {
+      UserId: username,
+      Password: NissanConnectApi.encryptPassword(password, key)
+    })
+        .then(res => {
+          return new Lo
+        });
+  }
+
+  /**
+   * Make a request to the Nissan Connect end point
+   * @param {string} endPoint
+   * @param {object} data
+   * @returns {Promise.<*>}
+   */
+  async request(endPoint, data) {
+    const defaults = {
+      form: {
+        initial_app_strings: this.initialAppString,
+        RegionCode: this.region
+      }
+    };
+    const options = {
+      uri: this.baseUrl + endPoint,
+      method: 'POST',
+      form: {},
+      json: true
+    };
+    Object.assign(options.form, defaults, data);
+    return request(options);
+  }
+
+  static encryptPassword(password, key) {
+    const cipher = crypto.createCipheriv('bf-ecb', new Buffer(key), new Buffer(''));
+
+    return cipher.update(password, 'utf8', 'base64') + cipher.final('base64');
+  }
+
+  static log(message) {
+    console.log('NissanConnectApi ' + message);
   }
 }
 
