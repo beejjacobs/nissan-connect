@@ -71,6 +71,11 @@ class LoginResponse {
      * @type {Leaf}
      */
     this.leaf = new Leaf(this.res);
+    /**
+     *
+     * @type {string}
+     */
+    this.sessionId = this.leaf.sessionId;
   }
 }
 

@@ -13,12 +13,30 @@ class NissanConnect {
    */
     constructor(username, password, region = NissanConnect.Region.Europe) {
       this.api = new Api(config, region);
+    /**
+     *
+     * @type {Leaf|null}
+     */
+      this.leaf = null;
+    /**
+     *
+     * @type {CustomerInfo|null}
+     */
+      this.customerInfo = null;
+    /**
+     *
+     * @type {string|null}
+     */
+      this.sessionId = null;
 
       this.api.login(username, password)
-          .then(t => {
+          .then(loginResponse => {
             NissanConnect.log('logged in');
-            NissanConnect.log('Nickname: ' + t.leaf.nickname);
-            NissanConnect.log('Email: ' + t.customerInfo.email);
+            this.leaf = loginResponse.leaf;
+            this.customerInfo = loginResponse.customerInfo;
+            this.sessionId = loginResponse.sessionId;
+            NissanConnect.log('Nickname: ' + loginResponse.leaf.nickname);
+            NissanConnect.log('Email: ' + loginResponse.customerInfo.email);
           })
           .catch(e => {
             NissanConnect.error(e);
