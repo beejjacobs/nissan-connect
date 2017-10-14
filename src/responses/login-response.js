@@ -61,7 +61,15 @@ class LoginResponse {
       throw new Error('no customer info');
     }
 
+    /**
+     *
+     * @type {CustomerInfo}
+     */
     this.customerInfo = new CustomerInfo(this.res.CustomerInfo);
+    /**
+     *
+     * @type {Leaf}
+     */
     this.leaf = new Leaf(this.res);
   }
 }

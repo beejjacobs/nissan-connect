@@ -1,30 +1,39 @@
 const request = require('request-promise-native');
 const crypto = require('crypto');
+const LoginResponse = require('./responses/login-response');
+
+/**
+ * @typedef {object} EndPoints
+ * @property {string} app
+ * @property {string} login
+ * @property {string} batteryStatus
+ * @property {string} batteryStatusResult
+ * @property {string} batteryRemoteCharging
+ * @property {string} batteryStatusRecords
+ * @property {string} acRemote
+ * @property {string} acRemoteResult
+ * @property {string} acRemoteOff
+ * @property {string} acRemoteOffResult
+ * @property {string} acRemoteNew
+ * @property {string} acRemoteUpdate
+ * @property {string} acRemoteCancel
+ * @property {string} acRemoteRecords
+ * @property {string} scheduledACRemote
+ * @property {string} driveAnalysis
+ * @property {string} priceSimulator
+ */
+
+/**
+ * @typedef {object} Config
+ * @property {string} baseUrl
+ * @property {string} initialAppString
+ * @property {EndPoints} endPoints
+ */
 
 class NissanConnectApi {
   /**
    *
-   * @param config
-   * @param {string} config.baseUrl
-   * @param {string} config.initialAppString
-   * @param {object} config.endPoints
-   * @param {string} config.endPoints.app
-   * @param {string} config.endPoints.login
-   * @param {string} config.endPoints.batteryStatus
-   * @param {string} config.endPoints.batteryStatusResult
-   * @param {string} config.endPoints.batteryRemoteCharging
-   * @param {string} config.endPoints.batteryStatusRecords
-   * @param {string} config.endPoints.acRemote
-   * @param {string} config.endPoints.acRemoteResult
-   * @param {string} config.endPoints.acRemoteOff
-   * @param {string} config.endPoints.acRemoteOffResult
-   * @param {string} config.endPoints.acRemoteNew
-   * @param {string} config.endPoints.acRemoteUpdate
-   * @param {string} config.endPoints.acRemoteCancel
-   * @param {string} config.endPoints.acRemoteRecords
-   * @param {string} config.endPoints.scheduledACRemote
-   * @param {string} config.endPoints.driveAnalysis
-   * @param {string} config.endPoints.priceSimulator
+   * @param {Config} config
    * @param {string} region
    */
   constructor(config, region) {
@@ -34,21 +43,23 @@ class NissanConnectApi {
     this.region = region;
   }
 
+  /**
+   *
+   * @returns {Promise.<string>}
+   */
   async connect() {
     NissanConnectApi.log('connecting');
     return this.request(this.endPoints.app, {
         lg: 'en-US',
     })
-        .then(res => {
-          return res.baseprm;
-        });
+        .then(res => res.baseprm);
   }
 
   /**
    *
    * @param username
    * @param password
-   * @returns {Promise.<void>}
+   * @returns {Promise.<LoginResponse>}
    */
   async login(username, password) {
     const key = await this.connect();
@@ -57,9 +68,7 @@ class NissanConnectApi {
       UserId: username,
       Password: NissanConnectApi.encryptPassword(password, key)
     })
-        .then(res => {
-          return new Lo
-        });
+        .then(res => new LoginResponse(res));
   }
 
   /**
@@ -82,7 +91,13 @@ class NissanConnectApi {
       json: true
     };
     Object.assign(options.form, defaults, data);
-    return request(options);
+    return request(options)
+        .then(res => {
+          if (res.status !== '200') {
+            return Promise.reject(res.status);
+          }
+          return res;
+        });
   }
 
   static encryptPassword(password, key) {
