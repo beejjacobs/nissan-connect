@@ -171,8 +171,8 @@ class NissanConnectApi {
 
   /**
    *
-   * @param leaf
-   * @param customerInfo
+   * @param {Leaf} leaf
+   * @param {CustomerInfo} customerInfo
    * @returns {Promise.<*>}
    */
   async getVehicleInfo(leaf, customerInfo) {
