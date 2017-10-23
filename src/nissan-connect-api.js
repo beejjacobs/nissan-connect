@@ -49,8 +49,8 @@ class NissanConnectApi {
    * @param {CustomerInfo} customerInfo
    * @returns {Promise.<string>}
    */
-  async requestUpdate(leaf, customerInfo) {
-    NissanConnectApi.log('requesting update');
+  async requestBatteryStatus(leaf, customerInfo) {
+    NissanConnectApi.log('requesting battery status');
     return this.request(Config.endPoints.batteryStatus, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
@@ -71,8 +71,8 @@ class NissanConnectApi {
    * @param {string} resultKey
    * @returns {Promise.<UpdateResultResponse|null>}
    */
-  async requestUpdateResult(leaf, customerInfo, resultKey) {
-    NissanConnectApi.log('requesting update result');
+  async requestBatteryStatusResult(leaf, customerInfo, resultKey) {
+    NissanConnectApi.log('requesting battery status result');
     return this.request(Config.endPoints.batteryStatusResult, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,

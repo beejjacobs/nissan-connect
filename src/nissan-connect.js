@@ -50,15 +50,15 @@ class NissanConnect {
   /**
    * @returns {Promise.<UpdateResultResponse>}
    */
-  async getUpdate() {
+  async getBatteryStatus() {
     if (this.loggedIn) {
       try {
-        const key = await this.api.requestUpdate(this.leaf, this.customerInfo);
-        let updateInfo = await this.api.requestUpdateResult(this.leaf, this.customerInfo, key);
+        const key = await this.api.requestBatteryStatus(this.leaf, this.customerInfo);
+        let updateInfo = await this.api.requestBatteryStatusResult(this.leaf, this.customerInfo, key);
         while (updateInfo === null) {
-          NissanConnect.log('retrying requestUpdateResult');
+          NissanConnect.log('retrying requestBatteryStatusResult');
           [updateInfo] = await Promise.all([
-            this.api.requestUpdateResult(this.leaf, this.customerInfo, key),
+            this.api.requestBatteryStatusResult(this.leaf, this.customerInfo, key),
             NissanConnect.timeout(5000) //wait 5 seconds before continuing
           ]);
         }
@@ -72,7 +72,7 @@ class NissanConnect {
       } catch (e) {
         return e;
       }
-      return this.getUpdate();
+      return this.getBatteryStatus();
     }
   }
 
