@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/beejjacobs/nissan-connect#readme",
   "devDependencies": {
-    "jsdoc-to-markdown": "next"
+    "jsdoc-to-markdown": "^3.1.0-0"
   },
   "dependencies": {
     "request": "^2.83.0",

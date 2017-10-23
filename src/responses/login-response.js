@@ -5,7 +5,9 @@ const Leaf = require('./leaf');
  * @typedef {object} VehicleInfoResponse
  * @property {string} vin
  * @property {string} nickname
- * @property {string} custom_sessionid
+ * @property {bool} [charger20066]
+ * @property {bool} [telematicsEnabled]
+ * @property {string} [custom_sessionid]
  */
 
 /**

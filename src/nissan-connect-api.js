@@ -3,26 +3,61 @@ const crypto = require('crypto');
 const LoginResponse = require('./responses/login-response');
 const UpdateResultResponse = require('./responses/update-result-response');
 const DriveAnalysis = require('./responses/drive-analysis');
+const VehicleInfo = require('./responses/vehicle-info');
 
 /**
  * @typedef {object} EndPoints
- * @property {string} app
- * @property {string} login
- * @property {string} batteryStatus
- * @property {string} batteryStatusResult
- * @property {string} batteryRemoteCharging
- * @property {string} batteryStatusRecords
  * @property {string} acRemote
- * @property {string} acRemoteResult
- * @property {string} acRemoteOff
- * @property {string} acRemoteOffResult
- * @property {string} acRemoteNew
- * @property {string} acRemoteUpdate
  * @property {string} acRemoteCancel
+ * @property {string} acRemoteNew
+ * @property {string} acRemoteOff
+ * @property {string} acRemoteOffResulting
  * @property {string} acRemoteRecords
- * @property {string} scheduledACRemote
+ * @property {string} acRemoteResult
+ * @property {string} acRemoteStart
+ * @property {string} acRemoteUpdate
+ * @property {string} app
+ * @property {string} batteryChargingCompletionRecords
+ * @property {string} batteryRemoteCharging
+ * @property {string} batteryRemoteChargingRecords
+ * @property {string} batteryStatus
+ * @property {string} batteryStatusRecords
+ * @property {string} batteryStatusResult
+ * @property {string} carFinder
+ * @property {string} carFinderLatLng
+ * @property {string} carFinderResult
+ * @property {string} carMapDetailCalender
+ * @property {string} carMapDetailInfo
+ * @property {string} carMapDrivingNote
+ * @property {string} carMapGraph
+ * @property {string} carMapGraphInfo
+ * @property {string} contactNumber
+ * @property {string} countrySetting
+ * @property {string} dateFormat
  * @property {string} driveAnalysis
+ * @property {string} driveAnalysisDetail
+ * @property {string} ecoForestGraphInfo
+ * @property {string} ecoForestReset
+ * @property {string} ecoForestWorld
+ * @property {string} login
+ * @property {string} missingRecords
+ * @property {string} nationalRanking
+ * @property {string} nationalRankingGraph
+ * @property {string} nationalRankings
+ * @property {string} notificationHistory
+ * @property {string} pathView
+ * @property {string} preferenceNotification
+ * @property {string} preferenceNotificationRegister
  * @property {string} priceSimulator
+ * @property {string} priceSimulatorElectricPrice
+ * @property {string} priceSimulatorMapData
+ * @property {string} regionSetting
+ * @property {string} routePlanner
+ * @property {string} scheduledACRemote
+ * @property {string} vehicleInfo
+ * @property {string} worldRankingEntryCode
+ * @property {string} worldRankingTop100
+ * @property {string} worldRankingTopInfo
  */
 
 /**
@@ -120,7 +155,7 @@ class NissanConnectApi {
    *
    * @param {Leaf} leaf
    * @param {CustomerInfo} customerInfo
-   * @returns {Promise.<*>}
+   * @returns {Promise.<DriveAnalysis>}
    */
   async getDrivingAnalysis(leaf, customerInfo) {
     NissanConnectApi.log('get driving analysis');
@@ -132,6 +167,23 @@ class NissanConnectApi {
       custom_sessionid: leaf.sessionId
     })
         .then(res => new DriveAnalysis(res));
+  }
+
+  /**
+   *
+   * @param leaf
+   * @param customerInfo
+   * @returns {Promise.<*>}
+   */
+  async getVehicleInfo(leaf, customerInfo) {
+    NissanConnectApi.log('vehicle info');
+    return this.request(this.endPoints.vehicleInfo, {
+      lg: customerInfo.language,
+      DCMID: leaf.dmcId,
+      VIN: leaf.vin,
+      custom_sessionid: leaf.sessionId
+    })
+        .then(res => new VehicleInfo(res));
   }
 
   /**

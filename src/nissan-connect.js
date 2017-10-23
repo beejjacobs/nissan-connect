@@ -93,6 +93,22 @@ class NissanConnect {
     }
   }
 
+  /**
+   * @returns {Promise.<VehicleInfo>}
+   */
+  async getVehicleInfo() {
+    if(this.loggedIn) {
+      return this.api.getVehicleInfo(this.leaf, this.customerInfo);
+    } else {
+      try {
+        await this.login();
+      } catch (e) {
+        return e;
+      }
+      return this.getVehicleInfo();
+    }
+  }
+
   static log(message) {
     console.log('[NissanConnect] ' + message);
   }
@@ -106,6 +122,10 @@ class NissanConnect {
   }
 }
 
+/**
+ *
+ * @type {{Australia: string, Canada: string, Europe: string, Japan: string, USA: string}}
+ */
 NissanConnect.Region = {
   Australia: 'NMA',
   Canada: 'NCI',

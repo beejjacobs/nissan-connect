@@ -18,6 +18,8 @@
 <dd></dd>
 <dt><a href="#UpdateResultResponse">UpdateResultResponse</a></dt>
 <dd></dd>
+<dt><a href="#VehicleInfo">VehicleInfo</a></dt>
+<dd></dd>
 </dl>
 
 ## Typedefs
@@ -35,6 +37,12 @@
 <dd></dd>
 <dt><a href="#DriveAnalysisJson">DriveAnalysisJson</a> : <code>object</code></dt>
 <dd></dd>
+<dt><a href="#Level">Level</a> : <code>Number</code></dt>
+<dd><p>1 (below average) - 5 (very good)</p>
+</dd>
+<dt><a href="#Energy">Energy</a> : <code>Number</code></dt>
+<dd><p>in watt hours (Wh)</p>
+</dd>
 <dt><a href="#VehicleInfoResponse">VehicleInfoResponse</a> : <code>object</code></dt>
 <dd></dd>
 <dt><a href="#VehicleResponse">VehicleResponse</a> : <code>object</code></dt>
@@ -62,7 +70,8 @@
     * [.login(username, password)](#NissanConnectApi+login) ⇒ [<code>Promise.&lt;LoginResponse&gt;</code>](#LoginResponse)
     * [.requestUpdate(leaf, customerInfo)](#NissanConnectApi+requestUpdate) ⇒ <code>Promise.&lt;string&gt;</code>
     * [.requestUpdateResult(leaf, customerInfo, resultKey)](#NissanConnectApi+requestUpdateResult) ⇒ <code>Promise.&lt;(UpdateResultResponse\|null)&gt;</code>
-    * [.getDrivingAnalysis(leaf, customerInfo)](#NissanConnectApi+getDrivingAnalysis) ⇒ <code>Promise.&lt;\*&gt;</code>
+    * [.getDrivingAnalysis(leaf, customerInfo)](#NissanConnectApi+getDrivingAnalysis) ⇒ [<code>Promise.&lt;DriveAnalysis&gt;</code>](#DriveAnalysis)
+    * [.getVehicleInfo(leaf, customerInfo)](#NissanConnectApi+getVehicleInfo) ⇒ <code>Promise.&lt;\*&gt;</code>
     * [.request(endPoint, data)](#NissanConnectApi+request) ⇒ <code>Promise.&lt;\*&gt;</code>
 
 <a name="new_NissanConnectApi_new"></a>
@@ -111,13 +120,23 @@
 
 <a name="NissanConnectApi+getDrivingAnalysis"></a>
 
-### nissanConnectApi.getDrivingAnalysis(leaf, customerInfo) ⇒ <code>Promise.&lt;\*&gt;</code>
+### nissanConnectApi.getDrivingAnalysis(leaf, customerInfo) ⇒ [<code>Promise.&lt;DriveAnalysis&gt;</code>](#DriveAnalysis)
 **Kind**: instance method of [<code>NissanConnectApi</code>](#NissanConnectApi)  
 
 | Param | Type |
 | --- | --- |
 | leaf | [<code>Leaf</code>](#Leaf) | 
 | customerInfo | [<code>CustomerInfo</code>](#CustomerInfo) | 
+
+<a name="NissanConnectApi+getVehicleInfo"></a>
+
+### nissanConnectApi.getVehicleInfo(leaf, customerInfo) ⇒ <code>Promise.&lt;\*&gt;</code>
+**Kind**: instance method of [<code>NissanConnectApi</code>](#NissanConnectApi)  
+
+| Param |
+| --- |
+| leaf | 
+| customerInfo | 
 
 <a name="NissanConnectApi+request"></a>
 
@@ -140,12 +159,17 @@ Nissan Connect class
 
 * [NissanConnect](#NissanConnect)
     * [new NissanConnect(username, password, [region])](#new_NissanConnect_new)
-    * [.leaf](#NissanConnect+leaf) : [<code>Leaf</code>](#Leaf) \| <code>null</code>
-    * [.customerInfo](#NissanConnect+customerInfo) : [<code>CustomerInfo</code>](#CustomerInfo) \| <code>null</code>
-    * [.sessionId](#NissanConnect+sessionId) : <code>string</code> \| <code>null</code>
-    * [.loggedIn](#NissanConnect+loggedIn) : <code>boolean</code>
-    * [.login()](#NissanConnect+login) ⇒ <code>Promise.&lt;\*&gt;</code>
-    * [.getUpdate()](#NissanConnect+getUpdate) ⇒ [<code>Promise.&lt;UpdateResultResponse&gt;</code>](#UpdateResultResponse)
+    * _instance_
+        * [.leaf](#NissanConnect+leaf) : [<code>Leaf</code>](#Leaf) \| <code>null</code>
+        * [.customerInfo](#NissanConnect+customerInfo) : [<code>CustomerInfo</code>](#CustomerInfo) \| <code>null</code>
+        * [.sessionId](#NissanConnect+sessionId) : <code>string</code> \| <code>null</code>
+        * [.loggedIn](#NissanConnect+loggedIn) : <code>boolean</code>
+        * [.login()](#NissanConnect+login) ⇒ <code>Promise.&lt;\*&gt;</code>
+        * [.getUpdate()](#NissanConnect+getUpdate) ⇒ [<code>Promise.&lt;UpdateResultResponse&gt;</code>](#UpdateResultResponse)
+        * [.getDrivingAnalysis()](#NissanConnect+getDrivingAnalysis) ⇒ [<code>Promise.&lt;DriveAnalysis&gt;</code>](#DriveAnalysis)
+        * [.getVehicleInfo()](#NissanConnect+getVehicleInfo) ⇒ [<code>Promise.&lt;VehicleInfo&gt;</code>](#VehicleInfo)
+    * _static_
+        * [.Region](#NissanConnect.Region) : <code>Object</code>
 
 <a name="new_NissanConnect_new"></a>
 
@@ -181,6 +205,18 @@ Nissan Connect class
 
 ### nissanConnect.getUpdate() ⇒ [<code>Promise.&lt;UpdateResultResponse&gt;</code>](#UpdateResultResponse)
 **Kind**: instance method of [<code>NissanConnect</code>](#NissanConnect)  
+<a name="NissanConnect+getDrivingAnalysis"></a>
+
+### nissanConnect.getDrivingAnalysis() ⇒ [<code>Promise.&lt;DriveAnalysis&gt;</code>](#DriveAnalysis)
+**Kind**: instance method of [<code>NissanConnect</code>](#NissanConnect)  
+<a name="NissanConnect+getVehicleInfo"></a>
+
+### nissanConnect.getVehicleInfo() ⇒ [<code>Promise.&lt;VehicleInfo&gt;</code>](#VehicleInfo)
+**Kind**: instance method of [<code>NissanConnect</code>](#NissanConnect)  
+<a name="NissanConnect.Region"></a>
+
+### NissanConnect.Region : <code>Object</code>
+**Kind**: static property of [<code>NissanConnect</code>](#NissanConnect)  
 <a name="BatteryStatus"></a>
 
 ## BatteryStatus
@@ -317,8 +353,14 @@ Range with AC on in metres
     * [.summary](#DriveAnalysis+summary) ⇒ [<code>DateSummary</code>](#DateSummary)
     * [.targetDate](#DriveAnalysis+targetDate) ⇒ <code>string</code>
     * [.averageEconomy](#DriveAnalysis+averageEconomy) ⇒ <code>Number</code>
-    * [.averageEconomyLevel](#DriveAnalysis+averageEconomyLevel) ⇒ <code>number</code>
+    * [.averageEconomyLevel](#DriveAnalysis+averageEconomyLevel) ⇒ [<code>Level</code>](#Level)
     * [.economyUnits](#DriveAnalysis+economyUnits) ⇒ <code>string</code>
+    * [.accelerationEnergy](#DriveAnalysis+accelerationEnergy) ⇒ [<code>Energy</code>](#Energy)
+    * [.accelerationEnergyLevel](#DriveAnalysis+accelerationEnergyLevel) ⇒ [<code>Level</code>](#Level)
+    * [.regen](#DriveAnalysis+regen) ⇒ [<code>Energy</code>](#Energy)
+    * [.regenLevel](#DriveAnalysis+regenLevel) ⇒ [<code>Level</code>](#Level)
+    * [.accessoryUsage](#DriveAnalysis+accessoryUsage) ⇒ [<code>Energy</code>](#Energy)
+    * [.accessoryUsageLevel](#DriveAnalysis+accessoryUsageLevel) ⇒ [<code>Level</code>](#Level)
 
 <a name="new_DriveAnalysis_new"></a>
 
@@ -344,15 +386,37 @@ In units of [economyUnits](#DriveAnalysis+economyUnits)
 **Kind**: instance property of [<code>DriveAnalysis</code>](#DriveAnalysis)  
 <a name="DriveAnalysis+averageEconomyLevel"></a>
 
-### driveAnalysis.averageEconomyLevel ⇒ <code>number</code>
-1 (below average) - 5 (very good)
-
+### driveAnalysis.averageEconomyLevel ⇒ [<code>Level</code>](#Level)
 **Kind**: instance property of [<code>DriveAnalysis</code>](#DriveAnalysis)  
 <a name="DriveAnalysis+economyUnits"></a>
 
 ### driveAnalysis.economyUnits ⇒ <code>string</code>
 e.g. miles/kWh
 
+**Kind**: instance property of [<code>DriveAnalysis</code>](#DriveAnalysis)  
+<a name="DriveAnalysis+accelerationEnergy"></a>
+
+### driveAnalysis.accelerationEnergy ⇒ [<code>Energy</code>](#Energy)
+**Kind**: instance property of [<code>DriveAnalysis</code>](#DriveAnalysis)  
+<a name="DriveAnalysis+accelerationEnergyLevel"></a>
+
+### driveAnalysis.accelerationEnergyLevel ⇒ [<code>Level</code>](#Level)
+**Kind**: instance property of [<code>DriveAnalysis</code>](#DriveAnalysis)  
+<a name="DriveAnalysis+regen"></a>
+
+### driveAnalysis.regen ⇒ [<code>Energy</code>](#Energy)
+**Kind**: instance property of [<code>DriveAnalysis</code>](#DriveAnalysis)  
+<a name="DriveAnalysis+regenLevel"></a>
+
+### driveAnalysis.regenLevel ⇒ [<code>Level</code>](#Level)
+**Kind**: instance property of [<code>DriveAnalysis</code>](#DriveAnalysis)  
+<a name="DriveAnalysis+accessoryUsage"></a>
+
+### driveAnalysis.accessoryUsage ⇒ [<code>Energy</code>](#Energy)
+**Kind**: instance property of [<code>DriveAnalysis</code>](#DriveAnalysis)  
+<a name="DriveAnalysis+accessoryUsageLevel"></a>
+
+### driveAnalysis.accessoryUsageLevel ⇒ [<code>Level</code>](#Level)
 **Kind**: instance property of [<code>DriveAnalysis</code>](#DriveAnalysis)  
 <a name="Leaf"></a>
 
@@ -462,6 +526,42 @@ e.g. miles/kWh
 
 ### updateResultResponse.updateTime ⇒ <code>string</code>
 **Kind**: instance property of [<code>UpdateResultResponse</code>](#UpdateResultResponse)  
+<a name="VehicleInfo"></a>
+
+## VehicleInfo
+**Kind**: global class  
+
+* [VehicleInfo](#VehicleInfo)
+    * [new VehicleInfo(info)](#new_VehicleInfo_new)
+    * [.vin](#VehicleInfo+vin) ⇒ <code>string</code>
+    * [.nickname](#VehicleInfo+nickname) ⇒ <code>string</code>
+    * [.charger20066](#VehicleInfo+charger20066) ⇒ <code>bool</code>
+    * [.telematicsEnabled](#VehicleInfo+telematicsEnabled) ⇒ <code>bool</code>
+
+<a name="new_VehicleInfo_new"></a>
+
+### new VehicleInfo(info)
+
+| Param | Type |
+| --- | --- |
+| info | [<code>VehicleInfoResponse</code>](#VehicleInfoResponse) | 
+
+<a name="VehicleInfo+vin"></a>
+
+### vehicleInfo.vin ⇒ <code>string</code>
+**Kind**: instance property of [<code>VehicleInfo</code>](#VehicleInfo)  
+<a name="VehicleInfo+nickname"></a>
+
+### vehicleInfo.nickname ⇒ <code>string</code>
+**Kind**: instance property of [<code>VehicleInfo</code>](#VehicleInfo)  
+<a name="VehicleInfo+charger20066"></a>
+
+### vehicleInfo.charger20066 ⇒ <code>bool</code>
+**Kind**: instance property of [<code>VehicleInfo</code>](#VehicleInfo)  
+<a name="VehicleInfo+telematicsEnabled"></a>
+
+### vehicleInfo.telematicsEnabled ⇒ <code>bool</code>
+**Kind**: instance property of [<code>VehicleInfo</code>](#VehicleInfo)  
 <a name="EndPoints"></a>
 
 ## EndPoints : <code>object</code>
@@ -470,23 +570,57 @@ e.g. miles/kWh
 
 | Name | Type |
 | --- | --- |
-| app | <code>string</code> | 
-| login | <code>string</code> | 
-| batteryStatus | <code>string</code> | 
-| batteryStatusResult | <code>string</code> | 
-| batteryRemoteCharging | <code>string</code> | 
-| batteryStatusRecords | <code>string</code> | 
 | acRemote | <code>string</code> | 
-| acRemoteResult | <code>string</code> | 
-| acRemoteOff | <code>string</code> | 
-| acRemoteOffResult | <code>string</code> | 
-| acRemoteNew | <code>string</code> | 
-| acRemoteUpdate | <code>string</code> | 
 | acRemoteCancel | <code>string</code> | 
+| acRemoteNew | <code>string</code> | 
+| acRemoteOff | <code>string</code> | 
+| acRemoteOffResulting | <code>string</code> | 
 | acRemoteRecords | <code>string</code> | 
-| scheduledACRemote | <code>string</code> | 
+| acRemoteResult | <code>string</code> | 
+| acRemoteStart | <code>string</code> | 
+| acRemoteUpdate | <code>string</code> | 
+| app | <code>string</code> | 
+| batteryChargingCompletionRecords | <code>string</code> | 
+| batteryRemoteCharging | <code>string</code> | 
+| batteryRemoteChargingRecords | <code>string</code> | 
+| batteryStatus | <code>string</code> | 
+| batteryStatusRecords | <code>string</code> | 
+| batteryStatusResult | <code>string</code> | 
+| carFinder | <code>string</code> | 
+| carFinderLatLng | <code>string</code> | 
+| carFinderResult | <code>string</code> | 
+| carMapDetailCalender | <code>string</code> | 
+| carMapDetailInfo | <code>string</code> | 
+| carMapDrivingNote | <code>string</code> | 
+| carMapGraph | <code>string</code> | 
+| carMapGraphInfo | <code>string</code> | 
+| contactNumber | <code>string</code> | 
+| countrySetting | <code>string</code> | 
+| dateFormat | <code>string</code> | 
 | driveAnalysis | <code>string</code> | 
+| driveAnalysisDetail | <code>string</code> | 
+| ecoForestGraphInfo | <code>string</code> | 
+| ecoForestReset | <code>string</code> | 
+| ecoForestWorld | <code>string</code> | 
+| login | <code>string</code> | 
+| missingRecords | <code>string</code> | 
+| nationalRanking | <code>string</code> | 
+| nationalRankingGraph | <code>string</code> | 
+| nationalRankings | <code>string</code> | 
+| notificationHistory | <code>string</code> | 
+| pathView | <code>string</code> | 
+| preferenceNotification | <code>string</code> | 
+| preferenceNotificationRegister | <code>string</code> | 
 | priceSimulator | <code>string</code> | 
+| priceSimulatorElectricPrice | <code>string</code> | 
+| priceSimulatorMapData | <code>string</code> | 
+| regionSetting | <code>string</code> | 
+| routePlanner | <code>string</code> | 
+| scheduledACRemote | <code>string</code> | 
+| vehicleInfo | <code>string</code> | 
+| worldRankingEntryCode | <code>string</code> | 
+| worldRankingTop100 | <code>string</code> | 
+| worldRankingTopInfo | <code>string</code> | 
 
 <a name="Config"></a>
 
@@ -553,6 +687,18 @@ e.g. miles/kWh
 | AdviceList | <code>object</code> | 
 | AdviceList.Advice | [<code>Advice</code>](#Advice) | 
 
+<a name="Level"></a>
+
+## Level : <code>Number</code>
+1 (below average) - 5 (very good)
+
+**Kind**: global typedef  
+<a name="Energy"></a>
+
+## Energy : <code>Number</code>
+in watt hours (Wh)
+
+**Kind**: global typedef  
 <a name="VehicleInfoResponse"></a>
 
 ## VehicleInfoResponse : <code>object</code>
@@ -563,6 +709,8 @@ e.g. miles/kWh
 | --- | --- |
 | vin | <code>string</code> | 
 | nickname | <code>string</code> | 
+| charger20066 | <code>bool</code> | 
+| telematicsEnabled | <code>bool</code> | 
 | custom_sessionid | <code>string</code> | 
 
 <a name="VehicleResponse"></a>
