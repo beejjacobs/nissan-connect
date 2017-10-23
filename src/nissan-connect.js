@@ -1,4 +1,3 @@
-const config = require('./config.json');
 const Api = require('./nissan-connect-api');
 
 /**
@@ -12,7 +11,7 @@ class NissanConnect {
    * @param {string} [region=NE]
    */
   constructor(username, password, region = NissanConnect.Region.Europe) {
-    this.api = new Api(config, region);
+    this.api = new Api(region);
     this.username = username;
     this.password = password;
     /**

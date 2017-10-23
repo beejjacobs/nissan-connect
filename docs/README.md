@@ -22,13 +22,16 @@
 <dd></dd>
 </dl>
 
+## Constants
+
+<dl>
+<dt><a href="#Config">Config</a></dt>
+<dd></dd>
+</dl>
+
 ## Typedefs
 
 <dl>
-<dt><a href="#EndPoints">EndPoints</a> : <code>object</code></dt>
-<dd></dd>
-<dt><a href="#Config">Config</a> : <code>object</code></dt>
-<dd></dd>
 <dt><a href="#DateSummary">DateSummary</a> : <code>object</code></dt>
 <dd></dd>
 <dt><a href="#PersonalData">PersonalData</a> : <code>object</code></dt>
@@ -65,7 +68,7 @@
 **Kind**: global class  
 
 * [NissanConnectApi](#NissanConnectApi)
-    * [new NissanConnectApi(config, region)](#new_NissanConnectApi_new)
+    * [new NissanConnectApi(region)](#new_NissanConnectApi_new)
     * [.connect()](#NissanConnectApi+connect) ⇒ <code>Promise.&lt;string&gt;</code>
     * [.login(username, password)](#NissanConnectApi+login) ⇒ [<code>Promise.&lt;LoginResponse&gt;</code>](#LoginResponse)
     * [.requestUpdate(leaf, customerInfo)](#NissanConnectApi+requestUpdate) ⇒ <code>Promise.&lt;string&gt;</code>
@@ -76,11 +79,10 @@
 
 <a name="new_NissanConnectApi_new"></a>
 
-### new NissanConnectApi(config, region)
+### new NissanConnectApi(region)
 
 | Param | Type |
 | --- | --- |
-| config | [<code>Config</code>](#Config) | 
 | region | <code>string</code> | 
 
 <a name="NissanConnectApi+connect"></a>
@@ -133,10 +135,10 @@
 ### nissanConnectApi.getVehicleInfo(leaf, customerInfo) ⇒ <code>Promise.&lt;\*&gt;</code>
 **Kind**: instance method of [<code>NissanConnectApi</code>](#NissanConnectApi)  
 
-| Param |
-| --- |
-| leaf | 
-| customerInfo | 
+| Param | Type |
+| --- | --- |
+| leaf | [<code>Leaf</code>](#Leaf) | 
+| customerInfo | [<code>CustomerInfo</code>](#CustomerInfo) | 
 
 <a name="NissanConnectApi+request"></a>
 
@@ -168,6 +170,7 @@ Nissan Connect class
         * [.getUpdate()](#NissanConnect+getUpdate) ⇒ [<code>Promise.&lt;UpdateResultResponse&gt;</code>](#UpdateResultResponse)
         * [.getDrivingAnalysis()](#NissanConnect+getDrivingAnalysis) ⇒ [<code>Promise.&lt;DriveAnalysis&gt;</code>](#DriveAnalysis)
         * [.getVehicleInfo()](#NissanConnect+getVehicleInfo) ⇒ [<code>Promise.&lt;VehicleInfo&gt;</code>](#VehicleInfo)
+        * [.getTest()](#NissanConnect+getTest) ⇒ <code>Promise.&lt;\*&gt;</code>
     * _static_
         * [.Region](#NissanConnect.Region) : <code>Object</code>
 
@@ -212,6 +215,10 @@ Nissan Connect class
 <a name="NissanConnect+getVehicleInfo"></a>
 
 ### nissanConnect.getVehicleInfo() ⇒ [<code>Promise.&lt;VehicleInfo&gt;</code>](#VehicleInfo)
+**Kind**: instance method of [<code>NissanConnect</code>](#NissanConnect)  
+<a name="NissanConnect+getTest"></a>
+
+### nissanConnect.getTest() ⇒ <code>Promise.&lt;\*&gt;</code>
 **Kind**: instance method of [<code>NissanConnect</code>](#NissanConnect)  
 <a name="NissanConnect.Region"></a>
 
@@ -562,78 +569,10 @@ e.g. miles/kWh
 
 ### vehicleInfo.telematicsEnabled ⇒ <code>bool</code>
 **Kind**: instance property of [<code>VehicleInfo</code>](#VehicleInfo)  
-<a name="EndPoints"></a>
-
-## EndPoints : <code>object</code>
-**Kind**: global typedef  
-**Properties**
-
-| Name | Type |
-| --- | --- |
-| acRemote | <code>string</code> | 
-| acRemoteCancel | <code>string</code> | 
-| acRemoteNew | <code>string</code> | 
-| acRemoteOff | <code>string</code> | 
-| acRemoteOffResulting | <code>string</code> | 
-| acRemoteRecords | <code>string</code> | 
-| acRemoteResult | <code>string</code> | 
-| acRemoteStart | <code>string</code> | 
-| acRemoteUpdate | <code>string</code> | 
-| app | <code>string</code> | 
-| batteryChargingCompletionRecords | <code>string</code> | 
-| batteryRemoteCharging | <code>string</code> | 
-| batteryRemoteChargingRecords | <code>string</code> | 
-| batteryStatus | <code>string</code> | 
-| batteryStatusRecords | <code>string</code> | 
-| batteryStatusResult | <code>string</code> | 
-| carFinder | <code>string</code> | 
-| carFinderLatLng | <code>string</code> | 
-| carFinderResult | <code>string</code> | 
-| carMapDetailCalender | <code>string</code> | 
-| carMapDetailInfo | <code>string</code> | 
-| carMapDrivingNote | <code>string</code> | 
-| carMapGraph | <code>string</code> | 
-| carMapGraphInfo | <code>string</code> | 
-| contactNumber | <code>string</code> | 
-| countrySetting | <code>string</code> | 
-| dateFormat | <code>string</code> | 
-| driveAnalysis | <code>string</code> | 
-| driveAnalysisDetail | <code>string</code> | 
-| ecoForestGraphInfo | <code>string</code> | 
-| ecoForestReset | <code>string</code> | 
-| ecoForestWorld | <code>string</code> | 
-| login | <code>string</code> | 
-| missingRecords | <code>string</code> | 
-| nationalRanking | <code>string</code> | 
-| nationalRankingGraph | <code>string</code> | 
-| nationalRankings | <code>string</code> | 
-| notificationHistory | <code>string</code> | 
-| pathView | <code>string</code> | 
-| preferenceNotification | <code>string</code> | 
-| preferenceNotificationRegister | <code>string</code> | 
-| priceSimulator | <code>string</code> | 
-| priceSimulatorElectricPrice | <code>string</code> | 
-| priceSimulatorMapData | <code>string</code> | 
-| regionSetting | <code>string</code> | 
-| routePlanner | <code>string</code> | 
-| scheduledACRemote | <code>string</code> | 
-| vehicleInfo | <code>string</code> | 
-| worldRankingEntryCode | <code>string</code> | 
-| worldRankingTop100 | <code>string</code> | 
-| worldRankingTopInfo | <code>string</code> | 
-
 <a name="Config"></a>
 
-## Config : <code>object</code>
-**Kind**: global typedef  
-**Properties**
-
-| Name | Type |
-| --- | --- |
-| baseUrl | <code>string</code> | 
-| initialAppString | <code>string</code> | 
-| endPoints | [<code>EndPoints</code>](#EndPoints) | 
-
+## Config
+**Kind**: global constant  
 <a name="DateSummary"></a>
 
 ## DateSummary : <code>object</code>

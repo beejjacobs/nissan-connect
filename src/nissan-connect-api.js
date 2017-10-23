@@ -1,82 +1,17 @@
 const request = require('request-promise-native');
 const crypto = require('crypto');
+const Config = require('./config');
 const LoginResponse = require('./responses/login-response');
 const UpdateResultResponse = require('./responses/update-result-response');
 const DriveAnalysis = require('./responses/drive-analysis');
 const VehicleInfo = require('./responses/vehicle-info');
 
-/**
- * @typedef {object} EndPoints
- * @property {string} acRemote
- * @property {string} acRemoteCancel
- * @property {string} acRemoteNew
- * @property {string} acRemoteOff
- * @property {string} acRemoteOffResulting
- * @property {string} acRemoteRecords
- * @property {string} acRemoteResult
- * @property {string} acRemoteStart
- * @property {string} acRemoteUpdate
- * @property {string} app
- * @property {string} batteryChargingCompletionRecords
- * @property {string} batteryRemoteCharging
- * @property {string} batteryRemoteChargingRecords
- * @property {string} batteryStatus
- * @property {string} batteryStatusRecords
- * @property {string} batteryStatusResult
- * @property {string} carFinder
- * @property {string} carFinderLatLng
- * @property {string} carFinderResult
- * @property {string} carMapDetailCalender
- * @property {string} carMapDetailInfo
- * @property {string} carMapDrivingNote
- * @property {string} carMapGraph
- * @property {string} carMapGraphInfo
- * @property {string} contactNumber
- * @property {string} countrySetting
- * @property {string} dateFormat
- * @property {string} driveAnalysis
- * @property {string} driveAnalysisDetail
- * @property {string} ecoForestGraphInfo
- * @property {string} ecoForestReset
- * @property {string} ecoForestWorld
- * @property {string} login
- * @property {string} missingRecords
- * @property {string} nationalRanking
- * @property {string} nationalRankingGraph
- * @property {string} nationalRankings
- * @property {string} notificationHistory
- * @property {string} pathView
- * @property {string} preferenceNotification
- * @property {string} preferenceNotificationRegister
- * @property {string} priceSimulator
- * @property {string} priceSimulatorElectricPrice
- * @property {string} priceSimulatorMapData
- * @property {string} regionSetting
- * @property {string} routePlanner
- * @property {string} scheduledACRemote
- * @property {string} vehicleInfo
- * @property {string} worldRankingEntryCode
- * @property {string} worldRankingTop100
- * @property {string} worldRankingTopInfo
- */
-
-/**
- * @typedef {object} Config
- * @property {string} baseUrl
- * @property {string} initialAppString
- * @property {EndPoints} endPoints
- */
-
 class NissanConnectApi {
   /**
    *
-   * @param {Config} config
    * @param {string} region
    */
-  constructor(config, region) {
-    this.baseUrl = config.baseUrl;
-    this.initialAppString = config.initialAppString;
-    this.endPoints = config.endPoints;
+  constructor(region) {
     this.region = region;
   }
 
@@ -86,7 +21,7 @@ class NissanConnectApi {
    */
   async connect() {
     NissanConnectApi.log('connecting');
-    return this.request(this.endPoints.app, {
+    return this.request(Config.endPoints.app, {
         lg: 'en-US',
     })
         .then(res => res.baseprm);
@@ -101,7 +36,7 @@ class NissanConnectApi {
   async login(username, password) {
     const key = await this.connect();
     NissanConnectApi.log('logging in');
-    return this.request(this.endPoints.login, {
+    return this.request(Config.endPoints.login, {
       UserId: username,
       Password: NissanConnectApi.encryptPassword(password, key)
     })
@@ -116,7 +51,7 @@ class NissanConnectApi {
    */
   async requestUpdate(leaf, customerInfo) {
     NissanConnectApi.log('requesting update');
-    return this.request(this.endPoints.batteryStatus, {
+    return this.request(Config.endPoints.batteryStatus, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
       VIN: leaf.vin,
@@ -138,7 +73,7 @@ class NissanConnectApi {
    */
   async requestUpdateResult(leaf, customerInfo, resultKey) {
     NissanConnectApi.log('requesting update result');
-    return this.request(this.endPoints.batteryStatusResult, {
+    return this.request(Config.endPoints.batteryStatusResult, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
       VIN: leaf.vin,
@@ -159,7 +94,7 @@ class NissanConnectApi {
    */
   async getDrivingAnalysis(leaf, customerInfo) {
     NissanConnectApi.log('get driving analysis');
-    return this.request(this.endPoints.driveAnalysis, {
+    return this.request(Config.endPoints.driveAnalysis, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
       VIN: leaf.vin,
@@ -177,7 +112,7 @@ class NissanConnectApi {
    */
   async getVehicleInfo(leaf, customerInfo) {
     NissanConnectApi.log('vehicle info');
-    return this.request(this.endPoints.vehicleInfo, {
+    return this.request(Config.endPoints.vehicleInfo, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
       VIN: leaf.vin,
@@ -194,11 +129,11 @@ class NissanConnectApi {
    */
   async request(endPoint, data) {
     const defaults = {
-      initial_app_strings: this.initialAppString,
+      initial_app_strings: Config.initialAppString,
       RegionCode: this.region
     };
     const options = {
-      uri: this.baseUrl + endPoint,
+      uri: Config.baseUrl + endPoint,
       method: 'POST',
       form: {},
       json: true
