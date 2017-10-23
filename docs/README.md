@@ -71,10 +71,13 @@
     * [new NissanConnectApi(region)](#new_NissanConnectApi_new)
     * [.connect()](#NissanConnectApi+connect) ⇒ <code>Promise.&lt;string&gt;</code>
     * [.login(username, password)](#NissanConnectApi+login) ⇒ [<code>Promise.&lt;LoginResponse&gt;</code>](#LoginResponse)
-    * [.requestUpdate(leaf, customerInfo)](#NissanConnectApi+requestUpdate) ⇒ <code>Promise.&lt;string&gt;</code>
-    * [.requestUpdateResult(leaf, customerInfo, resultKey)](#NissanConnectApi+requestUpdateResult) ⇒ <code>Promise.&lt;(UpdateResultResponse\|null)&gt;</code>
+    * [.requestBatteryStatus(leaf, customerInfo)](#NissanConnectApi+requestBatteryStatus) ⇒ <code>Promise.&lt;string&gt;</code>
+    * [.requestBatteryStatusResult(leaf, customerInfo, resultKey)](#NissanConnectApi+requestBatteryStatusResult) ⇒ <code>Promise.&lt;(UpdateResultResponse\|null)&gt;</code>
     * [.getDrivingAnalysis(leaf, customerInfo)](#NissanConnectApi+getDrivingAnalysis) ⇒ [<code>Promise.&lt;DriveAnalysis&gt;</code>](#DriveAnalysis)
     * [.getVehicleInfo(leaf, customerInfo)](#NissanConnectApi+getVehicleInfo) ⇒ <code>Promise.&lt;\*&gt;</code>
+    * ~~[.requestCarFinder(leaf, customerInfo, username)](#NissanConnectApi+requestCarFinder) ⇒ <code>Promise.&lt;string&gt;</code>~~
+    * ~~[.requestCarFinderResult(leaf, customerInfo, resultKey)](#NissanConnectApi+requestCarFinderResult) ⇒ <code>Promise.&lt;\*&gt;</code>~~
+    * ~~[.carFinderLatLng(leaf, customerInfo, dateFrom)](#NissanConnectApi+carFinderLatLng) ⇒ <code>Promise.&lt;\*&gt;</code>~~
     * [.request(endPoint, data)](#NissanConnectApi+request) ⇒ <code>Promise.&lt;\*&gt;</code>
 
 <a name="new_NissanConnectApi_new"></a>
@@ -99,9 +102,9 @@
 | username | <code>string</code> | 
 | password | <code>string</code> | 
 
-<a name="NissanConnectApi+requestUpdate"></a>
+<a name="NissanConnectApi+requestBatteryStatus"></a>
 
-### nissanConnectApi.requestUpdate(leaf, customerInfo) ⇒ <code>Promise.&lt;string&gt;</code>
+### nissanConnectApi.requestBatteryStatus(leaf, customerInfo) ⇒ <code>Promise.&lt;string&gt;</code>
 **Kind**: instance method of [<code>NissanConnectApi</code>](#NissanConnectApi)  
 
 | Param | Type |
@@ -109,9 +112,9 @@
 | leaf | [<code>Leaf</code>](#Leaf) | 
 | customerInfo | [<code>CustomerInfo</code>](#CustomerInfo) | 
 
-<a name="NissanConnectApi+requestUpdateResult"></a>
+<a name="NissanConnectApi+requestBatteryStatusResult"></a>
 
-### nissanConnectApi.requestUpdateResult(leaf, customerInfo, resultKey) ⇒ <code>Promise.&lt;(UpdateResultResponse\|null)&gt;</code>
+### nissanConnectApi.requestBatteryStatusResult(leaf, customerInfo, resultKey) ⇒ <code>Promise.&lt;(UpdateResultResponse\|null)&gt;</code>
 **Kind**: instance method of [<code>NissanConnectApi</code>](#NissanConnectApi)  
 
 | Param | Type |
@@ -140,6 +143,49 @@
 | leaf | [<code>Leaf</code>](#Leaf) | 
 | customerInfo | [<code>CustomerInfo</code>](#CustomerInfo) | 
 
+<a name="NissanConnectApi+requestCarFinder"></a>
+
+### ~~nissanConnectApi.requestCarFinder(leaf, customerInfo, username) ⇒ <code>Promise.&lt;string&gt;</code>~~
+***Deprecated***
+
+Returned error code -5256
+
+**Kind**: instance method of [<code>NissanConnectApi</code>](#NissanConnectApi)  
+
+| Param | Type |
+| --- | --- |
+| leaf | [<code>Leaf</code>](#Leaf) | 
+| customerInfo | [<code>CustomerInfo</code>](#CustomerInfo) | 
+| username | <code>string</code> | 
+
+<a name="NissanConnectApi+requestCarFinderResult"></a>
+
+### ~~nissanConnectApi.requestCarFinderResult(leaf, customerInfo, resultKey) ⇒ <code>Promise.&lt;\*&gt;</code>~~
+***Deprecated***
+
+**Kind**: instance method of [<code>NissanConnectApi</code>](#NissanConnectApi)  
+
+| Param | Type |
+| --- | --- |
+| leaf | [<code>Leaf</code>](#Leaf) | 
+| customerInfo | [<code>CustomerInfo</code>](#CustomerInfo) | 
+| resultKey | <code>string</code> | 
+
+<a name="NissanConnectApi+carFinderLatLng"></a>
+
+### ~~nissanConnectApi.carFinderLatLng(leaf, customerInfo, dateFrom) ⇒ <code>Promise.&lt;\*&gt;</code>~~
+***Deprecated***
+
+Returned status 200, but no lat or lng values
+
+**Kind**: instance method of [<code>NissanConnectApi</code>](#NissanConnectApi)  
+
+| Param | Type |
+| --- | --- |
+| leaf | [<code>Leaf</code>](#Leaf) | 
+| customerInfo | [<code>CustomerInfo</code>](#CustomerInfo) | 
+| dateFrom | <code>string</code> | 
+
 <a name="NissanConnectApi+request"></a>
 
 ### nissanConnectApi.request(endPoint, data) ⇒ <code>Promise.&lt;\*&gt;</code>
@@ -167,10 +213,9 @@ Nissan Connect class
         * [.sessionId](#NissanConnect+sessionId) : <code>string</code> \| <code>null</code>
         * [.loggedIn](#NissanConnect+loggedIn) : <code>boolean</code>
         * [.login()](#NissanConnect+login) ⇒ <code>Promise.&lt;\*&gt;</code>
-        * [.getUpdate()](#NissanConnect+getUpdate) ⇒ [<code>Promise.&lt;UpdateResultResponse&gt;</code>](#UpdateResultResponse)
+        * [.getBatteryStatus()](#NissanConnect+getBatteryStatus) ⇒ [<code>Promise.&lt;UpdateResultResponse&gt;</code>](#UpdateResultResponse)
         * [.getDrivingAnalysis()](#NissanConnect+getDrivingAnalysis) ⇒ [<code>Promise.&lt;DriveAnalysis&gt;</code>](#DriveAnalysis)
         * [.getVehicleInfo()](#NissanConnect+getVehicleInfo) ⇒ [<code>Promise.&lt;VehicleInfo&gt;</code>](#VehicleInfo)
-        * [.getTest()](#NissanConnect+getTest) ⇒ <code>Promise.&lt;\*&gt;</code>
     * _static_
         * [.Region](#NissanConnect.Region) : <code>Object</code>
 
@@ -204,9 +249,9 @@ Nissan Connect class
 
 ### nissanConnect.login() ⇒ <code>Promise.&lt;\*&gt;</code>
 **Kind**: instance method of [<code>NissanConnect</code>](#NissanConnect)  
-<a name="NissanConnect+getUpdate"></a>
+<a name="NissanConnect+getBatteryStatus"></a>
 
-### nissanConnect.getUpdate() ⇒ [<code>Promise.&lt;UpdateResultResponse&gt;</code>](#UpdateResultResponse)
+### nissanConnect.getBatteryStatus() ⇒ [<code>Promise.&lt;UpdateResultResponse&gt;</code>](#UpdateResultResponse)
 **Kind**: instance method of [<code>NissanConnect</code>](#NissanConnect)  
 <a name="NissanConnect+getDrivingAnalysis"></a>
 
@@ -215,10 +260,6 @@ Nissan Connect class
 <a name="NissanConnect+getVehicleInfo"></a>
 
 ### nissanConnect.getVehicleInfo() ⇒ [<code>Promise.&lt;VehicleInfo&gt;</code>](#VehicleInfo)
-**Kind**: instance method of [<code>NissanConnect</code>](#NissanConnect)  
-<a name="NissanConnect+getTest"></a>
-
-### nissanConnect.getTest() ⇒ <code>Promise.&lt;\*&gt;</code>
 **Kind**: instance method of [<code>NissanConnect</code>](#NissanConnect)  
 <a name="NissanConnect.Region"></a>
 
