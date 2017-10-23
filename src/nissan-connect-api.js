@@ -45,9 +45,9 @@ class NissanConnectApi {
 
   /**
    *
-   * @returns {Promise.<string>}
    * @param {Leaf} leaf
    * @param {CustomerInfo} customerInfo
+   * @returns {Promise.<string>}
    */
   async requestUpdate(leaf, customerInfo) {
     NissanConnectApi.log('requesting update');
@@ -119,6 +119,67 @@ class NissanConnectApi {
       custom_sessionid: leaf.sessionId
     })
         .then(res => new VehicleInfo(res));
+  }
+
+  /**
+   * Returned error code -5256
+   * @deprecated
+   * @param {Leaf} leaf
+   * @param {CustomerInfo} customerInfo
+   * @param {string} username
+   * @returns {Promise.<string>}
+   */
+  async requestCarFinder(leaf, customerInfo, username) {
+    NissanConnectApi.log('car finder');
+    return this.request(Config.endPoints.carFinder, {
+      lg: customerInfo.language,
+      DCMID: leaf.dmcId,
+      VIN: leaf.vin,
+      custom_sessionid: leaf.sessionId,
+      UserId: username
+    });
+  }
+
+  /**
+   * @deprecated
+   * @param {Leaf} leaf
+   * @param {CustomerInfo} customerInfo
+   * @param {string} resultKey
+   * @returns {Promise.<*>}
+   */
+  async requestCarFinderResult(leaf, customerInfo, resultKey) {
+    NissanConnectApi.log('car finder result');
+    return this.request(Config.endPoints.carFinderResult, {
+      lg: customerInfo.language,
+      DCMID: leaf.dmcId,
+      VIN: leaf.vin,
+      tz: customerInfo.timezone,
+      resultKey: resultKey,
+      custom_sessionid: leaf.sessionId
+    })
+        .then(res => {
+          return res.responseFlag === '1' ? res : null;
+        });
+  }
+
+  /**
+   * Returned status 200, but no lat or lng values
+   * @deprecated
+   * @param {Leaf} leaf
+   * @param {CustomerInfo} customerInfo
+   * @param {string} dateFrom
+   * @returns {Promise.<*>}
+   */
+  async carFinderLatLng(leaf, customerInfo, dateFrom) {
+    NissanConnectApi.log('lat lng');
+    return this.request(Config.endPoints.carFinderLatLng, {
+      lg: customerInfo.language,
+      DCMID: leaf.dmcId,
+      VIN: leaf.vin,
+      tz: customerInfo.timezone,
+      custom_sessionid: leaf.sessionId,
+      TimeFrom: dateFrom
+    });
   }
 
   /**
