@@ -108,6 +108,25 @@ class NissanConnectApi {
    *
    * @param {Leaf} leaf
    * @param {CustomerInfo} customerInfo
+   * @param {string} date
+   * @returns {Promise.<*>}
+   */
+  async getDrivingAnalysisDetail(leaf, customerInfo, date) {
+    NissanConnectApi.log('get driving analysis detail');
+    return this.request(Config.endPoints.driveAnalysisDetail, {
+      lg: customerInfo.language,
+      DCMID: leaf.dmcId,
+      VIN: leaf.vin,
+      tz: customerInfo.timezone,
+      custom_sessionid: leaf.sessionId,
+      TargetDate: date
+    });
+  }
+
+  /**
+   *
+   * @param {Leaf} leaf
+   * @param {CustomerInfo} customerInfo
    * @returns {Promise.<*>}
    */
   async getVehicleInfo(leaf, customerInfo) {
