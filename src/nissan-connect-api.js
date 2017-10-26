@@ -4,6 +4,7 @@ const Config = require('./config');
 const LoginResponse = require('./responses/login-response');
 const UpdateResultResponse = require('./responses/update-result-response');
 const DriveAnalysis = require('./responses/drive-analysis');
+const DriveAnalysisWeekSummary = require('./responses/drive-analysis-week-summary');
 const VehicleInfo = require('./responses/vehicle-info');
 
 class NissanConnectApi {
@@ -109,7 +110,7 @@ class NissanConnectApi {
    * @param {Leaf} leaf
    * @param {CustomerInfo} customerInfo
    * @param {string} date
-   * @returns {Promise.<*>}
+   * @returns {Promise.<DriveAnalysisWeekSummary>}
    */
   async getDrivingAnalysisDetail(leaf, customerInfo, date) {
     NissanConnectApi.log('get driving analysis detail');
@@ -120,14 +121,15 @@ class NissanConnectApi {
       tz: customerInfo.timezone,
       custom_sessionid: leaf.sessionId,
       TargetDate: date
-    });
+    })
+        .then(res => new DriveAnalysisWeekSummary(res));
   }
 
   /**
    *
    * @param {Leaf} leaf
    * @param {CustomerInfo} customerInfo
-   * @returns {Promise.<*>}
+   * @returns {Promise.<VehicleInfo>}
    */
   async getVehicleInfo(leaf, customerInfo) {
     NissanConnectApi.log('vehicle info');

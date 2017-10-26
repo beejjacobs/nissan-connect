@@ -73,7 +73,7 @@ class NissanConnect {
   /**
    * @returns {Promise.<DriveAnalysis>}
    */
-  async getDrivingAnalysis() {
+  async getDrivingAnalysisToday() {
     try {
       await this.checkLogin();
     } catch (e) {
@@ -81,6 +81,21 @@ class NissanConnect {
     }
     return this.api.getDrivingAnalysis(this.leaf, this.customerInfo);
   }
+
+  /**
+   *
+   * @param {string} date
+   * @returns {Promise.<DriveAnalysisWeekSummary>}
+   */
+  async getDrivingAnalysisWeek(date) {
+    try {
+      await this.checkLogin();
+    } catch (e) {
+      return e;
+    }
+    return this.api.getDrivingAnalysisDetail(this.leaf, this.customerInfo, date);
+  }
+
 
   /**
    * @returns {Promise.<VehicleInfo>}

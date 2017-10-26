@@ -1,17 +1,4 @@
-/**
- * @typedef {object} DateSummary
- * @property {string} TargetDate
- * @property {string} ElectricMileage
- * @property {string} ElectricMileageLevel
- * @property {string} PowerConsumptMoter
- * @property {string} PowerConsumptMoterLevel
- * @property {string} PowerConsumptMinus
- * @property {string} PowerConsumptMinusLevel
- * @property {string} PowerConsumptMinusLevel
- * @property {string} PowerConsumptAUX
- * @property {string} PowerConsumptAUXLevel
- *
- */
+const DriveAnalysisDaySummary = require('./drive-analysis-day-summary');
 
 /**
  * @typedef {object} PersonalData
@@ -33,16 +20,6 @@
  */
 
 /**
- * @typedef {Number} Level
- * @description 1 (below average) - 5 (very good)
- */
-
-/**
- * @typedef {Number} Energy
- * @description in watt hours (Wh)
- */
-
-/**
  *
  */
 class DriveAnalysis {
@@ -52,6 +29,8 @@ class DriveAnalysis {
    */
   constructor(info) {
     this.info = info;
+
+    this.day = new DriveAnalysisDaySummary(this.summary);
   }
 
   /**
@@ -62,25 +41,10 @@ class DriveAnalysis {
   }
 
   /**
-   * @returns {string}
+   * @returns {DriveAnalysisDaySummary}
    */
-  get targetDate() {
-    return this.summary.TargetDate;
-  }
-
-  /**
-   * In units of {@link DriveAnalysis#economyUnits}
-   * @returns {Number}
-   */
-  get averageEconomy() {
-    return parseFloat(this.summary.ElectricMileage);
-  }
-
-  /**
-   * @returns {Level}
-   */
-  get averageEconomyLevel() {
-    return parseInt(this.summary.ElectricMileageLevel);
+  get daySummary() {
+    return this.day;
   }
 
   /**
@@ -89,49 +53,6 @@ class DriveAnalysis {
    */
   get economyUnits() {
     return this.info.DriveAnalysisBasicScreenResponsePersonalData.ElectricCostScale;
-  }
-
-  /**
-   * @returns {Energy}
-   */
-  get accelerationEnergy() {
-    return parseFloat(this.summary.PowerConsumptMoter);
-  }
-
-  /**
-   *
-   * @returns {Level}
-   */
-  get accelerationEnergyLevel() {
-    return parseInt(this.summary.PowerConsumptMoterLevel);
-  }
-
-  /**
-   * @returns {Energy}
-   */
-  get regen() {
-    return parseFloat(this.summary.PowerConsumptMinus);
-  }
-
-  /**
-   * @returns {Level}
-   */
-  get regenLevel() {
-    return parseInt(this.summary.PowerConsumptMinusLevel);
-  }
-
-  /**
-   * @returns {Energy}
-   */
-  get accessoryUsage() {
-    return parseFloat(this.summary.PowerConsumptAUX);
-  }
-
-  /**
-   * @returns {Level}
-   */
-  get accessoryUsageLevel() {
-    return parseInt(this.summary.PowerConsumptAUXLevel);
   }
 }
 
