@@ -20,6 +20,7 @@ const BatteryStatus = require('./battery-status');
  * @property {HoursMinutes} timeRequiredToFull
  * @property {HoursMinutes} timeRequiredToFull200
  * @property {HoursMinutes} timeRequiredToFull200_6kW
+ */
 
 /**
  *

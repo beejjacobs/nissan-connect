@@ -3,6 +3,7 @@ const crypto = require('crypto');
 const Config = require('./config');
 const LoginResponse = require('./responses/login-response');
 const UpdateResultResponse = require('./responses/update-result-response');
+const BatteryStatusLast = require('./responses/battery-status-last');
 const DriveAnalysis = require('./responses/drive-analysis');
 const DriveAnalysisWeekSummary = require('./responses/drive-analysis-week-summary');
 const VehicleInfo = require('./responses/vehicle-info');
@@ -85,6 +86,22 @@ class NissanConnectApi {
         .then(res => {
           return res.responseFlag === '1' ? new UpdateResultResponse(res) : null;
         });
+  }
+
+  /**
+   * @param {Leaf} leaf
+   * @param {CustomerInfo} customerInfo
+   * @returns {Promise.<BatteryStatusLast>}
+   */
+  async getBatteryStatusRecord(leaf, customerInfo) {
+    return this.request(Config.endPoints.batteryStatusRecords, {
+      lg: customerInfo.language,
+      DCMID: leaf.dmcId,
+      VIN: leaf.vin,
+      tz: customerInfo.timezone,
+      custom_sessionid: leaf.sessionId
+    })
+        .then(res => new BatteryStatusLast(res));
   }
 
   /**

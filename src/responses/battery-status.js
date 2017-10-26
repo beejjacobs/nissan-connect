@@ -85,6 +85,13 @@ class BatteryStatus {
   /**
    * @returns {HoursMinutes}
    */
+  get timeToFull3kW() {
+    return this.info.timeRequiredToFull;
+  }
+
+  /**
+   * @returns {HoursMinutes}
+   */
   get timeToFull6kW() {
     return this.info.timeRequiredToFull200_6kW;
   }

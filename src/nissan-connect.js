@@ -71,6 +71,18 @@ class NissanConnect {
   }
 
   /**
+   * @returns {Promise.<BatteryStatusLast>}
+   */
+  async getLastBatteryStatus() {
+    try {
+      await this.checkLogin();
+    } catch (e) {
+      return e;
+    }
+    return this.api.getBatteryStatusRecord(this.leaf, this.customerInfo);
+  }
+
+  /**
    * @returns {Promise.<DriveAnalysis>}
    */
   async getDrivingAnalysisToday() {
