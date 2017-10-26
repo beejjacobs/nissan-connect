@@ -37,42 +37,36 @@ class NissanConnect {
    */
   async login() {
     this.loggedIn = false;
-    return this.api.login(this.username, this.password)
-        .then(loginResponse => {
-          NissanConnect.log('logged in');
-          this.leaf = loginResponse.leaf;
-          this.customerInfo = loginResponse.customerInfo;
-          this.sessionId = loginResponse.sessionId;
-          this.loggedIn = true;
-        });
+    try {
+      let res = await this.api.login(this.username, this.password);
+      NissanConnect.log('logged in');
+      this.leaf = res.leaf;
+      this.customerInfo = res.customerInfo;
+      this.sessionId = res.sessionId;
+      this.loggedIn = true;
+    } catch (e) {
+      return e;
+    }
   }
 
   /**
    * @returns {Promise.<UpdateResultResponse>}
    */
   async getBatteryStatus() {
-    if (this.loggedIn) {
-      try {
-        const key = await this.api.requestBatteryStatus(this.leaf, this.customerInfo);
-        let updateInfo = await this.api.requestBatteryStatusResult(this.leaf, this.customerInfo, key);
-        while (updateInfo === null) {
-          NissanConnect.log('retrying requestBatteryStatusResult');
-          [updateInfo] = await Promise.all([
-            this.api.requestBatteryStatusResult(this.leaf, this.customerInfo, key),
-            NissanConnect.timeout(5000) //wait 5 seconds before continuing
-          ]);
-        }
-        return updateInfo;
-      } catch (e) {
-        return e;
+    try {
+      await this.checkLogin();
+      const key = await this.api.requestBatteryStatus(this.leaf, this.customerInfo);
+      let updateInfo = await this.api.requestBatteryStatusResult(this.leaf, this.customerInfo, key);
+      while (updateInfo === null) {
+        NissanConnect.log('retrying requestBatteryStatusResult');
+        [updateInfo] = await Promise.all([
+          this.api.requestBatteryStatusResult(this.leaf, this.customerInfo, key),
+          NissanConnect.timeout(5000) //wait 5 seconds before continuing
+        ]);
       }
-    } else {
-      try {
-        await this.login();
-      } catch (e) {
-        return e;
-      }
-      return this.getBatteryStatus();
+      return updateInfo;
+    } catch (e) {
+      return e;
     }
   }
 
@@ -80,31 +74,34 @@ class NissanConnect {
    * @returns {Promise.<DriveAnalysis>}
    */
   async getDrivingAnalysis() {
-    if(this.loggedIn) {
-      return this.api.getDrivingAnalysis(this.leaf, this.customerInfo);
-    } else {
-      try {
-        await this.login();
-      } catch (e) {
-        return e;
-      }
-      return this.getDrivingAnalysis();
+    try {
+      await this.checkLogin();
+    } catch (e) {
+      return e;
     }
+    return this.api.getDrivingAnalysis(this.leaf, this.customerInfo);
   }
 
   /**
    * @returns {Promise.<VehicleInfo>}
    */
   async getVehicleInfo() {
-    if(this.loggedIn) {
-      return this.api.getVehicleInfo(this.leaf, this.customerInfo);
-    } else {
-      try {
-        await this.login();
-      } catch (e) {
-        return e;
-      }
-      return this.getVehicleInfo();
+    try {
+      await this.checkLogin();
+    } catch (e) {
+      return e;
+    }
+    return this.api.getVehicleInfo(this.leaf, this.customerInfo);
+  }
+
+  async checkLogin() {
+    if (this.loggedIn) {
+      return;
+    }
+    try {
+      await this.login();
+    } catch (e) {
+      return e;
     }
   }
 
