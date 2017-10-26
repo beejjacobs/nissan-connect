@@ -60,14 +60,14 @@ class BatteryStatusLast {
   }
 
   /**
-   * @returns {string}
+   * @returns {PluginStateEnum}
    */
   get pluginState() {
     return this.data.PluginState;
   }
 
   /**
-   * @returns {string}
+   * @returns {ChargeStatusEnum}
    */
   get chargeStatus() {
     return this.data.BatteryStatus.BatteryChargingStatus;

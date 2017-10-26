@@ -41,7 +41,14 @@ class BatteryStatus {
   }
 
   /**
-   * @returns {string}
+   * @typedef {string} PluginStateEnum
+   * NOT_CONNECTED
+   * QC_CONNECTED
+   * CONNECTED
+   */
+
+  /**
+   * @returns {PluginStateEnum}
    */
   get pluginState() {
     return this.info.pluginState;
@@ -55,7 +62,15 @@ class BatteryStatus {
   }
 
   /**
-   * @returns {string}
+   * @typedef {string} ChargeStatusEnum
+   * NOT_CHARGING
+   * NORMAL_CHARGING
+   * RAPIDLY_CHARGING
+   * INVALID
+   */
+
+  /**
+   * @returns {ChargeStatusEnum}
    */
   get chargeStatus() {
     return this.info.chargeStatus;
