@@ -37,48 +37,37 @@ class NissanConnect {
    */
   async login() {
     this.loggedIn = false;
-    try {
-      let res = await this.api.login(this.username, this.password);
-      NissanConnect.log('logged in');
-      this.leaf = res.leaf;
-      this.customerInfo = res.customerInfo;
-      this.sessionId = res.sessionId;
-      this.loggedIn = true;
-    } catch (e) {
-      return e;
-    }
+
+    let res = await this.api.login(this.username, this.password);
+    NissanConnect.log('logged in');
+    this.leaf = res.leaf;
+    this.customerInfo = res.customerInfo;
+    this.sessionId = res.sessionId;
+    this.loggedIn = true;
   }
 
   /**
    * @returns {Promise.<UpdateResultResponse>}
    */
   async getBatteryStatus() {
-    try {
-      await this.checkLogin();
-      const key = await this.api.battery.requestStatus(this.leaf, this.customerInfo);
-      let updateInfo = await this.api.battery.requestStatusResult(this.leaf, this.customerInfo, key);
-      while (updateInfo === null) {
-        NissanConnect.log('retrying requestBatteryStatusResult');
-        [updateInfo] = await Promise.all([
-          this.api.battery.requestStatusResult(this.leaf, this.customerInfo, key),
-          NissanConnect.timeout(5000) //wait 5 seconds before continuing
-        ]);
-      }
-      return updateInfo;
-    } catch (e) {
-      return e;
+    await this.checkLogin();
+    const key = await this.api.battery.requestStatus(this.leaf, this.customerInfo);
+    let updateInfo = await this.api.battery.requestStatusResult(this.leaf, this.customerInfo, key);
+    while (updateInfo === null) {
+      NissanConnect.log('retrying requestBatteryStatusResult');
+      [updateInfo] = await Promise.all([
+        this.api.battery.requestStatusResult(this.leaf, this.customerInfo, key),
+        NissanConnect.timeout(5000) //wait 5 seconds before continuing
+      ]);
     }
+    return updateInfo;
   }
 
   /**
    * @returns {Promise.<BatteryStatusLast>}
    */
   async getLastBatteryStatus() {
-    try {
-      await this.checkLogin();
-    } catch (e) {
-      return e;
-    }
+    await this.checkLogin();
     return this.api.battery.getStatusRecord(this.leaf, this.customerInfo);
   }
 
@@ -86,53 +75,41 @@ class NissanConnect {
    * @returns {Promise.<AcOn>}
    */
   async acOn() {
-    try {
-      await this.checkLogin();
-      const key = await this.api.ac.requestOn(this.leaf, this.customerInfo);
-      let updateInfo = await this.api.ac.requestOnResult(this.leaf, this.customerInfo, key);
-      while (updateInfo === null) {
-        NissanConnect.log('retrying ac requestResult');
-        [updateInfo] = await Promise.all([
-          this.api.ac.requestOnResult(this.leaf, this.customerInfo, key),
-          NissanConnect.timeout(5000) //wait 5 seconds before continuing
-        ]);
-      }
-      return updateInfo;
-    } catch (e) {
-      return e;
+    await this.checkLogin();
+    const key = await this.api.ac.requestOn(this.leaf, this.customerInfo);
+    let updateInfo = await this.api.ac.requestOnResult(this.leaf, this.customerInfo, key);
+    while (updateInfo === null) {
+      NissanConnect.log('retrying ac requestResult');
+      [updateInfo] = await Promise.all([
+        this.api.ac.requestOnResult(this.leaf, this.customerInfo, key),
+        NissanConnect.timeout(5000) //wait 5 seconds before continuing
+      ]);
     }
+    return updateInfo;
   }
 
   /**
    * @returns {Promise.<AcOff>}
    */
   async acOff() {
-    try {
-      await this.checkLogin();
-      const key = await this.api.ac.requestOff(this.leaf, this.customerInfo);
-      let updateInfo = await this.api.ac.requestOffResult(this.leaf, this.customerInfo, key);
-      while (updateInfo === null) {
-        NissanConnect.log('retrying ac requestResult');
-        [updateInfo] = await Promise.all([
-          this.api.ac.requestOffResult(this.leaf, this.customerInfo, key),
-          NissanConnect.timeout(5000) //wait 5 seconds before continuing
-        ]);
-      }
-      return updateInfo;
-    } catch (e) {
-      return e;
+    await this.checkLogin();
+    const key = await this.api.ac.requestOff(this.leaf, this.customerInfo);
+    let updateInfo = await this.api.ac.requestOffResult(this.leaf, this.customerInfo, key);
+    while (updateInfo === null) {
+      NissanConnect.log('retrying ac requestResult');
+      [updateInfo] = await Promise.all([
+        this.api.ac.requestOffResult(this.leaf, this.customerInfo, key),
+        NissanConnect.timeout(5000) //wait 5 seconds before continuing
+      ]);
     }
+    return updateInfo;
   }
 
   /**
    * @returns {Promise.<DriveAnalysis>}
    */
   async getDrivingAnalysisToday() {
-    try {
-      await this.checkLogin();
-    } catch (e) {
-      return e;
-    }
+    await this.checkLogin();
     return this.api.drive.getAnalysis(this.leaf, this.customerInfo);
   }
 
@@ -142,11 +119,7 @@ class NissanConnect {
    * @returns {Promise.<DriveAnalysisWeekSummary>}
    */
   async getDrivingAnalysisWeek(date) {
-    try {
-      await this.checkLogin();
-    } catch (e) {
-      return e;
-    }
+    await this.checkLogin();
     return this.api.drive.getAnalysisDetail(this.leaf, this.customerInfo, date);
   }
 
@@ -155,11 +128,7 @@ class NissanConnect {
    * @returns {Promise.<VehicleInfo>}
    */
   async getVehicleInfo() {
-    try {
-      await this.checkLogin();
-    } catch (e) {
-      return e;
-    }
+    await this.checkLogin();
     return this.api.getVehicleInfo(this.leaf, this.customerInfo);
   }
 
@@ -167,11 +136,7 @@ class NissanConnect {
     if (this.loggedIn) {
       return;
     }
-    try {
-      await this.login();
-    } catch (e) {
-      return e;
-    }
+    await this.login();
   }
 
   static log(message) {
