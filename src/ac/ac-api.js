@@ -1,4 +1,6 @@
 const AcSchedule = require('./ac-schedule');
+const AcOn = require('./ac-on');
+const AcOff = require('./ac-off');
 const Config = require('../config');
 
 /**
@@ -43,6 +45,74 @@ class AcApi  {
       VIN: leaf.vin,
       custom_sessionid: leaf.sessionId
     });
+  }
+
+  /**
+   * @param {Leaf} leaf
+   * @param {CustomerInfo} customerInfo
+   * @returns {Promise.<string>}
+   */
+  requestOn(leaf, customerInfo) {
+    this.api.log('ac request');
+    return this.api.request(Config.endPoints.acRemote, {
+      lg: customerInfo.language,
+      DCMID: leaf.dmcId,
+      VIN: leaf.vin,
+      custom_sessionid: leaf.sessionId
+    })
+        .then(res => res.resultKey);
+  }
+
+  /**
+   * @param {Leaf} leaf
+   * @param {CustomerInfo} customerInfo
+   * @param {string} resultKey
+   * @returns {Promise.<AcOn|null>}
+   */
+  requestOnResult(leaf, customerInfo, resultKey) {
+    this.api.log('ac request result');
+    return this.api.request(Config.endPoints.acRemoteResult, {
+      lg: customerInfo.language,
+      DCMID: leaf.dmcId,
+      VIN: leaf.vin,
+      custom_sessionid: leaf.sessionId,
+      resultKey: resultKey
+    })
+        .then(res => res.responseFlag === '1' ? new AcOn(res) : null);
+  }
+
+  /**
+   * @param {Leaf} leaf
+   * @param {CustomerInfo} customerInfo
+   * @returns {Promise.<string>}
+   */
+  requestOff(leaf, customerInfo) {
+    this.api.log('ac request');
+    return this.api.request(Config.endPoints.acRemoteOff, {
+      lg: customerInfo.language,
+      DCMID: leaf.dmcId,
+      VIN: leaf.vin,
+      custom_sessionid: leaf.sessionId
+    })
+        .then(res => res.resultKey);
+  }
+
+  /**
+   * @param {Leaf} leaf
+   * @param {CustomerInfo} customerInfo
+   * @param {string} resultKey
+   * @returns {Promise.<AcOff|null>}
+   */
+  requestOffResult(leaf, customerInfo, resultKey) {
+    this.api.log('ac request result');
+    return this.api.request(Config.endPoints.acRemoteOffResult, {
+      lg: customerInfo.language,
+      DCMID: leaf.dmcId,
+      VIN: leaf.vin,
+      custom_sessionid: leaf.sessionId,
+      resultKey: resultKey
+    })
+        .then(res => res.responseFlag === '1' ? new AcOff(res) : null);
   }
 }
 

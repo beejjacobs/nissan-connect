@@ -82,13 +82,46 @@ class NissanConnect {
     return this.api.battery.getStatusRecord(this.leaf, this.customerInfo);
   }
 
-  async com() {
+  /**
+   * @returns {Promise.<AcOn>}
+   */
+  async acOn() {
     try {
       await this.checkLogin();
+      const key = await this.api.ac.requestOn(this.leaf, this.customerInfo);
+      let updateInfo = await this.api.ac.requestOnResult(this.leaf, this.customerInfo, key);
+      while (updateInfo === null) {
+        NissanConnect.log('retrying ac requestResult');
+        [updateInfo] = await Promise.all([
+          this.api.ac.requestOnResult(this.leaf, this.customerInfo, key),
+          NissanConnect.timeout(5000) //wait 5 seconds before continuing
+        ]);
+      }
+      return updateInfo;
     } catch (e) {
       return e;
     }
-    return this.api.ac.getRecord(this.leaf, this.customerInfo);
+  }
+
+  /**
+   * @returns {Promise.<AcOff>}
+   */
+  async acOff() {
+    try {
+      await this.checkLogin();
+      const key = await this.api.ac.requestOff(this.leaf, this.customerInfo);
+      let updateInfo = await this.api.ac.requestOffResult(this.leaf, this.customerInfo, key);
+      while (updateInfo === null) {
+        NissanConnect.log('retrying ac requestResult');
+        [updateInfo] = await Promise.all([
+          this.api.ac.requestOffResult(this.leaf, this.customerInfo, key),
+          NissanConnect.timeout(5000) //wait 5 seconds before continuing
+        ]);
+      }
+      return updateInfo;
+    } catch (e) {
+      return e;
+    }
   }
 
   /**
