@@ -7,6 +7,7 @@ const BatteryStatusLast = require('./responses/battery-status-last');
 const DriveAnalysis = require('./responses/drive-analysis');
 const DriveAnalysisWeekSummary = require('./responses/drive-analysis-week-summary');
 const VehicleInfo = require('./responses/vehicle-info');
+const AcSchedule = require('./responses/ac-schedule');
 
 class NissanConnectApi {
   /**
@@ -159,6 +160,38 @@ class NissanConnectApi {
       TargetDate: date
     })
         .then(res => new DriveAnalysisWeekSummary(res));
+  }
+
+  /**
+   *
+   * @param {Leaf} leaf
+   * @param {CustomerInfo} customerInfo
+   * @returns {Promise.<AcSchedule>}
+   */
+  getAcSchedule(leaf, customerInfo) {
+    NissanConnectApi.log('get ac scheduled');
+    return this.request(Config.endPoints.scheduledACRemote, {
+      lg: customerInfo.language,
+      DCMID: leaf.dmcId,
+      VIN: leaf.vin,
+      custom_sessionid: leaf.sessionId
+    })
+        .then(res => new AcSchedule(res));
+  }
+
+  /**
+   * @param {Leaf} leaf
+   * @param {CustomerInfo} customerInfo
+   * @returns {Promise.<*>}
+   */
+  getAcRecord(leaf, customerInfo) {
+    NissanConnectApi.log('get ac record');
+    return this.request(Config.endPoints.acRemoteRecords, {
+      lg: customerInfo.language,
+      DCMID: leaf.dmcId,
+      VIN: leaf.vin,
+      custom_sessionid: leaf.sessionId
+    });
   }
 
   /**
