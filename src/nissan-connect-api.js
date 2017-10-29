@@ -210,6 +210,23 @@ class NissanConnectApi {
   }
 
   /**
+   * Returns 404
+   * @deprecated
+   * @param leaf
+   * @param customerInfo
+   * @returns {Promise.<*>}
+   */
+  async getContactNumbers(leaf, customerInfo) {
+    NissanConnectApi.log('contact numbers');
+    return this.request(Config.endPoints.contactNumber, {
+      lg: customerInfo.language,
+      DCMID: leaf.dmcId,
+      VIN: leaf.vin,
+      custom_sessionid: leaf.sessionId
+    });
+  }
+
+  /**
    *
    * @param {Leaf} leaf
    * @param {CustomerInfo} customerInfo
