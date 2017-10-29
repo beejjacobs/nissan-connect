@@ -105,6 +105,23 @@ class NissanConnectApi {
   }
 
   /**
+   * Returned error code 400
+   * @deprecated
+   * @param {Leaf} leaf
+   * @param {CustomerInfo} customerInfo
+   * @returns {Promise.<*>}
+   */
+  async getBatteryChargingCompletion(leaf, customerInfo) {
+    return this.request(Config.endPoints.batteryChargingCompletionRecords, {
+      lg: customerInfo.language,
+      DCMID: leaf.dmcId,
+      VIN: leaf.vin,
+      tz: customerInfo.timezone,
+      custom_sessionid: leaf.sessionId
+    });
+  }
+
+  /**
    *
    * @param {Leaf} leaf
    * @param {CustomerInfo} customerInfo
