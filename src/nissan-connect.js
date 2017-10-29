@@ -55,12 +55,12 @@ class NissanConnect {
   async getBatteryStatus() {
     try {
       await this.checkLogin();
-      const key = await this.api.requestBatteryStatus(this.leaf, this.customerInfo);
-      let updateInfo = await this.api.requestBatteryStatusResult(this.leaf, this.customerInfo, key);
+      const key = await this.api.battery.requestStatus(this.leaf, this.customerInfo);
+      let updateInfo = await this.api.battery.requestStatusResult(this.leaf, this.customerInfo, key);
       while (updateInfo === null) {
         NissanConnect.log('retrying requestBatteryStatusResult');
         [updateInfo] = await Promise.all([
-          this.api.requestBatteryStatusResult(this.leaf, this.customerInfo, key),
+          this.api.battery.requestStatusResult(this.leaf, this.customerInfo, key),
           NissanConnect.timeout(5000) //wait 5 seconds before continuing
         ]);
       }
@@ -79,7 +79,16 @@ class NissanConnect {
     } catch (e) {
       return e;
     }
-    return this.api.getBatteryStatusRecord(this.leaf, this.customerInfo);
+    return this.api.battery.getStatusRecord(this.leaf, this.customerInfo);
+  }
+
+  async com() {
+    try {
+      await this.checkLogin();
+    } catch (e) {
+      return e;
+    }
+    return this.api.ac.getRecord(this.leaf, this.customerInfo);
   }
 
   /**
@@ -91,7 +100,7 @@ class NissanConnect {
     } catch (e) {
       return e;
     }
-    return this.api.getDrivingAnalysis(this.leaf, this.customerInfo);
+    return this.api.drive.getAnalysis(this.leaf, this.customerInfo);
   }
 
   /**
@@ -105,7 +114,7 @@ class NissanConnect {
     } catch (e) {
       return e;
     }
-    return this.api.getDrivingAnalysisDetail(this.leaf, this.customerInfo, date);
+    return this.api.drive.getAnalysisDetail(this.leaf, this.customerInfo, date);
   }
 
 

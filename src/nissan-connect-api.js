@@ -1,13 +1,12 @@
 const request = require('request-promise-native');
 const crypto = require('crypto');
 const Config = require('./config');
+const AcApi = require('./ac/ac-api');
+const BatteryApi = require('./battery/battery-api');
+const CarFinderApi = require('./car-finder/car-finder-api');
+const DriveApi = require('./drive/drive-api');
 const LoginResponse = require('./responses/login-response');
-const UpdateResultResponse = require('./responses/update-result-response');
-const BatteryStatusLast = require('./responses/battery-status-last');
-const DriveAnalysis = require('./responses/drive-analysis');
-const DriveAnalysisWeekSummary = require('./responses/drive-analysis-week-summary');
 const VehicleInfo = require('./responses/vehicle-info');
-const AcSchedule = require('./responses/ac-schedule');
 
 class NissanConnectApi {
   /**
@@ -16,6 +15,10 @@ class NissanConnectApi {
    */
   constructor(region) {
     this.region = region;
+    this.ac = new AcApi(this);
+    this.battery = new BatteryApi(this);
+    this.carFinder = new CarFinderApi(this);
+    this.drive = new DriveApi(this);
   }
 
   /**
@@ -44,154 +47,6 @@ class NissanConnectApi {
       Password: NissanConnectApi.encryptPassword(password, key)
     })
         .then(res => new LoginResponse(res));
-  }
-
-  /**
-   *
-   * @param {Leaf} leaf
-   * @param {CustomerInfo} customerInfo
-   * @returns {Promise.<string>}
-   */
-  async requestBatteryStatus(leaf, customerInfo) {
-    NissanConnectApi.log('requesting battery status');
-    return this.request(Config.endPoints.batteryStatus, {
-      lg: customerInfo.language,
-      DCMID: leaf.dmcId,
-      VIN: leaf.vin,
-      tz: customerInfo.timezone,
-      UserId: leaf.gdcUserId,
-      custom_sessionid: leaf.sessionId
-    })
-        .then(res => {
-          return res.resultKey;
-        });
-  }
-
-  /**
-   *
-   * @param {Leaf} leaf
-   * @param {CustomerInfo} customerInfo
-   * @param {string} resultKey
-   * @returns {Promise.<UpdateResultResponse|null>}
-   */
-  async requestBatteryStatusResult(leaf, customerInfo, resultKey) {
-    NissanConnectApi.log('requesting battery status result');
-    return this.request(Config.endPoints.batteryStatusResult, {
-      lg: customerInfo.language,
-      DCMID: leaf.dmcId,
-      VIN: leaf.vin,
-      tz: customerInfo.timezone,
-      resultKey: resultKey,
-      custom_sessionid: leaf.sessionId
-    })
-        .then(res => {
-          return res.responseFlag === '1' ? new UpdateResultResponse(res) : null;
-        });
-  }
-
-  /**
-   * @param {Leaf} leaf
-   * @param {CustomerInfo} customerInfo
-   * @returns {Promise.<BatteryStatusLast>}
-   */
-  async getBatteryStatusRecord(leaf, customerInfo) {
-    NissanConnectApi.log('batter status record');
-    return this.request(Config.endPoints.batteryStatusRecords, {
-      lg: customerInfo.language,
-      DCMID: leaf.dmcId,
-      VIN: leaf.vin,
-      tz: customerInfo.timezone,
-      custom_sessionid: leaf.sessionId
-    })
-        .then(res => new BatteryStatusLast(res));
-  }
-
-  /**
-   * Returned error code 400
-   * @deprecated
-   * @param {Leaf} leaf
-   * @param {CustomerInfo} customerInfo
-   * @returns {Promise.<*>}
-   */
-  async getBatteryChargingCompletion(leaf, customerInfo) {
-    NissanConnectApi.log('battery charging completion');
-    return this.request(Config.endPoints.batteryChargingCompletionRecords, {
-      lg: customerInfo.language,
-      DCMID: leaf.dmcId,
-      VIN: leaf.vin,
-      tz: customerInfo.timezone,
-      custom_sessionid: leaf.sessionId
-    });
-  }
-
-  /**
-   *
-   * @param {Leaf} leaf
-   * @param {CustomerInfo} customerInfo
-   * @returns {Promise.<DriveAnalysis>}
-   */
-  async getDrivingAnalysis(leaf, customerInfo) {
-    NissanConnectApi.log('get driving analysis');
-    return this.request(Config.endPoints.driveAnalysis, {
-      lg: customerInfo.language,
-      DCMID: leaf.dmcId,
-      VIN: leaf.vin,
-      tz: customerInfo.timezone,
-      custom_sessionid: leaf.sessionId
-    })
-        .then(res => new DriveAnalysis(res));
-  }
-
-  /**
-   *
-   * @param {Leaf} leaf
-   * @param {CustomerInfo} customerInfo
-   * @param {string} date
-   * @returns {Promise.<DriveAnalysisWeekSummary>}
-   */
-  async getDrivingAnalysisDetail(leaf, customerInfo, date) {
-    NissanConnectApi.log('get driving analysis detail');
-    return this.request(Config.endPoints.driveAnalysisDetail, {
-      lg: customerInfo.language,
-      DCMID: leaf.dmcId,
-      VIN: leaf.vin,
-      tz: customerInfo.timezone,
-      custom_sessionid: leaf.sessionId,
-      TargetDate: date
-    })
-        .then(res => new DriveAnalysisWeekSummary(res));
-  }
-
-  /**
-   *
-   * @param {Leaf} leaf
-   * @param {CustomerInfo} customerInfo
-   * @returns {Promise.<AcSchedule>}
-   */
-  getAcSchedule(leaf, customerInfo) {
-    NissanConnectApi.log('get ac scheduled');
-    return this.request(Config.endPoints.scheduledACRemote, {
-      lg: customerInfo.language,
-      DCMID: leaf.dmcId,
-      VIN: leaf.vin,
-      custom_sessionid: leaf.sessionId
-    })
-        .then(res => new AcSchedule(res));
-  }
-
-  /**
-   * @param {Leaf} leaf
-   * @param {CustomerInfo} customerInfo
-   * @returns {Promise.<*>}
-   */
-  getAcRecord(leaf, customerInfo) {
-    NissanConnectApi.log('get ac record');
-    return this.request(Config.endPoints.acRemoteRecords, {
-      lg: customerInfo.language,
-      DCMID: leaf.dmcId,
-      VIN: leaf.vin,
-      custom_sessionid: leaf.sessionId
-    });
   }
 
   /**
@@ -275,66 +130,6 @@ class NissanConnectApi {
     });
   }
 
-  /**
-   * Returned error code -5256
-   * @deprecated
-   * @param {Leaf} leaf
-   * @param {CustomerInfo} customerInfo
-   * @param {string} username
-   * @returns {Promise.<string>}
-   */
-  async requestCarFinder(leaf, customerInfo, username) {
-    NissanConnectApi.log('car finder');
-    return this.request(Config.endPoints.carFinder, {
-      lg: customerInfo.language,
-      DCMID: leaf.dmcId,
-      VIN: leaf.vin,
-      custom_sessionid: leaf.sessionId,
-      UserId: username
-    });
-  }
-
-  /**
-   * @deprecated
-   * @param {Leaf} leaf
-   * @param {CustomerInfo} customerInfo
-   * @param {string} resultKey
-   * @returns {Promise.<*>}
-   */
-  async requestCarFinderResult(leaf, customerInfo, resultKey) {
-    NissanConnectApi.log('car finder result');
-    return this.request(Config.endPoints.carFinderResult, {
-      lg: customerInfo.language,
-      DCMID: leaf.dmcId,
-      VIN: leaf.vin,
-      tz: customerInfo.timezone,
-      resultKey: resultKey,
-      custom_sessionid: leaf.sessionId
-    })
-        .then(res => {
-          return res.responseFlag === '1' ? res : null;
-        });
-  }
-
-  /**
-   * Returned status 200, but no lat or lng values
-   * @deprecated
-   * @param {Leaf} leaf
-   * @param {CustomerInfo} customerInfo
-   * @param {string} dateFrom
-   * @returns {Promise.<*>}
-   */
-  async carFinderLatLng(leaf, customerInfo, dateFrom) {
-    NissanConnectApi.log('lat lng');
-    return this.request(Config.endPoints.carFinderLatLng, {
-      lg: customerInfo.language,
-      DCMID: leaf.dmcId,
-      VIN: leaf.vin,
-      tz: customerInfo.timezone,
-      custom_sessionid: leaf.sessionId,
-      TimeFrom: dateFrom
-    });
-  }
 
   /**
    * Make a request to the Nissan Connect end point
@@ -362,6 +157,10 @@ class NissanConnectApi {
           }
           return res;
         });
+  }
+
+  log(message) {
+    NissanConnectApi.log(message);
   }
 
   static encryptPassword(password, key) {
