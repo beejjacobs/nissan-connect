@@ -184,6 +184,22 @@ class NissanConnectApi {
    * @param {CustomerInfo} customerInfo
    * @returns {Promise.<*>}
    */
+  async getCountries(leaf, customerInfo) {
+    NissanConnectApi.log('countries');
+    return this.request(Config.endPoints.countrySetting, {
+      lg: customerInfo.language,
+      DCMID: leaf.dmcId,
+      VIN: leaf.vin,
+      custom_sessionid: leaf.sessionId
+    });
+  }
+
+  /**
+   *
+   * @param {Leaf} leaf
+   * @param {CustomerInfo} customerInfo
+   * @returns {Promise.<*>}
+   */
   async getDisplayDate(leaf, customerInfo) {
     NissanConnectApi.log('display date');
     return this.request(Config.endPoints.dateFormat, {
