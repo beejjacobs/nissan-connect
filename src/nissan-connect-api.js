@@ -195,6 +195,21 @@ class NissanConnectApi {
   }
 
   /**
+   * @param {Leaf} leaf
+   * @param {CustomerInfo} customerInfo
+   * @returns {Promise.<*>}
+   */
+  async getRegionSettings(leaf, customerInfo) {
+    NissanConnectApi.log('region');
+    return this.request(Config.endPoints.regionSetting, {
+      lg: customerInfo.language,
+      DCMID: leaf.dmcId,
+      VIN: leaf.vin,
+      custom_sessionid: leaf.sessionId
+    });
+  }
+
+  /**
    *
    * @param {Leaf} leaf
    * @param {CustomerInfo} customerInfo
