@@ -94,6 +94,7 @@ class NissanConnectApi {
    * @returns {Promise.<BatteryStatusLast>}
    */
   async getBatteryStatusRecord(leaf, customerInfo) {
+    NissanConnectApi.log('batter status record');
     return this.request(Config.endPoints.batteryStatusRecords, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
@@ -112,6 +113,7 @@ class NissanConnectApi {
    * @returns {Promise.<*>}
    */
   async getBatteryChargingCompletion(leaf, customerInfo) {
+    NissanConnectApi.log('battery charging completion');
     return this.request(Config.endPoints.batteryChargingCompletionRecords, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
@@ -174,6 +176,22 @@ class NissanConnectApi {
       custom_sessionid: leaf.sessionId
     })
         .then(res => new VehicleInfo(res));
+  }
+
+  /**
+   *
+   * @param {Leaf} leaf
+   * @param {CustomerInfo} customerInfo
+   * @returns {Promise.<*>}
+   */
+  async getDisplayDate(leaf, customerInfo) {
+    NissanConnectApi.log('display date');
+    return this.request(Config.endPoints.dateFormat, {
+      lg: customerInfo.language,
+      DCMID: leaf.dmcId,
+      VIN: leaf.vin,
+      custom_sessionid: leaf.sessionId
+    });
   }
 
   /**
