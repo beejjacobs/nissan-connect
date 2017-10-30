@@ -2,7 +2,7 @@ const moment = require('moment');
 const Api = require('./nissan-connect-api');
 
 /**
- * Nissan Connect class
+ * Wrapper for the {@link NissanConnectApi} to make it more user friendly.
  */
 class NissanConnect {
   /**

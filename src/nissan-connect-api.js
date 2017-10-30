@@ -8,6 +8,9 @@ const DriveApi = require('./drive/drive-api');
 const LoginResponse = require('./responses/login-response');
 const VehicleInfo = require('./responses/vehicle-info');
 
+/**
+ * Client library for the Nissan Connect API
+ */
 class NissanConnectApi {
   /**
    *
