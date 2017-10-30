@@ -4,7 +4,7 @@
 class BatteryStatus {
   /**
    *
-   * @param {UpdateResultResponseJson} info
+   * @param {BatteryStatusResponseJson} info
    */
   constructor(info) {
     this.info = info;

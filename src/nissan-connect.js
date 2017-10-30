@@ -47,7 +47,7 @@ class NissanConnect {
   }
 
   /**
-   * @returns {Promise.<UpdateResultResponse>}
+   * @returns {Promise.<BatteryStatusResponse>}
    */
   async getBatteryStatus() {
     await this.checkLogin();

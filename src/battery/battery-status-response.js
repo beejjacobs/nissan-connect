@@ -6,7 +6,7 @@ const BatteryStatus = require('./battery-status');
  */
 
 /**
- * @typedef {object} UpdateResultResponseJson
+ * @typedef {object} BatteryStatusResponseJson
  * @property {string} timeStamp
  * @property {string} cruisingRangeAcOn
  * @property {string} cruisingRangeAcOff
@@ -25,10 +25,10 @@ const BatteryStatus = require('./battery-status');
 /**
  *
  */
-class UpdateResultResponse {
+class BatteryStatusResponse {
   /**
    *
-   * @param {UpdateResultResponseJson} info
+   * @param {BatteryStatusResponseJson} info
    */
   constructor(info) {
     this.info = info;
@@ -48,4 +48,4 @@ class UpdateResultResponse {
 
 }
 
-module.exports = UpdateResultResponse;
+module.exports = BatteryStatusResponse;

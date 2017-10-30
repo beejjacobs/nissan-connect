@@ -1,4 +1,4 @@
-const UpdateResultResponse = require('./update-result-response');
+const BatteryStatusResponse = require('./battery-status-response');
 const BatteryStatusLast = require('./battery-status-last');
 const Config = require('../config');
 
@@ -38,7 +38,7 @@ class BatteryApi {
    * @param {Leaf} leaf
    * @param {CustomerInfo} customerInfo
    * @param {string} resultKey
-   * @returns {Promise.<UpdateResultResponse|null>}
+   * @returns {Promise.<BatteryStatusResponse|null>}
    */
   async requestStatusResult(leaf, customerInfo, resultKey) {
     this.api.log('requesting battery status result');
@@ -51,7 +51,7 @@ class BatteryApi {
       custom_sessionid: leaf.sessionId
     })
         .then(res => {
-          return res.responseFlag === '1' ? new UpdateResultResponse(res) : null;
+          return res.responseFlag === '1' ? new BatteryStatusResponse(res) : null;
         });
   }
 
