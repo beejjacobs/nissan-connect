@@ -1,3 +1,4 @@
+const moment = require('moment');
 const Api = require('./nissan-connect-api');
 
 /**
@@ -106,6 +107,31 @@ class NissanConnect {
   }
 
   /**
+   * @returns {Promise.<AcSchedule>}
+   */
+  async getAcSchedule() {
+    await this.checkLogin();
+    return this.api.ac.getSchedule(this.leaf, this.customerInfo);
+  }
+
+  /**
+   * @param {string} dateTime
+   * @returns {Promise.<AcSchedule>}
+   */
+  async setAcSchedule(dateTime) {
+    await this.checkLogin();
+    return this.api.ac.setSchedule(this.leaf, this.customerInfo, moment(dateTime));
+  }
+
+  /**
+   * @returns {Promise.<>}
+   */
+  async cancelAcSchedule() {
+    await this.checkLogin();
+    return this.api.ac.cancelSchedule(this.leaf, this.customerInfo);
+  }
+
+  /**
    * @returns {Promise.<DriveAnalysis>}
    */
   async getDrivingAnalysisToday() {
@@ -120,7 +146,7 @@ class NissanConnect {
    */
   async getDrivingAnalysisWeek(date) {
     await this.checkLogin();
-    return this.api.drive.getAnalysisDetail(this.leaf, this.customerInfo, date);
+    return this.api.drive.getAnalysisDetail(this.leaf, this.customerInfo, moment(date));
   }
 
 

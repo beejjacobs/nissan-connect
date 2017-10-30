@@ -36,7 +36,7 @@ class DriveApi {
    *
    * @param {Leaf} leaf
    * @param {CustomerInfo} customerInfo
-   * @param {string} date
+   * @param {moment.Moment} date
    * @returns {Promise.<DriveAnalysisWeekSummary>}
    */
   async getAnalysisDetail(leaf, customerInfo, date) {
@@ -47,7 +47,7 @@ class DriveApi {
       VIN: leaf.vin,
       tz: customerInfo.timezone,
       custom_sessionid: leaf.sessionId,
-      TargetDate: date
+      TargetDate: date.format('YYYY-MM-DD')
     })
         .then(res => new DriveAnalysisWeekSummary(res));
   }

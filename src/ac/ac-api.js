@@ -35,6 +35,59 @@ class AcApi  {
   /**
    * @param {Leaf} leaf
    * @param {CustomerInfo} customerInfo
+   * @param {moment.Moment} dateTime
+   * @returns {Promise.<AcSchedule>}
+   */
+  setSchedule(leaf, customerInfo, dateTime) {
+    this.api.log('set schedule');
+    return this.api.request(Config.endPoints.acRemoteNew, {
+      lg: customerInfo.language,
+      DCMID: leaf.dmcId,
+      VIN: leaf.vin,
+      custom_sessionid: leaf.sessionId,
+      ExecuteTime: dateTime.format('YYYY-MM-DD HH:mm:ss')
+    })
+        .then(res => new AcSchedule(res));
+  }
+
+  /**
+   * This works the same as {@link setSchedule}.
+   * @deprecated
+   * @param {Leaf} leaf
+   * @param {CustomerInfo} customerInfo
+   * @param {moment.Moment} dateTime
+   * @returns {Promise.<AcSchedule>}
+   */
+  updateSchedule(leaf, customerInfo, dateTime) {
+    this.api.log('update schedule');
+    return this.api.request(Config.endPoints.acRemoteUpdate, {
+      lg: customerInfo.language,
+      DCMID: leaf.dmcId,
+      VIN: leaf.vin,
+      custom_sessionid: leaf.sessionId,
+      ExecuteTime: dateTime.format('YYYY-MM-DD HH:mm:ss')
+    })
+        .then(res => new AcSchedule(res));
+  }
+
+  /**
+   * @param {Leaf} leaf
+   * @param {CustomerInfo} customerInfo
+   * @returns {Promise.<>}
+   */
+  cancelSchedule(leaf, customerInfo) {
+    this.api.log('cancel schedule');
+    return this.api.request(Config.endPoints.acRemoteCancel, {
+      lg: customerInfo.language,
+      DCMID: leaf.dmcId,
+      VIN: leaf.vin,
+      custom_sessionid: leaf.sessionId
+    });
+  }
+
+  /**
+   * @param {Leaf} leaf
+   * @param {CustomerInfo} customerInfo
    * @returns {Promise.<*>}
    */
   getRecord(leaf, customerInfo) {
