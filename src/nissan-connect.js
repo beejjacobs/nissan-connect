@@ -158,21 +158,31 @@ class NissanConnect {
   }
 
   /**
-   * @param {string} dateTime
+   * @param {string} date
    * @return {Promise.<DrivingRecord>}
    */
-  async getDriveRecords(dateTime) {
+  async getDriveRecords(date) {
     await this.checkLogin();
-    return this.api.drive.records.getFor(this.leaf, this.customerInfo, moment(dateTime));
+    return this.api.drive.records.getFor(this.leaf, this.customerInfo, moment(date));
   }
 
   /**
-   * @param {string} dateTime
+   * @param {string} date
    * @return {Promise.<Calendar>}
    */
-  async getDriveRecordDays(dateTime) {
+  async getDriveRecordDays(date) {
     await this.checkLogin();
-    return this.api.drive.records.getAvailableDays(this.leaf, this.customerInfo, moment(dateTime));
+    return this.api.drive.records.getAvailableDays(this.leaf, this.customerInfo, moment(date));
+  }
+
+  /**
+   * @param {string} date
+   * @param {string} note
+   * @return {Promise.<>}
+   */
+  async addDriveRecordNote(date, note) {
+    await this.checkLogin();
+    return this.api.drive.records.addNote(this.leaf, this.customerInfo, moment(date), note);
   }
 
 

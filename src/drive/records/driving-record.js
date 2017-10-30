@@ -18,6 +18,7 @@ const Calendar = require('./calendar');
 /**
  * @typedef {CalendarResponse} DrivingRecordResponseInfo
  * @property {DrivingRecordResponseInfoDetail} DateSummaryCarKarteDetailInfo
+ * @property {string} DrivingNote
  */
 
 /**
@@ -96,6 +97,13 @@ class DrivingRecord {
    */
   get energyUsage() {
     return parseFloat(this.detail.PowerConsumptTotal);
+  }
+
+  /**
+   * @return {string}
+   */
+  get note() {
+    return this.data.DrivingNote;
   }
 }
 

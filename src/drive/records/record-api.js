@@ -47,6 +47,26 @@ class RecordApi {
     })
         .then(res => new Calendar(res));
   }
+
+  /**
+   * @param {Leaf} leaf
+   * @param {CustomerInfo} customerInfo
+   * @param {moment.Moment} date
+   * @param {string} note
+   * @return {Promise.<>}
+   */
+  addNote(leaf, customerInfo, date, note) {
+    this.api.log('get available days');
+    return this.api.request(Config.endPoints.carMapDrivingNote, {
+      lg: customerInfo.language,
+      DCMID: leaf.dmcId,
+      VIN: leaf.vin,
+      tz: customerInfo.timezone,
+      custom_sessionid: leaf.sessionId,
+      TargetDate: date.format('YYYY-MM-DD'),
+      DrivingNote: note
+    });
+  }
 }
 
 module.exports = RecordApi;
