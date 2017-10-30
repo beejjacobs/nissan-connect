@@ -1,5 +1,6 @@
 const DriveAnalysis = require('./drive-analysis');
 const DriveAnalysisWeekSummary = require('./drive-analysis-week-summary');
+const RecordApi = require('./records/record-api');
 const Config = require('../config');
 
 /**
@@ -7,11 +8,11 @@ const Config = require('../config');
  */
 class DriveApi {
   /**
-   *
    * @param {NissanConnectApi} api
    */
   constructor(api) {
     this.api = api;
+    this.records = new RecordApi(api);
   }
 
   /**

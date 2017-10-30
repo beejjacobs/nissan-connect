@@ -149,6 +149,32 @@ class NissanConnect {
     return this.api.drive.getAnalysisDetail(this.leaf, this.customerInfo, moment(date));
   }
 
+  /**
+   * @return {Promise.<DrivingRecord>}
+   */
+  async getDriveRecordsToday() {
+    await this.checkLogin();
+    return this.api.drive.records.getFor(this.leaf, this.customerInfo, moment());
+  }
+
+  /**
+   * @param {string} dateTime
+   * @return {Promise.<DrivingRecord>}
+   */
+  async getDriveRecords(dateTime) {
+    await this.checkLogin();
+    return this.api.drive.records.getFor(this.leaf, this.customerInfo, moment(dateTime));
+  }
+
+  /**
+   * @param {string} dateTime
+   * @return {Promise.<Calendar>}
+   */
+  async getDriveRecordDays(dateTime) {
+    await this.checkLogin();
+    return this.api.drive.records.getAvailableDays(this.leaf, this.customerInfo, moment(dateTime));
+  }
+
 
   /**
    * @returns {Promise.<VehicleInfo>}
