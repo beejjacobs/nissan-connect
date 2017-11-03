@@ -31,20 +31,21 @@ class NissanConnect {
      * @type {boolean}
      */
     this.loggedIn = false;
+    this.loggingIn = false;
   }
 
   /**
    * @returns {Promise.<*>}
    */
   async login() {
-    this.loggedIn = false;
-
+    this.loggingIn = true;
     let res = await this.api.login(this.username, this.password);
     NissanConnect.log('logged in');
     this.leaf = res.leaf;
     this.customerInfo = res.customerInfo;
     this.sessionId = res.sessionId;
     this.loggedIn = true;
+    this.loggingIn = false;
   }
 
   /**
@@ -195,8 +196,13 @@ class NissanConnect {
   }
 
   async checkLogin() {
+    NissanConnect.log('checkLogin loggedIn = ' + this.loggedIn);
     if (this.loggedIn) {
       return;
+    }
+    if (this.loggingIn) {
+      await NissanConnect.timeout(2000);
+      return this.checkLogin();
     }
     await this.login();
   }
