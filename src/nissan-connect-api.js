@@ -164,14 +164,14 @@ class NissanConnectApi {
       json: true
     };
     Object.assign(options.form, defaults, data);
-    return request(options)
-        .then(res => {
-          if (res.status !== 200) {
-            console.error(res);
-            return Promise.reject(res.status);
-          }
-          return res;
-        });
+
+    let res = await request(options);
+    let status = res.status;
+    if(status !== 200) {
+      console.error(res);
+      return Promise.reject(status);
+    }
+    return res;
   }
 
   /**
