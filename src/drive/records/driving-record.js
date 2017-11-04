@@ -92,6 +92,14 @@ class DrivingRecord {
   }
 
   /**
+   * In metres
+   * @return {Number}
+   */
+  get travelDistance() {
+    return parseFloat(this.detail.TravelDistance);
+  }
+
+  /**
    * In kWh
    * @return {Number}
    */

@@ -151,7 +151,7 @@ class NissanConnect {
   }
 
   /**
-   * @return {Promise.<DrivingRecord>}
+   * @return {Promise.<DrivingRecordMonth>}
    */
   async getDriveRecordsToday() {
     await this.checkLogin();
@@ -160,7 +160,7 @@ class NissanConnect {
 
   /**
    * @param {string} date
-   * @return {Promise.<DrivingRecord>}
+   * @return {Promise.<DrivingRecordMonth>}
    */
   async getDriveRecords(date) {
     await this.checkLogin();
@@ -178,6 +178,24 @@ class NissanConnect {
 
   /**
    * @param {string} date
+   * @return {Promise.<DrivingRecordMonth>}
+   */
+  async getDriveRecordsMonth(date) {
+    await this.checkLogin();
+    return this.api.drive.records.graphInfoMonth(this.leaf, this.customerInfo, moment(date));
+  }
+
+  /**
+   * @param {string} date
+   * @return {Promise.<DrivingRecordYear>}
+   */
+  async getDriveRecordsYear(date) {
+    await this.checkLogin();
+    return this.api.drive.records.graphInfoYear(this.leaf, this.customerInfo, moment(date));
+  }
+
+  /**
+   * @param {string} date
    * @param {string} note
    * @return {Promise.<>}
    */
@@ -186,6 +204,81 @@ class NissanConnect {
     return this.api.drive.records.addNote(this.leaf, this.customerInfo, moment(date), note);
   }
 
+
+  /**
+   * @param {string} date
+   * @return {Promise.<GraphDataPoints>}
+   */
+  async getMonthlyTrips(date) {
+    await this.checkLogin();
+    return this.api.drive.records.graphMonthTrips(this.leaf, this.customerInfo, moment(date));
+  }
+
+  /**
+   *
+   * @param {string} date
+   * @return {Promise.<DistanceEconomyDataPoints>}
+   */
+  async getMonthlyDistanceEconomy(date) {
+    await this.checkLogin();
+    return this.api.drive.records.graphMonthDistanceEconomy(this.leaf, this.customerInfo, moment(date));
+  }
+
+  /**
+   *
+   * @param {string} date
+   * @return {Promise.<DistanceTimeDataPoints>}
+   */
+  async getMonthlyDistanceTime(date) {
+    await this.checkLogin();
+    return this.api.drive.records.graphMonthDistanceTime(this.leaf, this.customerInfo, moment(date));
+  }
+
+  /**
+   *
+   * @param {string} date
+   * @return {Promise.<GraphDataPoints>}
+   */
+  async getMonthlyEnergyUsage(date) {
+    await this.checkLogin();
+    return this.api.drive.records.graphMonthEnergyUsage(this.leaf, this.customerInfo, moment(date));
+  }
+
+  /**
+   * @param {string} date
+   * @return {Promise.<GraphDataPoints>}
+   */
+  async getYearlyTrips(date) {
+    await this.checkLogin();
+    return this.api.drive.records.graphYearTrips(this.leaf, this.customerInfo, moment(date));
+  }
+
+  /**
+   * @param {string} date
+   * @return {Promise.<DistanceEconomyDataPoints>}
+   */
+  async getYearlyDistanceEconomy(date) {
+    await this.checkLogin();
+    return this.api.drive.records.graphYearDistanceEconomy(this.leaf, this.customerInfo, moment(date));
+  }
+
+  /**
+   * @param {string} date
+   * @return {Promise.<DistanceTimeDataPoints>}
+   */
+  async getYearlyDistanceTime(date) {
+    await this.checkLogin();
+    return this.api.drive.records.graphYearDistanceTime(this.leaf, this.customerInfo, moment(date));
+  }
+
+  /**
+   * @param {string} date
+   * @return {Promise.<GraphDataPoints>}
+   */
+  async getYearlyEnergyUsage(date) {
+    await this.checkLogin();
+    return this.api.drive.records.graphYearEnergyUsage(this.leaf, this.customerInfo, moment(date));
+  }
 
   /**
    * @returns {Promise.<VehicleInfo>}

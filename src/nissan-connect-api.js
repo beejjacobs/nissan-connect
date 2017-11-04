@@ -162,6 +162,27 @@ class NissanConnectApi {
         });
   }
 
+  /**
+   * Make a request to the Nissan Connect end point
+   * @param {string} endPoint
+   * @param {object} data
+   * @returns {Promise.<*>}
+   */
+  async requestHtml(endPoint, data) {
+    const defaults = {
+      initial_app_strings: Config.initialAppString,
+      RegionCode: this.region
+    };
+    const options = {
+      uri: Config.baseUrl + endPoint,
+      method: 'POST',
+      form: {},
+      json: true
+    };
+    Object.assign(options.form, defaults, data);
+    return request(options);
+  }
+
   log(message) {
     NissanConnectApi.log(message);
   }
