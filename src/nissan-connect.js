@@ -284,7 +284,7 @@ class NissanConnect {
   }
 
   /**
-   * @param date
+   * @param {string} date
    * @return {Promise.<TripSummaryMonth>}
    */
   async getMonthTripSummary(date) {
