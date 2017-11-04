@@ -2,28 +2,12 @@ const moment = require('moment');
 const Calendar = require('./calendar');
 
 /**
- * @typedef {object} DrivingRecordResponseInfoDetail
- * @property {string} CalendarDisplayMonth
- * @property {string} CalendarTargetMonth
+ * @typedef {object} DrivingRecordDetail
  * @property {string} CO2Reduction
- * @property {string} DisplayDate
- * @property {string} ElectricCostScale
  * @property {string} ElectricMileage
  * @property {string} PowerConsumptTotal
- * @property {string} TargetDate
  * @property {string} TravelDistance
  * @property {string} TravelTime
- */
-
-/**
- * @typedef {CalendarResponse} DrivingRecordResponseInfo
- * @property {DrivingRecordResponseInfoDetail} DateSummaryCarKarteDetailInfo
- * @property {string} DrivingNote
- */
-
-/**
- * @typedef {object} DrivingRecordResponse
- * @property {DrivingRecordResponseInfo} CarKarteDetailInfoResponsePersonalData
  */
 
 /**
@@ -31,32 +15,10 @@ const Calendar = require('./calendar');
  */
 class DrivingRecord {
   /**
-   * @param {DrivingRecordResponse} info
+   * @param {DrivingRecordDetail} detail
    */
-  constructor(info) {
-    this.info = info;
-    this.calendar = new Calendar(this.data);
-  }
-
-  /**
-   * @return {DrivingRecordResponseInfo}
-   */
-  get data() {
-    return this.info.CarKarteDetailInfoResponsePersonalData;
-  }
-
-  /**
-   * @return {DrivingRecordResponseInfoDetail}
-   */
-  get detail() {
-    return this.data.DateSummaryCarKarteDetailInfo;
-  }
-
-  /**
-   * @return {moment.Moment}
-   */
-  get date() {
-    return moment(this.detail.TargetDate);
+  constructor(detail) {
+    this.detail = detail;
   }
 
   /**
@@ -69,10 +31,10 @@ class DrivingRecord {
 
   /**
    * e.g. miles/kWh
-   * @returns {string}
+   * @returns {null|string}
    */
   get economyUnits() {
-    return this.detail.ElectricCostScale;
+    return null;
   }
 
   /**
@@ -105,13 +67,6 @@ class DrivingRecord {
    */
   get energyUsage() {
     return parseFloat(this.detail.PowerConsumptTotal);
-  }
-
-  /**
-   * @return {string}
-   */
-  get note() {
-    return this.data.DrivingNote;
   }
 }
 

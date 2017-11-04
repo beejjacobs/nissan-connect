@@ -29,9 +29,11 @@
 <dd></dd>
 <dt><a href="#Calendar">Calendar</a></dt>
 <dd></dd>
-<dt><a href="#DrivingRecordMonth">DrivingRecordMonth</a></dt>
+<dt><a href="#DrivingRecordDay">DrivingRecordDay</a> ⇐ <code><a href="#DrivingRecord">DrivingRecord</a></code></dt>
 <dd></dd>
-<dt><a href="#DrivingRecordYear">DrivingRecordYear</a></dt>
+<dt><a href="#DrivingRecordMonth">DrivingRecordMonth</a> ⇐ <code><a href="#DrivingRecord">DrivingRecord</a></code></dt>
+<dd></dd>
+<dt><a href="#DrivingRecordYear">DrivingRecordYear</a> ⇐ <code><a href="#DrivingRecord">DrivingRecord</a></code></dt>
 <dd></dd>
 <dt><a href="#DrivingRecord">DrivingRecord</a></dt>
 <dd></dd>
@@ -132,23 +134,25 @@ INVALID</p>
 <dd></dd>
 <dt><a href="#CalendarResponse">CalendarResponse</a> : <code>object</code></dt>
 <dd></dd>
+<dt><a href="#DrivingRecordResponseInfoDetail">DrivingRecordResponseInfoDetail</a> : <code><a href="#DrivingRecordDetail">DrivingRecordDetail</a></code></dt>
+<dd></dd>
+<dt><a href="#DrivingRecordResponseInfo">DrivingRecordResponseInfo</a> : <code><a href="#CalendarResponse">CalendarResponse</a></code></dt>
+<dd></dd>
+<dt><a href="#DrivingRecordResponse">DrivingRecordResponse</a> : <code>object</code></dt>
+<dd></dd>
 <dt><a href="#DrivingRecordMonthResponse">DrivingRecordMonthResponse</a> : <code>object</code></dt>
 <dd></dd>
 <dt><a href="#DrivingRecordMonthResponseInfo">DrivingRecordMonthResponseInfo</a> : <code>object</code></dt>
 <dd></dd>
-<dt><a href="#DrivingRecordMonthResponseInfoDetail">DrivingRecordMonthResponseInfoDetail</a> : <code>object</code></dt>
+<dt><a href="#DrivingRecordMonthResponseInfoDetail">DrivingRecordMonthResponseInfoDetail</a> : <code><a href="#DrivingRecordDetail">DrivingRecordDetail</a></code></dt>
 <dd></dd>
 <dt><a href="#DrivingRecordYearResponse">DrivingRecordYearResponse</a> : <code>object</code></dt>
 <dd></dd>
 <dt><a href="#DrivingRecordYearResponseInfo">DrivingRecordYearResponseInfo</a> : <code>object</code></dt>
 <dd></dd>
-<dt><a href="#DrivingRecordYearResponseInfoDetail">DrivingRecordYearResponseInfoDetail</a> : <code>object</code></dt>
+<dt><a href="#DrivingRecordYearResponseInfoDetail">DrivingRecordYearResponseInfoDetail</a> : <code><a href="#DrivingRecordDetail">DrivingRecordDetail</a></code></dt>
 <dd></dd>
-<dt><a href="#DrivingRecordResponseInfoDetail">DrivingRecordResponseInfoDetail</a> : <code>object</code></dt>
-<dd></dd>
-<dt><a href="#DrivingRecordResponseInfo">DrivingRecordResponseInfo</a> : <code><a href="#CalendarResponse">CalendarResponse</a></code></dt>
-<dd></dd>
-<dt><a href="#DrivingRecordResponse">DrivingRecordResponse</a> : <code>object</code></dt>
+<dt><a href="#DrivingRecordDetail">DrivingRecordDetail</a> : <code>object</code></dt>
 <dd></dd>
 <dt><a href="#GraphDataPoint">GraphDataPoint</a> : <code>object</code></dt>
 <dd></dd>
@@ -919,22 +923,102 @@ e.g. miles/kWh
 
 ### calendar.availableDates ⇒ <code>Array.&lt;moment.Moment&gt;</code>
 **Kind**: instance property of [<code>Calendar</code>](#Calendar)  
+<a name="DrivingRecordDay"></a>
+
+## DrivingRecordDay ⇐ [<code>DrivingRecord</code>](#DrivingRecord)
+**Kind**: global class  
+**Extends**: [<code>DrivingRecord</code>](#DrivingRecord)  
+
+* [DrivingRecordDay](#DrivingRecordDay) ⇐ [<code>DrivingRecord</code>](#DrivingRecord)
+    * [new DrivingRecordDay(info)](#new_DrivingRecordDay_new)
+    * [.calendar](#DrivingRecordDay+calendar) : [<code>Calendar</code>](#Calendar)
+    * [.data](#DrivingRecordDay+data) ⇒ [<code>DrivingRecordResponseInfo</code>](#DrivingRecordResponseInfo)
+    * [.date](#DrivingRecordDay+date) ⇒ <code>moment.Moment</code>
+    * [.economyUnits](#DrivingRecordDay+economyUnits) ⇒ <code>string</code>
+    * [.note](#DrivingRecordDay+note) ⇒ <code>string</code>
+    * [.averageEconomy](#DrivingRecord+averageEconomy) ⇒ <code>Number</code>
+    * [.co2Saving](#DrivingRecord+co2Saving) ⇒ <code>number</code>
+    * [.travelTime](#DrivingRecord+travelTime) ⇒ <code>Number</code>
+    * [.travelDistance](#DrivingRecord+travelDistance) ⇒ <code>Number</code>
+    * [.energyUsage](#DrivingRecord+energyUsage) ⇒ <code>Number</code>
+
+<a name="new_DrivingRecordDay_new"></a>
+
+### new DrivingRecordDay(info)
+
+| Param | Type |
+| --- | --- |
+| info | [<code>DrivingRecordResponse</code>](#DrivingRecordResponse) | 
+
+<a name="DrivingRecordDay+calendar"></a>
+
+### drivingRecordDay.calendar : [<code>Calendar</code>](#Calendar)
+**Kind**: instance property of [<code>DrivingRecordDay</code>](#DrivingRecordDay)  
+<a name="DrivingRecordDay+data"></a>
+
+### drivingRecordDay.data ⇒ [<code>DrivingRecordResponseInfo</code>](#DrivingRecordResponseInfo)
+**Kind**: instance property of [<code>DrivingRecordDay</code>](#DrivingRecordDay)  
+<a name="DrivingRecordDay+date"></a>
+
+### drivingRecordDay.date ⇒ <code>moment.Moment</code>
+**Kind**: instance property of [<code>DrivingRecordDay</code>](#DrivingRecordDay)  
+<a name="DrivingRecordDay+economyUnits"></a>
+
+### drivingRecordDay.economyUnits ⇒ <code>string</code>
+e.g. miles/kWh
+
+**Kind**: instance property of [<code>DrivingRecordDay</code>](#DrivingRecordDay)  
+**Overrides**: [<code>economyUnits</code>](#DrivingRecord+economyUnits)  
+<a name="DrivingRecordDay+note"></a>
+
+### drivingRecordDay.note ⇒ <code>string</code>
+**Kind**: instance property of [<code>DrivingRecordDay</code>](#DrivingRecordDay)  
+<a name="DrivingRecord+averageEconomy"></a>
+
+### drivingRecordDay.averageEconomy ⇒ <code>Number</code>
+In units of [economyUnits](economyUnits)
+
+**Kind**: instance property of [<code>DrivingRecordDay</code>](#DrivingRecordDay)  
+<a name="DrivingRecord+co2Saving"></a>
+
+### drivingRecordDay.co2Saving ⇒ <code>number</code>
+In kg
+
+**Kind**: instance property of [<code>DrivingRecordDay</code>](#DrivingRecordDay)  
+<a name="DrivingRecord+travelTime"></a>
+
+### drivingRecordDay.travelTime ⇒ <code>Number</code>
+In hours
+
+**Kind**: instance property of [<code>DrivingRecordDay</code>](#DrivingRecordDay)  
+<a name="DrivingRecord+travelDistance"></a>
+
+### drivingRecordDay.travelDistance ⇒ <code>Number</code>
+In metres
+
+**Kind**: instance property of [<code>DrivingRecordDay</code>](#DrivingRecordDay)  
+<a name="DrivingRecord+energyUsage"></a>
+
+### drivingRecordDay.energyUsage ⇒ <code>Number</code>
+In kWh
+
+**Kind**: instance property of [<code>DrivingRecordDay</code>](#DrivingRecordDay)  
 <a name="DrivingRecordMonth"></a>
 
-## DrivingRecordMonth
+## DrivingRecordMonth ⇐ [<code>DrivingRecord</code>](#DrivingRecord)
 **Kind**: global class  
+**Extends**: [<code>DrivingRecord</code>](#DrivingRecord)  
 
-* [DrivingRecordMonth](#DrivingRecordMonth)
+* [DrivingRecordMonth](#DrivingRecordMonth) ⇐ [<code>DrivingRecord</code>](#DrivingRecord)
     * [new DrivingRecordMonth(info)](#new_DrivingRecordMonth_new)
-    * [.data](#DrivingRecordMonth+data) ⇒ [<code>DrivingRecordMonthResponseInfoDetail</code>](#DrivingRecordMonthResponseInfoDetail)
+    * [.data](#DrivingRecordMonth+data) ⇒ [<code>DrivingRecordMonthResponseInfo</code>](#DrivingRecordMonthResponseInfo)
     * [.date](#DrivingRecordMonth+date) ⇒ <code>moment.Moment</code>
-    * [.distance](#DrivingRecordMonth+distance) ⇒ <code>string</code>
-    * [.averageEconomy](#DrivingRecordMonth+averageEconomy) ⇒ <code>number</code>
     * [.economyUnits](#DrivingRecordMonth+economyUnits) ⇒ <code>string</code>
-    * [.co2Saving](#DrivingRecordMonth+co2Saving) ⇒ <code>number</code>
-    * [.travelTime](#DrivingRecordMonth+travelTime) ⇒ <code>number</code>
-    * [.travelDistance](#DrivingRecordMonth+travelDistance) ⇒ <code>Number</code>
-    * [.energyUsage](#DrivingRecordMonth+energyUsage) ⇒ <code>Number</code>
+    * [.averageEconomy](#DrivingRecord+averageEconomy) ⇒ <code>Number</code>
+    * [.co2Saving](#DrivingRecord+co2Saving) ⇒ <code>number</code>
+    * [.travelTime](#DrivingRecord+travelTime) ⇒ <code>Number</code>
+    * [.travelDistance](#DrivingRecord+travelDistance) ⇒ <code>Number</code>
+    * [.energyUsage](#DrivingRecord+energyUsage) ⇒ <code>Number</code>
 
 <a name="new_DrivingRecordMonth_new"></a>
 
@@ -946,47 +1030,42 @@ e.g. miles/kWh
 
 <a name="DrivingRecordMonth+data"></a>
 
-### drivingRecordMonth.data ⇒ [<code>DrivingRecordMonthResponseInfoDetail</code>](#DrivingRecordMonthResponseInfoDetail)
+### drivingRecordMonth.data ⇒ [<code>DrivingRecordMonthResponseInfo</code>](#DrivingRecordMonthResponseInfo)
 **Kind**: instance property of [<code>DrivingRecordMonth</code>](#DrivingRecordMonth)  
 <a name="DrivingRecordMonth+date"></a>
 
 ### drivingRecordMonth.date ⇒ <code>moment.Moment</code>
 **Kind**: instance property of [<code>DrivingRecordMonth</code>](#DrivingRecordMonth)  
-<a name="DrivingRecordMonth+distance"></a>
-
-### drivingRecordMonth.distance ⇒ <code>string</code>
-in metres
-
-**Kind**: instance property of [<code>DrivingRecordMonth</code>](#DrivingRecordMonth)  
-<a name="DrivingRecordMonth+averageEconomy"></a>
-
-### drivingRecordMonth.averageEconomy ⇒ <code>number</code>
-In units of [economyUnits](economyUnits)
-
-**Kind**: instance property of [<code>DrivingRecordMonth</code>](#DrivingRecordMonth)  
 <a name="DrivingRecordMonth+economyUnits"></a>
 
 ### drivingRecordMonth.economyUnits ⇒ <code>string</code>
 **Kind**: instance property of [<code>DrivingRecordMonth</code>](#DrivingRecordMonth)  
-<a name="DrivingRecordMonth+co2Saving"></a>
+**Overrides**: [<code>economyUnits</code>](#DrivingRecord+economyUnits)  
+<a name="DrivingRecord+averageEconomy"></a>
+
+### drivingRecordMonth.averageEconomy ⇒ <code>Number</code>
+In units of [economyUnits](economyUnits)
+
+**Kind**: instance property of [<code>DrivingRecordMonth</code>](#DrivingRecordMonth)  
+<a name="DrivingRecord+co2Saving"></a>
 
 ### drivingRecordMonth.co2Saving ⇒ <code>number</code>
 In kg
 
 **Kind**: instance property of [<code>DrivingRecordMonth</code>](#DrivingRecordMonth)  
-<a name="DrivingRecordMonth+travelTime"></a>
+<a name="DrivingRecord+travelTime"></a>
 
-### drivingRecordMonth.travelTime ⇒ <code>number</code>
+### drivingRecordMonth.travelTime ⇒ <code>Number</code>
 In hours
 
 **Kind**: instance property of [<code>DrivingRecordMonth</code>](#DrivingRecordMonth)  
-<a name="DrivingRecordMonth+travelDistance"></a>
+<a name="DrivingRecord+travelDistance"></a>
 
 ### drivingRecordMonth.travelDistance ⇒ <code>Number</code>
 In metres
 
 **Kind**: instance property of [<code>DrivingRecordMonth</code>](#DrivingRecordMonth)  
-<a name="DrivingRecordMonth+energyUsage"></a>
+<a name="DrivingRecord+energyUsage"></a>
 
 ### drivingRecordMonth.energyUsage ⇒ <code>Number</code>
 In kWh
@@ -994,20 +1073,20 @@ In kWh
 **Kind**: instance property of [<code>DrivingRecordMonth</code>](#DrivingRecordMonth)  
 <a name="DrivingRecordYear"></a>
 
-## DrivingRecordYear
+## DrivingRecordYear ⇐ [<code>DrivingRecord</code>](#DrivingRecord)
 **Kind**: global class  
+**Extends**: [<code>DrivingRecord</code>](#DrivingRecord)  
 
-* [DrivingRecordYear](#DrivingRecordYear)
+* [DrivingRecordYear](#DrivingRecordYear) ⇐ [<code>DrivingRecord</code>](#DrivingRecord)
     * [new DrivingRecordYear(info)](#new_DrivingRecordYear_new)
-    * [.data](#DrivingRecordYear+data) ⇒ [<code>DrivingRecordYearResponseInfoDetail</code>](#DrivingRecordYearResponseInfoDetail)
+    * [.data](#DrivingRecordYear+data) ⇒ [<code>DrivingRecordYearResponseInfo</code>](#DrivingRecordYearResponseInfo)
     * [.year](#DrivingRecordYear+year) ⇒ <code>string</code>
-    * [.distance](#DrivingRecordYear+distance) ⇒ <code>string</code>
-    * [.averageEconomy](#DrivingRecordYear+averageEconomy) ⇒ <code>number</code>
     * [.economyUnits](#DrivingRecordYear+economyUnits) ⇒ <code>string</code>
-    * [.co2Saving](#DrivingRecordYear+co2Saving) ⇒ <code>number</code>
-    * [.travelTime](#DrivingRecordYear+travelTime) ⇒ <code>number</code>
-    * [.travelDistance](#DrivingRecordYear+travelDistance) ⇒ <code>Number</code>
-    * [.energyUsage](#DrivingRecordYear+energyUsage) ⇒ <code>Number</code>
+    * [.averageEconomy](#DrivingRecord+averageEconomy) ⇒ <code>Number</code>
+    * [.co2Saving](#DrivingRecord+co2Saving) ⇒ <code>number</code>
+    * [.travelTime](#DrivingRecord+travelTime) ⇒ <code>Number</code>
+    * [.travelDistance](#DrivingRecord+travelDistance) ⇒ <code>Number</code>
+    * [.energyUsage](#DrivingRecord+energyUsage) ⇒ <code>Number</code>
 
 <a name="new_DrivingRecordYear_new"></a>
 
@@ -1019,47 +1098,42 @@ In kWh
 
 <a name="DrivingRecordYear+data"></a>
 
-### drivingRecordYear.data ⇒ [<code>DrivingRecordYearResponseInfoDetail</code>](#DrivingRecordYearResponseInfoDetail)
+### drivingRecordYear.data ⇒ [<code>DrivingRecordYearResponseInfo</code>](#DrivingRecordYearResponseInfo)
 **Kind**: instance property of [<code>DrivingRecordYear</code>](#DrivingRecordYear)  
 <a name="DrivingRecordYear+year"></a>
 
 ### drivingRecordYear.year ⇒ <code>string</code>
 **Kind**: instance property of [<code>DrivingRecordYear</code>](#DrivingRecordYear)  
-<a name="DrivingRecordYear+distance"></a>
-
-### drivingRecordYear.distance ⇒ <code>string</code>
-in metres
-
-**Kind**: instance property of [<code>DrivingRecordYear</code>](#DrivingRecordYear)  
-<a name="DrivingRecordYear+averageEconomy"></a>
-
-### drivingRecordYear.averageEconomy ⇒ <code>number</code>
-In units of [economyUnits](economyUnits)
-
-**Kind**: instance property of [<code>DrivingRecordYear</code>](#DrivingRecordYear)  
 <a name="DrivingRecordYear+economyUnits"></a>
 
 ### drivingRecordYear.economyUnits ⇒ <code>string</code>
 **Kind**: instance property of [<code>DrivingRecordYear</code>](#DrivingRecordYear)  
-<a name="DrivingRecordYear+co2Saving"></a>
+**Overrides**: [<code>economyUnits</code>](#DrivingRecord+economyUnits)  
+<a name="DrivingRecord+averageEconomy"></a>
+
+### drivingRecordYear.averageEconomy ⇒ <code>Number</code>
+In units of [economyUnits](economyUnits)
+
+**Kind**: instance property of [<code>DrivingRecordYear</code>](#DrivingRecordYear)  
+<a name="DrivingRecord+co2Saving"></a>
 
 ### drivingRecordYear.co2Saving ⇒ <code>number</code>
 In kg
 
 **Kind**: instance property of [<code>DrivingRecordYear</code>](#DrivingRecordYear)  
-<a name="DrivingRecordYear+travelTime"></a>
+<a name="DrivingRecord+travelTime"></a>
 
-### drivingRecordYear.travelTime ⇒ <code>number</code>
+### drivingRecordYear.travelTime ⇒ <code>Number</code>
 In hours
 
 **Kind**: instance property of [<code>DrivingRecordYear</code>](#DrivingRecordYear)  
-<a name="DrivingRecordYear+travelDistance"></a>
+<a name="DrivingRecord+travelDistance"></a>
 
 ### drivingRecordYear.travelDistance ⇒ <code>Number</code>
 In metres
 
 **Kind**: instance property of [<code>DrivingRecordYear</code>](#DrivingRecordYear)  
-<a name="DrivingRecordYear+energyUsage"></a>
+<a name="DrivingRecord+energyUsage"></a>
 
 ### drivingRecordYear.energyUsage ⇒ <code>Number</code>
 In kWh
@@ -1071,38 +1145,22 @@ In kWh
 **Kind**: global class  
 
 * [DrivingRecord](#DrivingRecord)
-    * [new DrivingRecord(info)](#new_DrivingRecord_new)
-    * [.data](#DrivingRecord+data) ⇒ [<code>DrivingRecordResponseInfo</code>](#DrivingRecordResponseInfo)
-    * [.detail](#DrivingRecord+detail) ⇒ [<code>DrivingRecordResponseInfoDetail</code>](#DrivingRecordResponseInfoDetail)
-    * [.date](#DrivingRecord+date) ⇒ <code>moment.Moment</code>
+    * [new DrivingRecord(detail)](#new_DrivingRecord_new)
     * [.averageEconomy](#DrivingRecord+averageEconomy) ⇒ <code>Number</code>
-    * [.economyUnits](#DrivingRecord+economyUnits) ⇒ <code>string</code>
+    * [.economyUnits](#DrivingRecord+economyUnits) ⇒ <code>null</code> \| <code>string</code>
     * [.co2Saving](#DrivingRecord+co2Saving) ⇒ <code>number</code>
     * [.travelTime](#DrivingRecord+travelTime) ⇒ <code>Number</code>
     * [.travelDistance](#DrivingRecord+travelDistance) ⇒ <code>Number</code>
     * [.energyUsage](#DrivingRecord+energyUsage) ⇒ <code>Number</code>
-    * [.note](#DrivingRecord+note) ⇒ <code>string</code>
 
 <a name="new_DrivingRecord_new"></a>
 
-### new DrivingRecord(info)
+### new DrivingRecord(detail)
 
 | Param | Type |
 | --- | --- |
-| info | [<code>DrivingRecordResponse</code>](#DrivingRecordResponse) | 
+| detail | [<code>DrivingRecordDetail</code>](#DrivingRecordDetail) | 
 
-<a name="DrivingRecord+data"></a>
-
-### drivingRecord.data ⇒ [<code>DrivingRecordResponseInfo</code>](#DrivingRecordResponseInfo)
-**Kind**: instance property of [<code>DrivingRecord</code>](#DrivingRecord)  
-<a name="DrivingRecord+detail"></a>
-
-### drivingRecord.detail ⇒ [<code>DrivingRecordResponseInfoDetail</code>](#DrivingRecordResponseInfoDetail)
-**Kind**: instance property of [<code>DrivingRecord</code>](#DrivingRecord)  
-<a name="DrivingRecord+date"></a>
-
-### drivingRecord.date ⇒ <code>moment.Moment</code>
-**Kind**: instance property of [<code>DrivingRecord</code>](#DrivingRecord)  
 <a name="DrivingRecord+averageEconomy"></a>
 
 ### drivingRecord.averageEconomy ⇒ <code>Number</code>
@@ -1111,7 +1169,7 @@ In units of [economyUnits](economyUnits)
 **Kind**: instance property of [<code>DrivingRecord</code>](#DrivingRecord)  
 <a name="DrivingRecord+economyUnits"></a>
 
-### drivingRecord.economyUnits ⇒ <code>string</code>
+### drivingRecord.economyUnits ⇒ <code>null</code> \| <code>string</code>
 e.g. miles/kWh
 
 **Kind**: instance property of [<code>DrivingRecord</code>](#DrivingRecord)  
@@ -1138,10 +1196,6 @@ In metres
 ### drivingRecord.energyUsage ⇒ <code>Number</code>
 In kWh
 
-**Kind**: instance property of [<code>DrivingRecord</code>](#DrivingRecord)  
-<a name="DrivingRecord+note"></a>
-
-### drivingRecord.note ⇒ <code>string</code>
 **Kind**: instance property of [<code>DrivingRecord</code>](#DrivingRecord)  
 <a name="GraphResponse"></a>
 
@@ -2210,6 +2264,41 @@ in watt hours (Wh)
 | --- | --- |
 | Calendar | [<code>CalendarResponse</code>](#CalendarResponse) | 
 
+<a name="DrivingRecordResponseInfoDetail"></a>
+
+## DrivingRecordResponseInfoDetail : [<code>DrivingRecordDetail</code>](#DrivingRecordDetail)
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| CalendarDisplayMonth | <code>string</code> | 
+| CalendarTargetMonth | <code>string</code> | 
+| DisplayDate | <code>string</code> | 
+| ElectricCostScale | <code>string</code> | 
+| TargetDate | <code>string</code> | 
+
+<a name="DrivingRecordResponseInfo"></a>
+
+## DrivingRecordResponseInfo : [<code>CalendarResponse</code>](#CalendarResponse)
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| DateSummaryCarKarteDetailInfo | [<code>DrivingRecordResponseInfoDetail</code>](#DrivingRecordResponseInfoDetail) | 
+| DrivingNote | <code>string</code> | 
+
+<a name="DrivingRecordResponse"></a>
+
+## DrivingRecordResponse : <code>object</code>
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| CarKarteDetailInfoResponsePersonalData | [<code>DrivingRecordResponseInfo</code>](#DrivingRecordResponseInfo) | 
+
 <a name="DrivingRecordMonthResponse"></a>
 
 ## DrivingRecordMonthResponse : <code>object</code>
@@ -2233,18 +2322,13 @@ in watt hours (Wh)
 
 <a name="DrivingRecordMonthResponseInfoDetail"></a>
 
-## DrivingRecordMonthResponseInfoDetail : <code>object</code>
+## DrivingRecordMonthResponseInfoDetail : [<code>DrivingRecordDetail</code>](#DrivingRecordDetail)
 **Kind**: global typedef  
 **Properties**
 
 | Name | Type |
 | --- | --- |
 | TargetMonth | <code>string</code> | 
-| TravelDistance | <code>string</code> | 
-| ElectricMileage | <code>string</code> | 
-| PowerConsumptTotal | <code>string</code> | 
-| TravelTime | <code>string</code> | 
-| CO2Reduction | <code>string</code> | 
 
 <a name="DrivingRecordYearResponse"></a>
 
@@ -2269,58 +2353,27 @@ in watt hours (Wh)
 
 <a name="DrivingRecordYearResponseInfoDetail"></a>
 
-## DrivingRecordYearResponseInfoDetail : <code>object</code>
+## DrivingRecordYearResponseInfoDetail : [<code>DrivingRecordDetail</code>](#DrivingRecordDetail)
 **Kind**: global typedef  
 **Properties**
 
 | Name | Type |
 | --- | --- |
 | TargetYear | <code>string</code> | 
-| TravelDistance | <code>string</code> | 
+
+<a name="DrivingRecordDetail"></a>
+
+## DrivingRecordDetail : <code>object</code>
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| CO2Reduction | <code>string</code> | 
 | ElectricMileage | <code>string</code> | 
 | PowerConsumptTotal | <code>string</code> | 
-| TravelTime | <code>string</code> | 
-| CO2Reduction | <code>string</code> | 
-
-<a name="DrivingRecordResponseInfoDetail"></a>
-
-## DrivingRecordResponseInfoDetail : <code>object</code>
-**Kind**: global typedef  
-**Properties**
-
-| Name | Type |
-| --- | --- |
-| CalendarDisplayMonth | <code>string</code> | 
-| CalendarTargetMonth | <code>string</code> | 
-| CO2Reduction | <code>string</code> | 
-| DisplayDate | <code>string</code> | 
-| ElectricCostScale | <code>string</code> | 
-| ElectricMileage | <code>string</code> | 
-| PowerConsumptTotal | <code>string</code> | 
-| TargetDate | <code>string</code> | 
 | TravelDistance | <code>string</code> | 
 | TravelTime | <code>string</code> | 
-
-<a name="DrivingRecordResponseInfo"></a>
-
-## DrivingRecordResponseInfo : [<code>CalendarResponse</code>](#CalendarResponse)
-**Kind**: global typedef  
-**Properties**
-
-| Name | Type |
-| --- | --- |
-| DateSummaryCarKarteDetailInfo | [<code>DrivingRecordResponseInfoDetail</code>](#DrivingRecordResponseInfoDetail) | 
-| DrivingNote | <code>string</code> | 
-
-<a name="DrivingRecordResponse"></a>
-
-## DrivingRecordResponse : <code>object</code>
-**Kind**: global typedef  
-**Properties**
-
-| Name | Type |
-| --- | --- |
-| CarKarteDetailInfoResponsePersonalData | [<code>DrivingRecordResponseInfo</code>](#DrivingRecordResponseInfo) | 
 
 <a name="GraphDataPoint"></a>
 
