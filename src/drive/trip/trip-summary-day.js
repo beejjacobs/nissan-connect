@@ -30,6 +30,18 @@ class TripSummaryDay {
   get date() {
     return moment(this.info.TargetDate);
   }
+
+  toString() {
+    let output = `Trip Summary for ${this.date.format('DD-MM-YYYY')}`;
+    this.trips.forEach(trip => {
+      output += `
+----------------------------------------------
+${trip}`;
+    });
+    output += `
+----------------------------------------------`;
+    return output;
+  }
   
 }
 

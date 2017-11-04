@@ -114,6 +114,18 @@ class TripSummaryMonth {
     return this.data.ElectricCostScale;
   }
 
+  toString() {
+    let output = `Month Trip Summary for ${this.date.format('MMMM YYYY')}`;
+    output += `
+
+${this.total}
+`;
+    this.days.forEach(day => {
+      output += `
+${day}`;
+    });
+    return output;
+  }
 
 }
 
