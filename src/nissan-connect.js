@@ -284,6 +284,15 @@ class NissanConnect {
   }
 
   /**
+   * @param date
+   * @return {Promise.<TripSummaryMonth>}
+   */
+  async getMonthTripSummary(date) {
+    await this.checkLogin();
+    return this.api.drive.trip.getMonthTripSummary(this.leaf, this.customerInfo, moment(date));
+  }
+
+  /**
    * @returns {Promise.<VehicleInfo>}
    */
   async getVehicleInfo() {

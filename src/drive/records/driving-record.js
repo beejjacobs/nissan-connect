@@ -22,7 +22,7 @@ class DrivingRecord {
   }
 
   /**
-   * In units of {@link economyUnits}
+   * In units of {@link DrivingRecord#economyUnits}
    * @returns {Number}
    */
   get averageEconomy() {

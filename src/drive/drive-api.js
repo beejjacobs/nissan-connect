@@ -1,6 +1,7 @@
 const DriveAnalysis = require('./drive-analysis');
 const DriveAnalysisWeekSummary = require('./drive-analysis-week-summary');
 const RecordApi = require('./records/record-api');
+const TripApi = require('./trip/trip-api');
 const Config = require('../config');
 
 /**
@@ -16,6 +17,10 @@ class DriveApi {
      * @type {RecordApi}
      */
     this.records = new RecordApi(api);
+    /**
+     * @type {TripApi}
+     */
+    this.trip = new TripApi(api);
   }
 
   /**
