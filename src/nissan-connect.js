@@ -12,6 +12,9 @@ class NissanConnect {
    * @param {string} [region=NE]
    */
   constructor(username, password, region = NissanConnect.Region.Europe) {
+    /**
+     * @type {NissanConnectApi}
+     */
     this.api = new Api(region);
     this.username = username;
     this.password = password;

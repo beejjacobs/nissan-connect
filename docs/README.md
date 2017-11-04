@@ -27,6 +27,8 @@
 <dd></dd>
 <dt><a href="#DriveApi">DriveApi</a></dt>
 <dd></dd>
+<dt><a href="#EnergyApi">EnergyApi</a></dt>
+<dd></dd>
 <dt><a href="#Calendar">Calendar</a></dt>
 <dd></dd>
 <dt><a href="#DrivingRecordDay">DrivingRecordDay</a> ⇐ <code><a href="#DrivingRecord">DrivingRecord</a></code></dt>
@@ -860,6 +862,7 @@ e.g. miles/kWh
 
 * [DriveApi](#DriveApi)
     * [new DriveApi(api)](#new_DriveApi_new)
+    * [.records](#DriveApi+records) : [<code>RecordApi</code>](#RecordApi)
     * [.getAnalysis(leaf, customerInfo)](#DriveApi+getAnalysis) ⇒ [<code>Promise.&lt;DriveAnalysis&gt;</code>](#DriveAnalysis)
     * [.getAnalysisDetail(leaf, customerInfo, date)](#DriveApi+getAnalysisDetail) ⇒ [<code>Promise.&lt;DriveAnalysisWeekSummary&gt;</code>](#DriveAnalysisWeekSummary)
 
@@ -871,6 +874,10 @@ e.g. miles/kWh
 | --- | --- |
 | api | [<code>NissanConnectApi</code>](#NissanConnectApi) | 
 
+<a name="DriveApi+records"></a>
+
+### driveApi.records : [<code>RecordApi</code>](#RecordApi)
+**Kind**: instance property of [<code>DriveApi</code>](#DriveApi)  
 <a name="DriveApi+getAnalysis"></a>
 
 ### driveApi.getAnalysis(leaf, customerInfo) ⇒ [<code>Promise.&lt;DriveAnalysis&gt;</code>](#DriveAnalysis)
@@ -891,6 +898,18 @@ e.g. miles/kWh
 | leaf | [<code>Leaf</code>](#Leaf) | 
 | customerInfo | [<code>CustomerInfo</code>](#CustomerInfo) | 
 | date | <code>moment.Moment</code> | 
+
+<a name="EnergyApi"></a>
+
+## EnergyApi
+**Kind**: global class  
+<a name="new_EnergyApi_new"></a>
+
+### new EnergyApi(api)
+
+| Param | Type |
+| --- | --- |
+| api | [<code>NissanConnectApi</code>](#NissanConnectApi) | 
 
 <a name="Calendar"></a>
 
@@ -1469,6 +1488,10 @@ Client library for the Nissan Connect API
 
 * [NissanConnectApi](#NissanConnectApi)
     * [new NissanConnectApi(region)](#new_NissanConnectApi_new)
+    * [.ac](#NissanConnectApi+ac) : [<code>AcApi</code>](#AcApi)
+    * [.battery](#NissanConnectApi+battery) : [<code>BatteryApi</code>](#BatteryApi)
+    * [.carFinder](#NissanConnectApi+carFinder) : [<code>CarFinderApi</code>](#CarFinderApi)
+    * [.drive](#NissanConnectApi+drive) : [<code>DriveApi</code>](#DriveApi)
     * [.connect()](#NissanConnectApi+connect) ⇒ <code>Promise.&lt;string&gt;</code>
     * [.login(username, password)](#NissanConnectApi+login) ⇒ [<code>Promise.&lt;LoginResponse&gt;</code>](#LoginResponse)
     * [.getVehicleInfo(leaf, customerInfo)](#NissanConnectApi+getVehicleInfo) ⇒ [<code>Promise.&lt;VehicleInfo&gt;</code>](#VehicleInfo)
@@ -1487,6 +1510,22 @@ Client library for the Nissan Connect API
 | --- | --- |
 | region | <code>string</code> | 
 
+<a name="NissanConnectApi+ac"></a>
+
+### nissanConnectApi.ac : [<code>AcApi</code>](#AcApi)
+**Kind**: instance property of [<code>NissanConnectApi</code>](#NissanConnectApi)  
+<a name="NissanConnectApi+battery"></a>
+
+### nissanConnectApi.battery : [<code>BatteryApi</code>](#BatteryApi)
+**Kind**: instance property of [<code>NissanConnectApi</code>](#NissanConnectApi)  
+<a name="NissanConnectApi+carFinder"></a>
+
+### nissanConnectApi.carFinder : [<code>CarFinderApi</code>](#CarFinderApi)
+**Kind**: instance property of [<code>NissanConnectApi</code>](#NissanConnectApi)  
+<a name="NissanConnectApi+drive"></a>
+
+### nissanConnectApi.drive : [<code>DriveApi</code>](#DriveApi)
+**Kind**: instance property of [<code>NissanConnectApi</code>](#NissanConnectApi)  
 <a name="NissanConnectApi+connect"></a>
 
 ### nissanConnectApi.connect() ⇒ <code>Promise.&lt;string&gt;</code>

@@ -12,6 +12,9 @@ class DriveApi {
    */
   constructor(api) {
     this.api = api;
+    /**
+     * @type {RecordApi}
+     */
     this.records = new RecordApi(api);
   }
 

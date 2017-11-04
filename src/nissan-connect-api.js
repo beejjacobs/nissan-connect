@@ -18,9 +18,21 @@ class NissanConnectApi {
    */
   constructor(region) {
     this.region = region;
+    /**
+     * @type {AcApi}
+     */
     this.ac = new AcApi(this);
+    /**
+     * @type {BatteryApi}
+     */
     this.battery = new BatteryApi(this);
+    /**
+     * @type {CarFinderApi}
+     */
     this.carFinder = new CarFinderApi(this);
+    /**
+     * @type {DriveApi}
+     */
     this.drive = new DriveApi(this);
   }
 
