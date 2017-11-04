@@ -56,7 +56,7 @@ class RecordApi {
    * @param {CustomerInfo} customerInfo
    * @param {moment.Moment} date
    * @param {string} note
-   * @return {Promise.<>}
+   * @return {Promise}
    */
   addNote(leaf, customerInfo, date, note) {
     this.api.log('add note');

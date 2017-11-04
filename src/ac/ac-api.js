@@ -73,7 +73,7 @@ class AcApi  {
   /**
    * @param {Leaf} leaf
    * @param {CustomerInfo} customerInfo
-   * @returns {Promise.<>}
+   * @returns {Promise}
    */
   cancelSchedule(leaf, customerInfo) {
     this.api.log('cancel schedule');

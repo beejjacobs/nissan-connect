@@ -125,7 +125,7 @@ class NissanConnect {
   }
 
   /**
-   * @returns {Promise.<>}
+   * @returns {Promise}
    */
   async cancelAcSchedule() {
     await this.checkLogin();
@@ -197,7 +197,7 @@ class NissanConnect {
   /**
    * @param {string} date
    * @param {string} note
-   * @return {Promise.<>}
+   * @return {Promise}
    */
   async addDriveRecordNote(date, note) {
     await this.checkLogin();

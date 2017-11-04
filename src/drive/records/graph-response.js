@@ -80,7 +80,7 @@ class GraphResponse {
     let regex = new RegExp(`var ${id} = (\\[(.|\\n)*?];)`);
     let match = res.match(regex)[1].replace(/(],\n).*(];)/,']]');
     /**
-     * @type {[]}
+     * @type {Array}
      */
     let array = JSON.parse(match);
 
