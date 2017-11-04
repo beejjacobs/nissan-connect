@@ -76,13 +76,13 @@ class TripSummary {
    */
   toString() {
     return `Trip at ${this.dateTime.format('HH:mm:ss')} on ${this.dateTime.format('DD-MM-YYYY')}
-Number: ${this.number}
-Distance: ${this.travelDistance / 1000} km
-Energy Usage: ${this.accelerationEnergy} Wh
-Regen: ${this.regen} Wh
-Net Energy Usage: ${this.energyUsage} Wh
-Efficiency: ${this.averageEconomy} miles/kWh
-CO2 Saving: ${this.co2Saving} kg`;
+  Number: ${this.number}
+  Distance: ${this.travelDistance / 1000} km
+  Energy Usage: ${this.accelerationEnergy} Wh
+  Regen: ${this.regen} Wh
+  Net Energy Usage: ${this.energyUsage} Wh
+  Efficiency: ${this.averageEconomy} miles/kWh
+  CO2 Saving: ${this.co2Saving} kg`;
   }
 }
 

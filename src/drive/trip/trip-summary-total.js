@@ -65,13 +65,13 @@ class TripSummaryTotal {
 
   toString() {
     return `Trip Summary Total
-Number of Trips: ${this.numberOfTrips}
-Total Distance: ${this.travelDistance / 1000} km
-Total Energy Usage: ${this.accelerationEnergy} kWh
-Total Regen: ${this.regen} kWh
-Total Net Energy Usage: ${this.energyUsage} kWh
-Total Efficiency: ${this.averageEconomy} miles/kWh
-Total CO2 Saving: ${this.co2Saving} kg`;
+  Number of Trips: ${this.numberOfTrips}
+  Total Distance: ${this.travelDistance / 1000} km
+  Total Energy Usage: ${this.accelerationEnergy} kWh
+  Total Regen: ${this.regen} kWh
+  Total Net Energy Usage: ${this.energyUsage} kWh
+  Total Efficiency: ${this.averageEconomy} miles/kWh
+  Total CO2 Saving: ${this.co2Saving} kg`;
   }
 
 }
