@@ -27,8 +27,6 @@
 <dd></dd>
 <dt><a href="#DriveApi">DriveApi</a></dt>
 <dd></dd>
-<dt><a href="#EnergyApi">EnergyApi</a></dt>
-<dd></dd>
 <dt><a href="#Calendar">Calendar</a></dt>
 <dd></dd>
 <dt><a href="#DrivingRecordDay">DrivingRecordDay</a> ⇐ <code><a href="#DrivingRecord">DrivingRecord</a></code></dt>
@@ -42,6 +40,16 @@
 <dt><a href="#GraphResponse">GraphResponse</a></dt>
 <dd></dd>
 <dt><a href="#RecordApi">RecordApi</a></dt>
+<dd></dd>
+<dt><a href="#TripApi">TripApi</a></dt>
+<dd></dd>
+<dt><a href="#TripSummaryDay">TripSummaryDay</a></dt>
+<dd></dd>
+<dt><a href="#TripSummaryMonth">TripSummaryMonth</a></dt>
+<dd></dd>
+<dt><a href="#TripSummaryTotal">TripSummaryTotal</a></dt>
+<dd></dd>
+<dt><a href="#TripSummary">TripSummary</a></dt>
 <dd></dd>
 <dt><a href="#NissanConnectApi">NissanConnectApi</a></dt>
 <dd><p>Client library for the Nissan Connect API</p>
@@ -165,6 +173,20 @@ INVALID</p>
 <dt><a href="#DistanceTimeDataPoints">DistanceTimeDataPoints</a> : <code>object</code></dt>
 <dd></dd>
 <dt><a href="#DistanceEconomyDataPoints">DistanceEconomyDataPoints</a> : <code>object</code></dt>
+<dd></dd>
+<dt><a href="#TripSummaryResponse">TripSummaryResponse</a> : <code>object</code></dt>
+<dd></dd>
+<dt><a href="#TripSummaryResponseData">TripSummaryResponseData</a> : <code>object</code></dt>
+<dd></dd>
+<dt><a href="#TripSummaryDetailData">TripSummaryDetailData</a> : <code>object</code></dt>
+<dd></dd>
+<dt><a href="#TripSummaryDayDetail">TripSummaryDayDetail</a> : <code>object</code></dt>
+<dd></dd>
+<dt><a href="#TripSummaryDayDetailList">TripSummaryDayDetailList</a> : <code>object</code></dt>
+<dd></dd>
+<dt><a href="#TripSummaryInfo">TripSummaryInfo</a> : <code>object</code></dt>
+<dd></dd>
+<dt><a href="#TripSummaryTotalInfo">TripSummaryTotalInfo</a> : <code>object</code></dt>
 <dd></dd>
 <dt><a href="#VehicleInfoResponse">VehicleInfoResponse</a> : <code>object</code></dt>
 <dd></dd>
@@ -478,9 +500,9 @@ Returned error code 400
     * [.chargeStatus](#BatteryStatusLast+chargeStatus) ⇒ [<code>ChargeStatusEnum</code>](#ChargeStatusEnum)
     * [.capacity](#BatteryStatusLast+capacity) ⇒ <code>Number</code>
     * [.chargeState](#BatteryStatusLast+chargeState) ⇒ <code>Number</code>
-    * [.timeToFull](#BatteryStatusLast+timeToFull) ⇒ [<code>HoursMinutes</code>](#HoursMinutes)
-    * [.timeToFull3kW](#BatteryStatusLast+timeToFull3kW) ⇒ [<code>HoursMinutes</code>](#HoursMinutes)
-    * [.timeToFull6kW](#BatteryStatusLast+timeToFull6kW) ⇒ [<code>HoursMinutes</code>](#HoursMinutes)
+    * [.timeToFull](#BatteryStatusLast+timeToFull) ⇒ <code>moment.Duration</code>
+    * [.timeToFull3kW](#BatteryStatusLast+timeToFull3kW) ⇒ <code>moment.Duration</code>
+    * [.timeToFull6kW](#BatteryStatusLast+timeToFull6kW) ⇒ <code>moment.Duration</code>
 
 <a name="new_BatteryStatusLast_new"></a>
 
@@ -524,15 +546,15 @@ Range with AC on in metres
 **Kind**: instance property of [<code>BatteryStatusLast</code>](#BatteryStatusLast)  
 <a name="BatteryStatusLast+timeToFull"></a>
 
-### batteryStatusLast.timeToFull ⇒ [<code>HoursMinutes</code>](#HoursMinutes)
+### batteryStatusLast.timeToFull ⇒ <code>moment.Duration</code>
 **Kind**: instance property of [<code>BatteryStatusLast</code>](#BatteryStatusLast)  
 <a name="BatteryStatusLast+timeToFull3kW"></a>
 
-### batteryStatusLast.timeToFull3kW ⇒ [<code>HoursMinutes</code>](#HoursMinutes)
+### batteryStatusLast.timeToFull3kW ⇒ <code>moment.Duration</code>
 **Kind**: instance property of [<code>BatteryStatusLast</code>](#BatteryStatusLast)  
 <a name="BatteryStatusLast+timeToFull6kW"></a>
 
-### batteryStatusLast.timeToFull6kW ⇒ [<code>HoursMinutes</code>](#HoursMinutes)
+### batteryStatusLast.timeToFull6kW ⇒ <code>moment.Duration</code>
 **Kind**: instance property of [<code>BatteryStatusLast</code>](#BatteryStatusLast)  
 <a name="BatteryStatusResponse"></a>
 
@@ -576,9 +598,9 @@ Range with AC on in metres
     * [.chargeStatus](#BatteryStatus+chargeStatus) ⇒ [<code>ChargeStatusEnum</code>](#ChargeStatusEnum)
     * [.capacity](#BatteryStatus+capacity) ⇒ <code>Number</code>
     * [.chargeState](#BatteryStatus+chargeState) ⇒ <code>Number</code>
-    * [.timeToFull](#BatteryStatus+timeToFull) ⇒ [<code>HoursMinutes</code>](#HoursMinutes)
-    * [.timeToFull3kW](#BatteryStatus+timeToFull3kW) ⇒ [<code>HoursMinutes</code>](#HoursMinutes)
-    * [.timeToFull6kW](#BatteryStatus+timeToFull6kW) ⇒ [<code>HoursMinutes</code>](#HoursMinutes)
+    * [.timeToFull](#BatteryStatus+timeToFull) ⇒ <code>moment.Duration</code>
+    * [.timeToFull3kW](#BatteryStatus+timeToFull3kW) ⇒ <code>moment.Duration</code>
+    * [.timeToFull6kW](#BatteryStatus+timeToFull6kW) ⇒ <code>moment.Duration</code>
 
 <a name="new_BatteryStatus_new"></a>
 
@@ -630,15 +652,15 @@ Range with AC on in metres
 **Kind**: instance property of [<code>BatteryStatus</code>](#BatteryStatus)  
 <a name="BatteryStatus+timeToFull"></a>
 
-### batteryStatus.timeToFull ⇒ [<code>HoursMinutes</code>](#HoursMinutes)
+### batteryStatus.timeToFull ⇒ <code>moment.Duration</code>
 **Kind**: instance property of [<code>BatteryStatus</code>](#BatteryStatus)  
 <a name="BatteryStatus+timeToFull3kW"></a>
 
-### batteryStatus.timeToFull3kW ⇒ [<code>HoursMinutes</code>](#HoursMinutes)
+### batteryStatus.timeToFull3kW ⇒ <code>moment.Duration</code>
 **Kind**: instance property of [<code>BatteryStatus</code>](#BatteryStatus)  
 <a name="BatteryStatus+timeToFull6kW"></a>
 
-### batteryStatus.timeToFull6kW ⇒ [<code>HoursMinutes</code>](#HoursMinutes)
+### batteryStatus.timeToFull6kW ⇒ <code>moment.Duration</code>
 **Kind**: instance property of [<code>BatteryStatus</code>](#BatteryStatus)  
 <a name="CarFinderApi"></a>
 
@@ -779,9 +801,9 @@ In units of [economyUnits](#DriveAnalysis+economyUnits)
 
 * [DriveAnalysisWeekSummary](#DriveAnalysisWeekSummary)
     * [new DriveAnalysisWeekSummary(info)](#new_DriveAnalysisWeekSummary_new)
+    * [.days](#DriveAnalysisWeekSummary+days) : [<code>Array.&lt;DriveAnalysisDaySummary&gt;</code>](#DriveAnalysisDaySummary)
     * [.data](#DriveAnalysisWeekSummary+data) ⇒ [<code>DriveAnalysisDetailJson</code>](#DriveAnalysisDetailJson)
     * [.dateSummaries](#DriveAnalysisWeekSummary+dateSummaries) ⇒ [<code>Array.&lt;DateSummary&gt;</code>](#DateSummary)
-    * [.daySummaries](#DriveAnalysisWeekSummary+daySummaries) ⇒ [<code>Array.&lt;DriveAnalysisDaySummary&gt;</code>](#DriveAnalysisDaySummary)
     * [.startDate](#DriveAnalysisWeekSummary+startDate) ⇒ <code>moment.Moment</code>
     * [.endDate](#DriveAnalysisWeekSummary+endDate) ⇒ <code>moment.Moment</code>
     * [.economyUnits](#DriveAnalysisWeekSummary+economyUnits) ⇒ <code>string</code>
@@ -794,6 +816,12 @@ In units of [economyUnits](#DriveAnalysis+economyUnits)
 | --- | --- |
 | info | [<code>DriveAnalysisWeekSummaryJson</code>](#DriveAnalysisWeekSummaryJson) | 
 
+<a name="DriveAnalysisWeekSummary+days"></a>
+
+### driveAnalysisWeekSummary.days : [<code>Array.&lt;DriveAnalysisDaySummary&gt;</code>](#DriveAnalysisDaySummary)
+First day is Sunday
+
+**Kind**: instance property of [<code>DriveAnalysisWeekSummary</code>](#DriveAnalysisWeekSummary)  
 <a name="DriveAnalysisWeekSummary+data"></a>
 
 ### driveAnalysisWeekSummary.data ⇒ [<code>DriveAnalysisDetailJson</code>](#DriveAnalysisDetailJson)
@@ -801,12 +829,6 @@ In units of [economyUnits](#DriveAnalysis+economyUnits)
 <a name="DriveAnalysisWeekSummary+dateSummaries"></a>
 
 ### driveAnalysisWeekSummary.dateSummaries ⇒ [<code>Array.&lt;DateSummary&gt;</code>](#DateSummary)
-**Kind**: instance property of [<code>DriveAnalysisWeekSummary</code>](#DriveAnalysisWeekSummary)  
-<a name="DriveAnalysisWeekSummary+daySummaries"></a>
-
-### driveAnalysisWeekSummary.daySummaries ⇒ [<code>Array.&lt;DriveAnalysisDaySummary&gt;</code>](#DriveAnalysisDaySummary)
-First day is Sunday
-
 **Kind**: instance property of [<code>DriveAnalysisWeekSummary</code>](#DriveAnalysisWeekSummary)  
 <a name="DriveAnalysisWeekSummary+startDate"></a>
 
@@ -829,8 +851,8 @@ e.g. miles/kWh
 
 * [DriveAnalysis](#DriveAnalysis)
     * [new DriveAnalysis(info)](#new_DriveAnalysis_new)
+    * [.day](#DriveAnalysis+day) : [<code>DriveAnalysisDaySummary</code>](#DriveAnalysisDaySummary)
     * [.summary](#DriveAnalysis+summary) ⇒ [<code>DateSummary</code>](#DateSummary)
-    * [.daySummary](#DriveAnalysis+daySummary) ⇒ [<code>DriveAnalysisDaySummary</code>](#DriveAnalysisDaySummary)
     * [.economyUnits](#DriveAnalysis+economyUnits) ⇒ <code>string</code>
 
 <a name="new_DriveAnalysis_new"></a>
@@ -841,13 +863,13 @@ e.g. miles/kWh
 | --- | --- |
 | info | [<code>DriveAnalysisJson</code>](#DriveAnalysisJson) | 
 
+<a name="DriveAnalysis+day"></a>
+
+### driveAnalysis.day : [<code>DriveAnalysisDaySummary</code>](#DriveAnalysisDaySummary)
+**Kind**: instance property of [<code>DriveAnalysis</code>](#DriveAnalysis)  
 <a name="DriveAnalysis+summary"></a>
 
 ### driveAnalysis.summary ⇒ [<code>DateSummary</code>](#DateSummary)
-**Kind**: instance property of [<code>DriveAnalysis</code>](#DriveAnalysis)  
-<a name="DriveAnalysis+daySummary"></a>
-
-### driveAnalysis.daySummary ⇒ [<code>DriveAnalysisDaySummary</code>](#DriveAnalysisDaySummary)
 **Kind**: instance property of [<code>DriveAnalysis</code>](#DriveAnalysis)  
 <a name="DriveAnalysis+economyUnits"></a>
 
@@ -863,6 +885,7 @@ e.g. miles/kWh
 * [DriveApi](#DriveApi)
     * [new DriveApi(api)](#new_DriveApi_new)
     * [.records](#DriveApi+records) : [<code>RecordApi</code>](#RecordApi)
+    * [.trip](#DriveApi+trip) : [<code>TripApi</code>](#TripApi)
     * [.getAnalysis(leaf, customerInfo)](#DriveApi+getAnalysis) ⇒ [<code>Promise.&lt;DriveAnalysis&gt;</code>](#DriveAnalysis)
     * [.getAnalysisDetail(leaf, customerInfo, date)](#DriveApi+getAnalysisDetail) ⇒ [<code>Promise.&lt;DriveAnalysisWeekSummary&gt;</code>](#DriveAnalysisWeekSummary)
 
@@ -877,6 +900,10 @@ e.g. miles/kWh
 <a name="DriveApi+records"></a>
 
 ### driveApi.records : [<code>RecordApi</code>](#RecordApi)
+**Kind**: instance property of [<code>DriveApi</code>](#DriveApi)  
+<a name="DriveApi+trip"></a>
+
+### driveApi.trip : [<code>TripApi</code>](#TripApi)
 **Kind**: instance property of [<code>DriveApi</code>](#DriveApi)  
 <a name="DriveApi+getAnalysis"></a>
 
@@ -898,18 +925,6 @@ e.g. miles/kWh
 | leaf | [<code>Leaf</code>](#Leaf) | 
 | customerInfo | [<code>CustomerInfo</code>](#CustomerInfo) | 
 | date | <code>moment.Moment</code> | 
-
-<a name="EnergyApi"></a>
-
-## EnergyApi
-**Kind**: global class  
-<a name="new_EnergyApi_new"></a>
-
-### new EnergyApi(api)
-
-| Param | Type |
-| --- | --- |
-| api | [<code>NissanConnectApi</code>](#NissanConnectApi) | 
 
 <a name="Calendar"></a>
 
@@ -995,7 +1010,7 @@ e.g. miles/kWh
 <a name="DrivingRecord+averageEconomy"></a>
 
 ### drivingRecordDay.averageEconomy ⇒ <code>Number</code>
-In units of [economyUnits](economyUnits)
+In units of [economyUnits](#DrivingRecord+economyUnits)
 
 **Kind**: instance property of [<code>DrivingRecordDay</code>](#DrivingRecordDay)  
 <a name="DrivingRecord+co2Saving"></a>
@@ -1063,7 +1078,7 @@ In kWh
 <a name="DrivingRecord+averageEconomy"></a>
 
 ### drivingRecordMonth.averageEconomy ⇒ <code>Number</code>
-In units of [economyUnits](economyUnits)
+In units of [economyUnits](#DrivingRecord+economyUnits)
 
 **Kind**: instance property of [<code>DrivingRecordMonth</code>](#DrivingRecordMonth)  
 <a name="DrivingRecord+co2Saving"></a>
@@ -1131,7 +1146,7 @@ In kWh
 <a name="DrivingRecord+averageEconomy"></a>
 
 ### drivingRecordYear.averageEconomy ⇒ <code>Number</code>
-In units of [economyUnits](economyUnits)
+In units of [economyUnits](#DrivingRecord+economyUnits)
 
 **Kind**: instance property of [<code>DrivingRecordYear</code>](#DrivingRecordYear)  
 <a name="DrivingRecord+co2Saving"></a>
@@ -1183,7 +1198,7 @@ In kWh
 <a name="DrivingRecord+averageEconomy"></a>
 
 ### drivingRecord.averageEconomy ⇒ <code>Number</code>
-In units of [economyUnits](economyUnits)
+In units of [economyUnits](#DrivingRecord+economyUnits)
 
 **Kind**: instance property of [<code>DrivingRecord</code>](#DrivingRecord)  
 <a name="DrivingRecord+economyUnits"></a>
@@ -1479,6 +1494,241 @@ Distance in kmEconomy in miles/kwh
 | date | <code>moment.Moment</code> | 
 | type | <code>string</code> | 
 
+<a name="TripApi"></a>
+
+## TripApi
+**Kind**: global class  
+
+* [TripApi](#TripApi)
+    * [new TripApi(api)](#new_TripApi_new)
+    * [.getMonthTripSummary(leaf, customerInfo, date)](#TripApi+getMonthTripSummary) ⇒ [<code>Promise.&lt;TripSummaryMonth&gt;</code>](#TripSummaryMonth)
+
+<a name="new_TripApi_new"></a>
+
+### new TripApi(api)
+
+| Param | Type |
+| --- | --- |
+| api | [<code>NissanConnectApi</code>](#NissanConnectApi) | 
+
+<a name="TripApi+getMonthTripSummary"></a>
+
+### tripApi.getMonthTripSummary(leaf, customerInfo, date) ⇒ [<code>Promise.&lt;TripSummaryMonth&gt;</code>](#TripSummaryMonth)
+**Kind**: instance method of [<code>TripApi</code>](#TripApi)  
+
+| Param | Type |
+| --- | --- |
+| leaf | [<code>Leaf</code>](#Leaf) | 
+| customerInfo | [<code>CustomerInfo</code>](#CustomerInfo) | 
+| date | <code>moment.Moment</code> | 
+
+<a name="TripSummaryDay"></a>
+
+## TripSummaryDay
+**Kind**: global class  
+
+* [TripSummaryDay](#TripSummaryDay)
+    * [new TripSummaryDay(info)](#new_TripSummaryDay_new)
+    * [.trips](#TripSummaryDay+trips) : [<code>Array.&lt;TripSummary&gt;</code>](#TripSummary)
+    * [.tripData](#TripSummaryDay+tripData) ⇒ [<code>Array.&lt;TripSummaryInfo&gt;</code>](#TripSummaryInfo)
+    * [.date](#TripSummaryDay+date) ⇒ <code>moment.Moment</code>
+
+<a name="new_TripSummaryDay_new"></a>
+
+### new TripSummaryDay(info)
+
+| Param | Type |
+| --- | --- |
+| info | [<code>TripSummaryDayDetail</code>](#TripSummaryDayDetail) | 
+
+<a name="TripSummaryDay+trips"></a>
+
+### tripSummaryDay.trips : [<code>Array.&lt;TripSummary&gt;</code>](#TripSummary)
+**Kind**: instance property of [<code>TripSummaryDay</code>](#TripSummaryDay)  
+<a name="TripSummaryDay+tripData"></a>
+
+### tripSummaryDay.tripData ⇒ [<code>Array.&lt;TripSummaryInfo&gt;</code>](#TripSummaryInfo)
+**Kind**: instance property of [<code>TripSummaryDay</code>](#TripSummaryDay)  
+<a name="TripSummaryDay+date"></a>
+
+### tripSummaryDay.date ⇒ <code>moment.Moment</code>
+**Kind**: instance property of [<code>TripSummaryDay</code>](#TripSummaryDay)  
+<a name="TripSummaryMonth"></a>
+
+## TripSummaryMonth
+**Kind**: global class  
+
+* [TripSummaryMonth](#TripSummaryMonth)
+    * [new TripSummaryMonth(info)](#new_TripSummaryMonth_new)
+    * [.total](#TripSummaryMonth+total) : [<code>TripSummaryTotal</code>](#TripSummaryTotal)
+    * [.days](#TripSummaryMonth+days) : [<code>Array.&lt;TripSummaryDay&gt;</code>](#TripSummaryDay)
+    * [.data](#TripSummaryMonth+data) ⇒ [<code>TripSummaryResponseData</code>](#TripSummaryResponseData)
+    * [.dayData](#TripSummaryMonth+dayData) ⇒ [<code>Array.&lt;TripSummaryDayDetail&gt;</code>](#TripSummaryDayDetail)
+    * [.date](#TripSummaryMonth+date) ⇒ <code>moment.Moment</code>
+    * [.economyUnits](#TripSummaryMonth+economyUnits) ⇒ <code>string</code>
+
+<a name="new_TripSummaryMonth_new"></a>
+
+### new TripSummaryMonth(info)
+
+| Param | Type |
+| --- | --- |
+| info | [<code>TripSummaryResponse</code>](#TripSummaryResponse) | 
+
+<a name="TripSummaryMonth+total"></a>
+
+### tripSummaryMonth.total : [<code>TripSummaryTotal</code>](#TripSummaryTotal)
+**Kind**: instance property of [<code>TripSummaryMonth</code>](#TripSummaryMonth)  
+<a name="TripSummaryMonth+days"></a>
+
+### tripSummaryMonth.days : [<code>Array.&lt;TripSummaryDay&gt;</code>](#TripSummaryDay)
+**Kind**: instance property of [<code>TripSummaryMonth</code>](#TripSummaryMonth)  
+<a name="TripSummaryMonth+data"></a>
+
+### tripSummaryMonth.data ⇒ [<code>TripSummaryResponseData</code>](#TripSummaryResponseData)
+**Kind**: instance property of [<code>TripSummaryMonth</code>](#TripSummaryMonth)  
+<a name="TripSummaryMonth+dayData"></a>
+
+### tripSummaryMonth.dayData ⇒ [<code>Array.&lt;TripSummaryDayDetail&gt;</code>](#TripSummaryDayDetail)
+**Kind**: instance property of [<code>TripSummaryMonth</code>](#TripSummaryMonth)  
+<a name="TripSummaryMonth+date"></a>
+
+### tripSummaryMonth.date ⇒ <code>moment.Moment</code>
+**Kind**: instance property of [<code>TripSummaryMonth</code>](#TripSummaryMonth)  
+<a name="TripSummaryMonth+economyUnits"></a>
+
+### tripSummaryMonth.economyUnits ⇒ <code>string</code>
+e.g. miles/kWh
+
+**Kind**: instance property of [<code>TripSummaryMonth</code>](#TripSummaryMonth)  
+<a name="TripSummaryTotal"></a>
+
+## TripSummaryTotal
+**Kind**: global class  
+
+* [TripSummaryTotal](#TripSummaryTotal)
+    * [new TripSummaryTotal(info)](#new_TripSummaryTotal_new)
+    * [.numberOfTrips](#TripSummaryTotal+numberOfTrips) ⇒ <code>Number</code>
+    * [.averageEconomy](#TripSummaryTotal+averageEconomy) ⇒ <code>Number</code>
+    * [.accelerationEnergy](#TripSummaryTotal+accelerationEnergy) ⇒ [<code>Energy</code>](#Energy)
+    * [.regen](#TripSummaryTotal+regen) ⇒ [<code>Energy</code>](#Energy)
+    * [.energyUsage](#TripSummaryTotal+energyUsage) ⇒ <code>Number</code>
+    * [.co2Saving](#TripSummaryTotal+co2Saving) ⇒ <code>number</code>
+    * [.travelDistance](#TripSummaryTotal+travelDistance) ⇒ <code>Number</code>
+
+<a name="new_TripSummaryTotal_new"></a>
+
+### new TripSummaryTotal(info)
+
+| Param | Type |
+| --- | --- |
+| info | [<code>TripSummaryTotalInfo</code>](#TripSummaryTotalInfo) | 
+
+<a name="TripSummaryTotal+numberOfTrips"></a>
+
+### tripSummaryTotal.numberOfTrips ⇒ <code>Number</code>
+**Kind**: instance property of [<code>TripSummaryTotal</code>](#TripSummaryTotal)  
+<a name="TripSummaryTotal+averageEconomy"></a>
+
+### tripSummaryTotal.averageEconomy ⇒ <code>Number</code>
+In units of [economyUnits](#TripSummaryMonth+economyUnits)
+
+**Kind**: instance property of [<code>TripSummaryTotal</code>](#TripSummaryTotal)  
+<a name="TripSummaryTotal+accelerationEnergy"></a>
+
+### tripSummaryTotal.accelerationEnergy ⇒ [<code>Energy</code>](#Energy)
+**Kind**: instance property of [<code>TripSummaryTotal</code>](#TripSummaryTotal)  
+<a name="TripSummaryTotal+regen"></a>
+
+### tripSummaryTotal.regen ⇒ [<code>Energy</code>](#Energy)
+**Kind**: instance property of [<code>TripSummaryTotal</code>](#TripSummaryTotal)  
+<a name="TripSummaryTotal+energyUsage"></a>
+
+### tripSummaryTotal.energyUsage ⇒ <code>Number</code>
+In kWh
+
+**Kind**: instance property of [<code>TripSummaryTotal</code>](#TripSummaryTotal)  
+<a name="TripSummaryTotal+co2Saving"></a>
+
+### tripSummaryTotal.co2Saving ⇒ <code>number</code>
+In kg
+
+**Kind**: instance property of [<code>TripSummaryTotal</code>](#TripSummaryTotal)  
+<a name="TripSummaryTotal+travelDistance"></a>
+
+### tripSummaryTotal.travelDistance ⇒ <code>Number</code>
+In metres
+
+**Kind**: instance property of [<code>TripSummaryTotal</code>](#TripSummaryTotal)  
+<a name="TripSummary"></a>
+
+## TripSummary
+**Kind**: global class  
+
+* [TripSummary](#TripSummary)
+    * [new TripSummary(info)](#new_TripSummary_new)
+    * [.number](#TripSummary+number) ⇒ <code>Number</code>
+    * [.averageEconomy](#TripSummary+averageEconomy) ⇒ <code>Number</code>
+    * [.accelerationEnergy](#TripSummary+accelerationEnergy) ⇒ [<code>Energy</code>](#Energy)
+    * [.regen](#TripSummary+regen) ⇒ [<code>Energy</code>](#Energy)
+    * [.energyUsage](#TripSummary+energyUsage) ⇒ <code>Number</code>
+    * [.co2Saving](#TripSummary+co2Saving) ⇒ <code>number</code>
+    * [.travelDistance](#TripSummary+travelDistance) ⇒ <code>Number</code>
+    * [.dateTime](#TripSummary+dateTime) ⇒ <code>moment.Moment</code>
+    * [.toString()](#TripSummary+toString) ⇒ <code>string</code>
+
+<a name="new_TripSummary_new"></a>
+
+### new TripSummary(info)
+
+| Param | Type |
+| --- | --- |
+| info | [<code>TripSummaryInfo</code>](#TripSummaryInfo) | 
+
+<a name="TripSummary+number"></a>
+
+### tripSummary.number ⇒ <code>Number</code>
+**Kind**: instance property of [<code>TripSummary</code>](#TripSummary)  
+<a name="TripSummary+averageEconomy"></a>
+
+### tripSummary.averageEconomy ⇒ <code>Number</code>
+In units of [economyUnits](#TripSummaryMonth+economyUnits)
+
+**Kind**: instance property of [<code>TripSummary</code>](#TripSummary)  
+<a name="TripSummary+accelerationEnergy"></a>
+
+### tripSummary.accelerationEnergy ⇒ [<code>Energy</code>](#Energy)
+**Kind**: instance property of [<code>TripSummary</code>](#TripSummary)  
+<a name="TripSummary+regen"></a>
+
+### tripSummary.regen ⇒ [<code>Energy</code>](#Energy)
+**Kind**: instance property of [<code>TripSummary</code>](#TripSummary)  
+<a name="TripSummary+energyUsage"></a>
+
+### tripSummary.energyUsage ⇒ <code>Number</code>
+In kWh
+
+**Kind**: instance property of [<code>TripSummary</code>](#TripSummary)  
+<a name="TripSummary+co2Saving"></a>
+
+### tripSummary.co2Saving ⇒ <code>number</code>
+In kg
+
+**Kind**: instance property of [<code>TripSummary</code>](#TripSummary)  
+<a name="TripSummary+travelDistance"></a>
+
+### tripSummary.travelDistance ⇒ <code>Number</code>
+In metres
+
+**Kind**: instance property of [<code>TripSummary</code>](#TripSummary)  
+<a name="TripSummary+dateTime"></a>
+
+### tripSummary.dateTime ⇒ <code>moment.Moment</code>
+**Kind**: instance property of [<code>TripSummary</code>](#TripSummary)  
+<a name="TripSummary+toString"></a>
+
+### tripSummary.toString() ⇒ <code>string</code>
+**Kind**: instance method of [<code>TripSummary</code>](#TripSummary)  
 <a name="NissanConnectApi"></a>
 
 ## NissanConnectApi
@@ -1628,6 +1878,7 @@ Wrapper for the [NissanConnectApi](#NissanConnectApi) to make it more user frien
 * [NissanConnect](#NissanConnect)
     * [new NissanConnect(username, password, [region])](#new_NissanConnect_new)
     * _instance_
+        * [.api](#NissanConnect+api) : [<code>NissanConnectApi</code>](#NissanConnectApi)
         * [.leaf](#NissanConnect+leaf) : [<code>Leaf</code>](#Leaf) \| <code>null</code>
         * [.customerInfo](#NissanConnect+customerInfo) : [<code>CustomerInfo</code>](#CustomerInfo) \| <code>null</code>
         * [.sessionId](#NissanConnect+sessionId) : <code>string</code> \| <code>null</code>
@@ -1656,7 +1907,9 @@ Wrapper for the [NissanConnectApi](#NissanConnectApi) to make it more user frien
         * [.getYearlyDistanceEconomy(date)](#NissanConnect+getYearlyDistanceEconomy) ⇒ [<code>Promise.&lt;DistanceEconomyDataPoints&gt;</code>](#DistanceEconomyDataPoints)
         * [.getYearlyDistanceTime(date)](#NissanConnect+getYearlyDistanceTime) ⇒ [<code>Promise.&lt;DistanceTimeDataPoints&gt;</code>](#DistanceTimeDataPoints)
         * [.getYearlyEnergyUsage(date)](#NissanConnect+getYearlyEnergyUsage) ⇒ [<code>Promise.&lt;GraphDataPoints&gt;</code>](#GraphDataPoints)
+        * [.getMonthTripSummary(date)](#NissanConnect+getMonthTripSummary) ⇒ [<code>Promise.&lt;TripSummaryMonth&gt;</code>](#TripSummaryMonth)
         * [.getVehicleInfo()](#NissanConnect+getVehicleInfo) ⇒ [<code>Promise.&lt;VehicleInfo&gt;</code>](#VehicleInfo)
+        * [.checkLogin()](#NissanConnect+checkLogin) ⇒ <code>Promise</code>
     * _static_
         * [.Region](#NissanConnect.Region) : <code>Object</code>
 
@@ -1670,6 +1923,10 @@ Wrapper for the [NissanConnectApi](#NissanConnectApi) to make it more user frien
 | password | <code>string</code> |  | 
 | [region] | <code>string</code> | <code>&quot;NE&quot;</code> | 
 
+<a name="NissanConnect+api"></a>
+
+### nissanConnect.api : [<code>NissanConnectApi</code>](#NissanConnectApi)
+**Kind**: instance property of [<code>NissanConnect</code>](#NissanConnect)  
 <a name="NissanConnect+leaf"></a>
 
 ### nissanConnect.leaf : [<code>Leaf</code>](#Leaf) \| <code>null</code>
@@ -1689,14 +1946,20 @@ Wrapper for the [NissanConnectApi](#NissanConnectApi) to make it more user frien
 <a name="NissanConnect+login"></a>
 
 ### nissanConnect.login() ⇒ <code>Promise.&lt;\*&gt;</code>
+Login and save the necessary information for future requests
+
 **Kind**: instance method of [<code>NissanConnect</code>](#NissanConnect)  
 <a name="NissanConnect+getBatteryStatus"></a>
 
 ### nissanConnect.getBatteryStatus() ⇒ [<code>Promise.&lt;BatteryStatusResponse&gt;</code>](#BatteryStatusResponse)
+Request the latest battery status from the car
+
 **Kind**: instance method of [<code>NissanConnect</code>](#NissanConnect)  
 <a name="NissanConnect+getLastBatteryStatus"></a>
 
 ### nissanConnect.getLastBatteryStatus() ⇒ [<code>Promise.&lt;BatteryStatusLast&gt;</code>](#BatteryStatusLast)
+Request the last know battery status
+
 **Kind**: instance method of [<code>NissanConnect</code>](#NissanConnect)  
 <a name="NissanConnect+acOn"></a>
 
@@ -1717,7 +1980,7 @@ Wrapper for the [NissanConnectApi](#NissanConnectApi) to make it more user frien
 
 | Param | Type |
 | --- | --- |
-| dateTime | <code>string</code> | 
+| dateTime | <code>string</code> \| <code>moment.Moment</code> | 
 
 <a name="NissanConnect+cancelAcSchedule"></a>
 
@@ -1734,7 +1997,7 @@ Wrapper for the [NissanConnectApi](#NissanConnectApi) to make it more user frien
 
 | Param | Type |
 | --- | --- |
-| date | <code>string</code> | 
+| date | <code>string</code> \| <code>moment.Moment</code> | 
 
 <a name="NissanConnect+getDriveRecordsToday"></a>
 
@@ -1747,7 +2010,7 @@ Wrapper for the [NissanConnectApi](#NissanConnectApi) to make it more user frien
 
 | Param | Type |
 | --- | --- |
-| date | <code>string</code> | 
+| date | <code>string</code> \| <code>moment.Moment</code> | 
 
 <a name="NissanConnect+getDriveRecordDays"></a>
 
@@ -1756,7 +2019,7 @@ Wrapper for the [NissanConnectApi](#NissanConnectApi) to make it more user frien
 
 | Param | Type |
 | --- | --- |
-| date | <code>string</code> | 
+| date | <code>string</code> \| <code>moment.Moment</code> | 
 
 <a name="NissanConnect+getDriveRecordsMonth"></a>
 
@@ -1765,7 +2028,7 @@ Wrapper for the [NissanConnectApi](#NissanConnectApi) to make it more user frien
 
 | Param | Type |
 | --- | --- |
-| date | <code>string</code> | 
+| date | <code>string</code> \| <code>moment.Moment</code> | 
 
 <a name="NissanConnect+getDriveRecordsYear"></a>
 
@@ -1774,7 +2037,7 @@ Wrapper for the [NissanConnectApi](#NissanConnectApi) to make it more user frien
 
 | Param | Type |
 | --- | --- |
-| date | <code>string</code> | 
+| date | <code>string</code> \| <code>moment.Moment</code> | 
 
 <a name="NissanConnect+addDriveRecordNote"></a>
 
@@ -1783,7 +2046,7 @@ Wrapper for the [NissanConnectApi](#NissanConnectApi) to make it more user frien
 
 | Param | Type |
 | --- | --- |
-| date | <code>string</code> | 
+| date | <code>string</code> \| <code>moment.Moment</code> | 
 | note | <code>string</code> | 
 
 <a name="NissanConnect+getMonthlyTrips"></a>
@@ -1793,7 +2056,7 @@ Wrapper for the [NissanConnectApi](#NissanConnectApi) to make it more user frien
 
 | Param | Type |
 | --- | --- |
-| date | <code>string</code> | 
+| date | <code>string</code> \| <code>moment.Moment</code> | 
 
 <a name="NissanConnect+getMonthlyDistanceEconomy"></a>
 
@@ -1802,7 +2065,7 @@ Wrapper for the [NissanConnectApi](#NissanConnectApi) to make it more user frien
 
 | Param | Type |
 | --- | --- |
-| date | <code>string</code> | 
+| date | <code>string</code> \| <code>moment.Moment</code> | 
 
 <a name="NissanConnect+getMonthlyDistanceTime"></a>
 
@@ -1811,7 +2074,7 @@ Wrapper for the [NissanConnectApi](#NissanConnectApi) to make it more user frien
 
 | Param | Type |
 | --- | --- |
-| date | <code>string</code> | 
+| date | <code>string</code> \| <code>moment.Moment</code> | 
 
 <a name="NissanConnect+getMonthlyEnergyUsage"></a>
 
@@ -1820,7 +2083,7 @@ Wrapper for the [NissanConnectApi](#NissanConnectApi) to make it more user frien
 
 | Param | Type |
 | --- | --- |
-| date | <code>string</code> | 
+| date | <code>string</code> \| <code>moment.Moment</code> | 
 
 <a name="NissanConnect+getYearlyTrips"></a>
 
@@ -1829,7 +2092,7 @@ Wrapper for the [NissanConnectApi](#NissanConnectApi) to make it more user frien
 
 | Param | Type |
 | --- | --- |
-| date | <code>string</code> | 
+| date | <code>string</code> \| <code>moment.Moment</code> | 
 
 <a name="NissanConnect+getYearlyDistanceEconomy"></a>
 
@@ -1838,7 +2101,7 @@ Wrapper for the [NissanConnectApi](#NissanConnectApi) to make it more user frien
 
 | Param | Type |
 | --- | --- |
-| date | <code>string</code> | 
+| date | <code>string</code> \| <code>moment.Moment</code> | 
 
 <a name="NissanConnect+getYearlyDistanceTime"></a>
 
@@ -1847,7 +2110,7 @@ Wrapper for the [NissanConnectApi](#NissanConnectApi) to make it more user frien
 
 | Param | Type |
 | --- | --- |
-| date | <code>string</code> | 
+| date | <code>string</code> \| <code>moment.Moment</code> | 
 
 <a name="NissanConnect+getYearlyEnergyUsage"></a>
 
@@ -1856,11 +2119,26 @@ Wrapper for the [NissanConnectApi](#NissanConnectApi) to make it more user frien
 
 | Param | Type |
 | --- | --- |
-| date | <code>string</code> | 
+| date | <code>string</code> \| <code>moment.Moment</code> | 
+
+<a name="NissanConnect+getMonthTripSummary"></a>
+
+### nissanConnect.getMonthTripSummary(date) ⇒ [<code>Promise.&lt;TripSummaryMonth&gt;</code>](#TripSummaryMonth)
+**Kind**: instance method of [<code>NissanConnect</code>](#NissanConnect)  
+
+| Param | Type |
+| --- | --- |
+| date | <code>string</code> \| <code>moment.Moment</code> | 
 
 <a name="NissanConnect+getVehicleInfo"></a>
 
 ### nissanConnect.getVehicleInfo() ⇒ [<code>Promise.&lt;VehicleInfo&gt;</code>](#VehicleInfo)
+**Kind**: instance method of [<code>NissanConnect</code>](#NissanConnect)  
+<a name="NissanConnect+checkLogin"></a>
+
+### nissanConnect.checkLogin() ⇒ <code>Promise</code>
+Check the login state and call login if necessary
+
 **Kind**: instance method of [<code>NissanConnect</code>](#NissanConnect)  
 <a name="NissanConnect.Region"></a>
 
@@ -2461,6 +2739,103 @@ in watt hours (Wh)
 | --- | --- | --- |
 | distance | [<code>GraphDataPoints</code>](#GraphDataPoints) | in km |
 | economy | [<code>GraphDataPoints</code>](#GraphDataPoints) | in miles/kwh |
+
+<a name="TripSummaryResponse"></a>
+
+## TripSummaryResponse : <code>object</code>
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| PriceSimulatorDetailInfoResponsePersonalData | [<code>TripSummaryResponseData</code>](#TripSummaryResponseData) | 
+
+<a name="TripSummaryResponseData"></a>
+
+## TripSummaryResponseData : <code>object</code>
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| TargetMonth | <code>string</code> | 
+| TotalPowerConsumptTotal | <code>string</code> | 
+| TotalPowerConsumptMoter | <code>string</code> | 
+| TotalPowerConsumptMinus | <code>string</code> | 
+| ElectricPrice | <code>string</code> | 
+| ElectricBill | <code>string</code> | 
+| ElectricCostScale | <code>string</code> | 
+| MainRateFlg | <code>string</code> | 
+| ExistFlg | <code>string</code> | 
+| PriceSimulatorDetailInfoDateList | [<code>TripSummaryDetailData</code>](#TripSummaryDetailData) | 
+| PriceSimulatorTotalInfo | [<code>TripSummaryTotalInfo</code>](#TripSummaryTotalInfo) | 
+| DisplayMonth | <code>string</code> | 
+
+<a name="TripSummaryDetailData"></a>
+
+## TripSummaryDetailData : <code>object</code>
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| PriceSimulatorDetailInfoDate | [<code>Array.&lt;TripSummaryDayDetail&gt;</code>](#TripSummaryDayDetail) | 
+
+<a name="TripSummaryDayDetail"></a>
+
+## TripSummaryDayDetail : <code>object</code>
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| TargetDate | <code>string</code> | 
+| DisplayDate | <code>string</code> | 
+| PriceSimulatorDetailInfoTripList | [<code>TripSummaryDayDetailList</code>](#TripSummaryDayDetailList) | 
+
+<a name="TripSummaryDayDetailList"></a>
+
+## TripSummaryDayDetailList : <code>object</code>
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| PriceSimulatorDetailInfoTrip | [<code>Array.&lt;TripSummaryInfo&gt;</code>](#TripSummaryInfo) | 
+
+<a name="TripSummaryInfo"></a>
+
+## TripSummaryInfo : <code>object</code>
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| TripId | <code>string</code> | 
+| PowerConsumptTotal | <code>string</code> | 
+| PowerConsumptMoter | <code>string</code> | 
+| PowerConsumptMinus | <code>string</code> | 
+| TravelDistance | <code>string</code> | 
+| ElectricMileage | <code>string</code> | 
+| CO2Reduction | <code>string</code> | 
+| MapDisplayFlg | <code>string</code> | 
+| GpsDatetime | <code>string</code> | 
+
+<a name="TripSummaryTotalInfo"></a>
+
+## TripSummaryTotalInfo : <code>object</code>
+**Kind**: global typedef  
+**Properties**
+
+| Name | Type |
+| --- | --- |
+| TotalNumberOfTrips | <code>string</code> | 
+| TotalPowerConsumptTotal | <code>string</code> | 
+| TotalPowerConsumptMoter | <code>string</code> | 
+| TotalPowerConsumptMinus | <code>string</code> | 
+| TotalTravelDistance | <code>string</code> | 
+| TotalElectricMileage | <code>string</code> | 
+| TotalCO2Reductiont | <code>string</code> | 
 
 <a name="VehicleInfoResponse"></a>
 
