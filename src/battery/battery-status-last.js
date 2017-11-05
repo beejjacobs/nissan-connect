@@ -1,3 +1,4 @@
+const moment = require('moment');
 /**
  * @typedef {object} HoursMinutesFull
  * @property {string} HourRequiredToFull
@@ -88,33 +89,33 @@ class BatteryStatusLast {
   }
 
   /**
-   * @returns {HoursMinutes}
+   * @returns {moment.Duration}
    */
   get timeToFull() {
-    return {
+    return moment.duration({
       hours: this.data.TimeRequiredToFull.HourRequiredToFull,
       minutes: this.data.TimeRequiredToFull.MinutesRequiredToFull
-    };
+    });
   }
 
   /**
-   * @returns {HoursMinutes}
+   * @returns {moment.Duration}
    */
   get timeToFull3kW() {
-    return {
+    return moment.duration({
       hours: this.data.TimeRequiredToFull200.HourRequiredToFull,
       minutes: this.data.TimeRequiredToFull200.MinutesRequiredToFull
-    };
+    });
   }
 
   /**
-   * @returns {HoursMinutes}
+   * @returns {moment.Duration}
    */
   get timeToFull6kW() {
-    return {
+    return moment.duration({
       hours: this.data.TimeRequiredToFull200_6kW.HourRequiredToFull,
       minutes: this.data.TimeRequiredToFull200_6kW.MinutesRequiredToFull
-    };
+    });
   }
 }
 

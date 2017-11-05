@@ -1,3 +1,4 @@
+const moment = require('moment');
 /**
  *
  */
@@ -91,24 +92,33 @@ class BatteryStatus {
   }
 
   /**
-   * @returns {HoursMinutes}
+   * @returns {moment.Duration}
    */
   get timeToFull() {
-    return this.info.timeRequiredToFull;
+    return moment.duration({
+      hours: this.info.timeRequiredToFull.hours,
+      minutes: this.info.timeRequiredToFull.minutes
+    });
   }
 
   /**
-   * @returns {HoursMinutes}
+   * @returns {moment.Duration}
    */
   get timeToFull3kW() {
-    return this.info.timeRequiredToFull;
+    return moment.duration({
+      hours: this.info.timeRequiredToFull200.hours,
+      minutes: this.info.timeRequiredToFull200.minutes
+    });
   }
 
   /**
-   * @returns {HoursMinutes}
+   * @returns {moment.Duration}
    */
   get timeToFull6kW() {
-    return this.info.timeRequiredToFull200_6kW;
+    return moment.duration({
+      hours: this.info.timeRequiredToFull200_6kW.hours,
+      minutes: this.info.timeRequiredToFull200_6kW.minutes
+    });
   }
 
 }
