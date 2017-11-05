@@ -29,5 +29,6 @@
   },
   "engines": {
     "node": ">=8.7.0"
-  }
+  },
+  "keywords": ["nissan", "connect", "carwings", "leaf", "ev"]
 }
