@@ -2,9 +2,9 @@
 
 A Node js library for interacting with the Nissan Connect (Carwings) API. This provides a wrapper around the API to make it cleaner to use.
 
-##Example Usage
+## Example Usage
 NissanConnect is promise based. Generated docs can be found [here](https://github.com/beejjacobs/nissan-connect/tree/master/docs#NissanConnect).
-```
+```javascript
  const NissanConnect =  require('nissan-connect');
  
  let nc = new NissanConnect('username','password');
