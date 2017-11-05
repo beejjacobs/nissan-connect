@@ -61,7 +61,7 @@ class BatteryApi {
    * @returns {Promise.<BatteryStatusLast>}
    */
   async getStatusRecord(leaf, customerInfo) {
-    this.api.log('batter status record');
+    this.api.log('battery status record');
     return this.api.request(Config.endPoints.batteryStatusRecords, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,

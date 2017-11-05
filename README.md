@@ -30,7 +30,7 @@ NissanConnect is promise based. Generated docs can be found [here](https://githu
    let drivingAnalysis = await nc.getDrivingAnalysisWeek('2017-11-01');
    
    console.log(drivingAnalysis.startDate);
-   drivingAnalysis.daySummaries.forEach(daySummary => {
+   drivingAnalysis.days.forEach(daySummary => {
      console.log(daySummary.targetDate);
      if (daySummary.hasData) {
       console.log(daySummary.averageEconomy);

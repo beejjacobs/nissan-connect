@@ -38,6 +38,7 @@ class NissanConnect {
   }
 
   /**
+   * Login and save the necessary information for future requests
    * @returns {Promise.<*>}
    */
   async login() {
@@ -52,6 +53,7 @@ class NissanConnect {
   }
 
   /**
+   * Request the latest battery status from the car
    * @returns {Promise.<BatteryStatusResponse>}
    */
   async getBatteryStatus() {
@@ -69,6 +71,7 @@ class NissanConnect {
   }
 
   /**
+   * Request the last know battery status
    * @returns {Promise.<BatteryStatusLast>}
    */
   async getLastBatteryStatus() {
@@ -119,7 +122,7 @@ class NissanConnect {
   }
 
   /**
-   * @param {string} dateTime
+   * @param {string|moment.Moment} dateTime
    * @returns {Promise.<AcSchedule>}
    */
   async setAcSchedule(dateTime) {
@@ -145,7 +148,7 @@ class NissanConnect {
 
   /**
    *
-   * @param {string} date
+   * @param {string|moment.Moment} date
    * @returns {Promise.<DriveAnalysisWeekSummary>}
    */
   async getDrivingAnalysisWeek(date) {
@@ -162,7 +165,7 @@ class NissanConnect {
   }
 
   /**
-   * @param {string} date
+   * @param {string|moment.Moment} date
    * @return {Promise.<DrivingRecordMonth>}
    */
   async getDriveRecords(date) {
@@ -171,7 +174,7 @@ class NissanConnect {
   }
 
   /**
-   * @param {string} date
+   * @param {string|moment.Moment} date
    * @return {Promise.<Calendar>}
    */
   async getDriveRecordDays(date) {
@@ -180,7 +183,7 @@ class NissanConnect {
   }
 
   /**
-   * @param {string} date
+   * @param {string|moment.Moment} date
    * @return {Promise.<DrivingRecordMonth>}
    */
   async getDriveRecordsMonth(date) {
@@ -189,7 +192,7 @@ class NissanConnect {
   }
 
   /**
-   * @param {string} date
+   * @param {string|moment.Moment} date
    * @return {Promise.<DrivingRecordYear>}
    */
   async getDriveRecordsYear(date) {
@@ -198,7 +201,7 @@ class NissanConnect {
   }
 
   /**
-   * @param {string} date
+   * @param {string|moment.Moment} date
    * @param {string} note
    * @return {Promise}
    */
@@ -209,7 +212,7 @@ class NissanConnect {
 
 
   /**
-   * @param {string} date
+   * @param {string|moment.Moment} date
    * @return {Promise.<GraphDataPoints>}
    */
   async getMonthlyTrips(date) {
@@ -219,7 +222,7 @@ class NissanConnect {
 
   /**
    *
-   * @param {string} date
+   * @param {string|moment.Moment} date
    * @return {Promise.<DistanceEconomyDataPoints>}
    */
   async getMonthlyDistanceEconomy(date) {
@@ -229,7 +232,7 @@ class NissanConnect {
 
   /**
    *
-   * @param {string} date
+   * @param {string|moment.Moment} date
    * @return {Promise.<DistanceTimeDataPoints>}
    */
   async getMonthlyDistanceTime(date) {
@@ -239,7 +242,7 @@ class NissanConnect {
 
   /**
    *
-   * @param {string} date
+   * @param {string|moment.Moment} date
    * @return {Promise.<GraphDataPoints>}
    */
   async getMonthlyEnergyUsage(date) {
@@ -248,7 +251,7 @@ class NissanConnect {
   }
 
   /**
-   * @param {string} date
+   * @param {string|moment.Moment} date
    * @return {Promise.<GraphDataPoints>}
    */
   async getYearlyTrips(date) {
@@ -257,7 +260,7 @@ class NissanConnect {
   }
 
   /**
-   * @param {string} date
+   * @param {string|moment.Moment} date
    * @return {Promise.<DistanceEconomyDataPoints>}
    */
   async getYearlyDistanceEconomy(date) {
@@ -266,7 +269,7 @@ class NissanConnect {
   }
 
   /**
-   * @param {string} date
+   * @param {string|moment.Moment} date
    * @return {Promise.<DistanceTimeDataPoints>}
    */
   async getYearlyDistanceTime(date) {
@@ -275,7 +278,7 @@ class NissanConnect {
   }
 
   /**
-   * @param {string} date
+   * @param {string|moment.Moment} date
    * @return {Promise.<GraphDataPoints>}
    */
   async getYearlyEnergyUsage(date) {
@@ -284,7 +287,7 @@ class NissanConnect {
   }
 
   /**
-   * @param {string} date
+   * @param {string|moment.Moment} date
    * @return {Promise.<TripSummaryMonth>}
    */
   async getMonthTripSummary(date) {
@@ -300,6 +303,10 @@ class NissanConnect {
     return this.api.getVehicleInfo(this.leaf, this.customerInfo);
   }
 
+  /**
+   * Check the login state and call login if necessary
+   * @return {Promise}
+   */
   async checkLogin() {
     NissanConnect.log('checkLogin loggedIn = ' + this.loggedIn);
     if (this.loggedIn) {

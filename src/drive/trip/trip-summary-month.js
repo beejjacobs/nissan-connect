@@ -61,7 +61,7 @@ const TripSummaryTotal = require('./trip-summary-total');
  * @property {string} TotalPowerConsumptMinus
  * @property {string} TotalTravelDistance
  * @property {string} TotalElectricMileage
- * @property {string} TotalCO2Reduction
+ * @property {string} TotalCO2Reductiont
  */
 
 /**
