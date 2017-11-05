@@ -28,12 +28,14 @@ class DriveAnalysisWeekSummary {
   constructor(info) {
     this.info = info;
 
-    this.days = [];
+    let yearMonth = this.data.RequestTargetDate.substr(0, this.data.RequestTargetDate.length - 2);
 
-    this.yearMonth = this.data.RequestTargetDate.substr(0, this.data.RequestTargetDate.length - 2);
-
-    this.dateSummaries.forEach(summary => {
-      summary.TargetDate = this.yearMonth + summary.TargetDate;
+    /**
+     * First day is Sunday
+     * @type {DriveAnalysisDaySummary[]}
+     */
+    this.days = this.dateSummaries.map(summary => {
+      summary.TargetDate = yearMonth + summary.TargetDate;
       this.days.push(new DriveAnalysisDaySummary(summary));
     });
   }
@@ -50,14 +52,6 @@ class DriveAnalysisWeekSummary {
    */
   get dateSummaries() {
     return this.data.DateSummaryList.DateSummary;
-  }
-
-  /**
-   * First day is Sunday
-   * @returns {DriveAnalysisDaySummary[]}
-   */
-  get daySummaries() {
-    return this.days;
   }
 
   /**

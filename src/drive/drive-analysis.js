@@ -30,6 +30,9 @@ class DriveAnalysis {
   constructor(info) {
     this.info = info;
 
+    /**
+     * @type {DriveAnalysisDaySummary}
+     */
     this.day = new DriveAnalysisDaySummary(this.summary);
   }
 
@@ -38,13 +41,6 @@ class DriveAnalysis {
    */
   get summary() {
     return this.info.DriveAnalysisBasicScreenResponsePersonalData.DateSummary;
-  }
-
-  /**
-   * @returns {DriveAnalysisDaySummary}
-   */
-  get daySummary() {
-    return this.day;
   }
 
   /**
