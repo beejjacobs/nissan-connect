@@ -73,6 +73,22 @@ class BatteryApi {
   }
 
   /**
+   * @param {Leaf} leaf
+   * @param {CustomerInfo} customerInfo
+   * @return {Promise}
+   */
+  async startCharging(leaf, customerInfo) {
+    this.api.log('start charging');
+    return this.api.request(Config.endPoints.batteryRemoteCharging, {
+      lg: customerInfo.language,
+      DCMID: leaf.dmcId,
+      VIN: leaf.vin,
+      tz: customerInfo.timezone,
+      custom_sessionid: leaf.sessionId
+    });
+  }
+
+  /**
    * Returned error code 400
    * @deprecated
    * @param {Leaf} leaf

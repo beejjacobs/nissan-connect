@@ -80,6 +80,14 @@ class NissanConnect {
   }
 
   /**
+   * @return {Promise}
+   */
+  async startCharging() {
+    await this.checkLogin();
+    return this.api.battery.startCharging(this.leaf, this.customerInfo);
+  }
+
+  /**
    * @returns {Promise.<AcOn>}
    */
   async acOn() {
