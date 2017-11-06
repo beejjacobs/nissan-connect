@@ -431,6 +431,7 @@ This works the same as [setSchedule](setSchedule).
     * [.requestStatus(leaf, customerInfo)](#BatteryApi+requestStatus) ⇒ <code>Promise.&lt;string&gt;</code>
     * [.requestStatusResult(leaf, customerInfo, resultKey)](#BatteryApi+requestStatusResult) ⇒ <code>Promise.&lt;(BatteryStatusResponse\|null)&gt;</code>
     * [.getStatusRecord(leaf, customerInfo)](#BatteryApi+getStatusRecord) ⇒ [<code>Promise.&lt;BatteryStatusLast&gt;</code>](#BatteryStatusLast)
+    * [.startCharging(leaf, customerInfo)](#BatteryApi+startCharging) ⇒ <code>Promise</code>
     * ~~[.getChargingCompletion(leaf, customerInfo)](#BatteryApi+getChargingCompletion) ⇒ <code>Promise.&lt;\*&gt;</code>~~
 
 <a name="new_BatteryApi_new"></a>
@@ -465,6 +466,16 @@ This works the same as [setSchedule](setSchedule).
 <a name="BatteryApi+getStatusRecord"></a>
 
 ### batteryApi.getStatusRecord(leaf, customerInfo) ⇒ [<code>Promise.&lt;BatteryStatusLast&gt;</code>](#BatteryStatusLast)
+**Kind**: instance method of [<code>BatteryApi</code>](#BatteryApi)  
+
+| Param | Type |
+| --- | --- |
+| leaf | [<code>Leaf</code>](#Leaf) | 
+| customerInfo | [<code>CustomerInfo</code>](#CustomerInfo) | 
+
+<a name="BatteryApi+startCharging"></a>
+
+### batteryApi.startCharging(leaf, customerInfo) ⇒ <code>Promise</code>
 **Kind**: instance method of [<code>BatteryApi</code>](#BatteryApi)  
 
 | Param | Type |
@@ -1886,6 +1897,7 @@ Wrapper for the [NissanConnectApi](#NissanConnectApi) to make it more user frien
         * [.login()](#NissanConnect+login) ⇒ <code>Promise.&lt;\*&gt;</code>
         * [.getBatteryStatus()](#NissanConnect+getBatteryStatus) ⇒ [<code>Promise.&lt;BatteryStatusResponse&gt;</code>](#BatteryStatusResponse)
         * [.getLastBatteryStatus()](#NissanConnect+getLastBatteryStatus) ⇒ [<code>Promise.&lt;BatteryStatusLast&gt;</code>](#BatteryStatusLast)
+        * [.startCharging()](#NissanConnect+startCharging) ⇒ <code>Promise</code>
         * [.acOn()](#NissanConnect+acOn) ⇒ [<code>Promise.&lt;AcOn&gt;</code>](#AcOn)
         * [.acOff()](#NissanConnect+acOff) ⇒ [<code>Promise.&lt;AcOff&gt;</code>](#AcOff)
         * [.getAcSchedule()](#NissanConnect+getAcSchedule) ⇒ [<code>Promise.&lt;AcSchedule&gt;</code>](#AcSchedule)
@@ -1960,6 +1972,10 @@ Request the latest battery status from the car
 ### nissanConnect.getLastBatteryStatus() ⇒ [<code>Promise.&lt;BatteryStatusLast&gt;</code>](#BatteryStatusLast)
 Request the last know battery status
 
+**Kind**: instance method of [<code>NissanConnect</code>](#NissanConnect)  
+<a name="NissanConnect+startCharging"></a>
+
+### nissanConnect.startCharging() ⇒ <code>Promise</code>
 **Kind**: instance method of [<code>NissanConnect</code>](#NissanConnect)  
 <a name="NissanConnect+acOn"></a>
 
