@@ -36,7 +36,7 @@ class DriveAnalysisWeekSummary {
      */
     this.days = this.dateSummaries.map(summary => {
       summary.TargetDate = yearMonth + summary.TargetDate;
-      this.days.push(new DriveAnalysisDaySummary(summary));
+      return new DriveAnalysisDaySummary(summary);
     });
   }
 
