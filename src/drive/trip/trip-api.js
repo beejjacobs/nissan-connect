@@ -15,10 +15,10 @@ class TripApi {
   /**
    * @param {Leaf} leaf
    * @param {CustomerInfo} customerInfo
-   * @param {moment.Moment} date
+   * @param {moment.Moment} month
    * @return {Promise.<TripSummaryMonth>}
    */
-  getMonthTripSummary(leaf, customerInfo, date) {
+  getMonthTripSummary(leaf, customerInfo, month) {
     this.api.log('get trip summary');
     return this.api.request(Config.endPoints.priceSimulator, {
       lg: customerInfo.language,
@@ -26,7 +26,7 @@ class TripApi {
       VIN: leaf.vin,
       tz: customerInfo.timezone,
       custom_sessionid: leaf.sessionId,
-      TargetMonth: date.format('YYYYMM')
+      TargetMonth: month.format('YYYYMM')
     })
         .then(res => new TripSummaryMonth(res));
   }

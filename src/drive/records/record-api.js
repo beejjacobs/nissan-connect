@@ -35,10 +35,10 @@ class RecordApi {
   /**
    * @param {Leaf} leaf
    * @param {CustomerInfo} customerInfo
-   * @param {moment.Moment} date
+   * @param {moment.Moment} month
    * @return {Promise.<Calendar>}
    */
-  getAvailableDays(leaf, customerInfo, date) {
+  getAvailableDays(leaf, customerInfo, month) {
     this.api.log('get available days');
     return this.api.request(Config.endPoints.carMapDetailCalender, {
       lg: customerInfo.language,
@@ -46,7 +46,7 @@ class RecordApi {
       VIN: leaf.vin,
       tz: customerInfo.timezone,
       custom_sessionid: leaf.sessionId,
-      TargetMonth: date.format('YYYYMM')
+      TargetMonth: month.format('YYYYMM')
     })
         .then(res => new Calendar(res));
   }
@@ -74,10 +74,10 @@ class RecordApi {
   /**
    * @param {Leaf} leaf
    * @param {CustomerInfo} customerInfo
-   * @param {moment.Moment} date
+   * @param {moment.Moment} month
    * @return {Promise.<DrivingRecordMonth>}
    */
-  graphInfoMonth(leaf, customerInfo, date) {
+  graphInfoMonth(leaf, customerInfo, month) {
     this.api.log('graph info month');
     return this.api.request(Config.endPoints.carMapGraphInfo, {
       lg: customerInfo.language,
@@ -85,7 +85,7 @@ class RecordApi {
       VIN: leaf.vin,
       tz: customerInfo.timezone,
       custom_sessionid: leaf.sessionId,
-      TargetMonth: date.format('YYYYMM'),
+      TargetMonth: month.format('YYYYMM'),
       DateRangeLevel: 'DAILY'
     })
         .then(res => new DrivingRecordMonth(res));
@@ -94,10 +94,10 @@ class RecordApi {
   /**
    * @param {Leaf} leaf
    * @param {CustomerInfo} customerInfo
-   * @param {moment.Moment} date
+   * @param {moment.Moment} year
    * @return {Promise.<DrivingRecordYear>}
    */
-  graphInfoYear(leaf, customerInfo, date) {
+  graphInfoYear(leaf, customerInfo, year) {
     this.api.log('graph info year');
     return this.api.request(Config.endPoints.carMapGraphInfo, {
       lg: customerInfo.language,
@@ -105,7 +105,7 @@ class RecordApi {
       VIN: leaf.vin,
       tz: customerInfo.timezone,
       custom_sessionid: leaf.sessionId,
-      TargetYear: date.format('YYYY'),
+      TargetYear: year.format('YYYY'),
       DateRangeLevel: 'MONTHLY'
     })
         .then(res => new DrivingRecordYear(res));
@@ -114,55 +114,55 @@ class RecordApi {
   /**
    * @param {Leaf} leaf
    * @param {CustomerInfo} customerInfo
-   * @param {moment.Moment} date
+   * @param {moment.Moment} month
    * @return {Promise.<GraphDataPoints>}
    */
-  graphMonthTrips(leaf, customerInfo, date) {
-    return this.graphMonth(leaf, customerInfo, date, 'CARKARTE_DAILY_TRIPS')
+  graphMonthTrips(leaf, customerInfo, month) {
+    return this.graphMonth(leaf, customerInfo, month, 'CARKARTE_DAILY_TRIPS')
         .then(res => GraphResponse.singleSet(res));
   }
 
   /**
    * @param {Leaf} leaf
    * @param {CustomerInfo} customerInfo
-   * @param {moment.Moment} date
+   * @param {moment.Moment} month
    * @return {Promise.<DistanceTimeDataPoints>}
    */
-  graphMonthDistanceTime(leaf, customerInfo, date) {
-    return this.graphMonth(leaf, customerInfo, date, 'CARKARTE_DAILY_DISTTIME')
+  graphMonthDistanceTime(leaf, customerInfo, month) {
+    return this.graphMonth(leaf, customerInfo, month, 'CARKARTE_DAILY_DISTTIME')
         .then(res => GraphResponse.distanceTime(res));
   }
 
   /**
    * @param {Leaf} leaf
    * @param {CustomerInfo} customerInfo
-   * @param {moment.Moment} date
+   * @param {moment.Moment} month
    * @return {Promise.<GraphDataPoints>}
    */
-  graphMonthEnergyUsage(leaf, customerInfo, date) {
-    return this.graphMonth(leaf, customerInfo, date, 'CARKARTE_DAILY_CONSUME')
+  graphMonthEnergyUsage(leaf, customerInfo, month) {
+    return this.graphMonth(leaf, customerInfo, month, 'CARKARTE_DAILY_CONSUME')
         .then(res => GraphResponse.singleSet(res));
   }
 
   /**
    * @param {Leaf} leaf
    * @param {CustomerInfo} customerInfo
-   * @param {moment.Moment} date
+   * @param {moment.Moment} month
    * @return {Promise.<DistanceEconomyDataPoints>}
    */
-  graphMonthDistanceEconomy(leaf, customerInfo, date) {
-    return this.graphMonth(leaf, customerInfo, date, 'CARKARTE_DAILY_DISTMILEAGE')
+  graphMonthDistanceEconomy(leaf, customerInfo, month) {
+    return this.graphMonth(leaf, customerInfo, month, 'CARKARTE_DAILY_DISTMILEAGE')
         .then(res => GraphResponse.distanceEconomy(res));
   }
 
   /**
    * @param {Leaf} leaf
    * @param {CustomerInfo} customerInfo
-   * @param {moment.Moment} date
+   * @param {moment.Moment} month
    * @param {string} type
    * @return {Promise.<BaseGraphResponse>}
    */
-  graphMonth(leaf, customerInfo, date, type) {
+  graphMonth(leaf, customerInfo, month, type) {
     this.api.log('graph month ' + type);
     return this.api.requestHtml(Config.endPoints.carMapGraph, {
       lg: customerInfo.language,
@@ -171,7 +171,7 @@ class RecordApi {
       VIN: leaf.vin,
       tz: customerInfo.timezone,
       custom_sessionid: leaf.sessionId,
-      TargetMonth: date.format('YYYYMM'),
+      TargetMonth: month.format('YYYYMM'),
       GraphType: type
     })
         .then(res => GraphResponse.parse(res));
@@ -180,11 +180,11 @@ class RecordApi {
   /**
    * @param {Leaf} leaf
    * @param {CustomerInfo} customerInfo
-   * @param {moment.Moment} date
+   * @param {moment.Moment} year
    * @return {Promise.<GraphDataPoints>}
    */
-  graphYearTrips(leaf, customerInfo, date) {
-    return this.graphYear(leaf, customerInfo, date, 'CARKARTE_MONTHLY_TRIPS')
+  graphYearTrips(leaf, customerInfo, year) {
+    return this.graphYear(leaf, customerInfo, year, 'CARKARTE_MONTHLY_TRIPS')
         .then(res => GraphResponse.singleSet(res));
   }
 
@@ -193,11 +193,11 @@ class RecordApi {
    * Time in hours
    * @param {Leaf} leaf
    * @param {CustomerInfo} customerInfo
-   * @param {moment.Moment} date
+   * @param {moment.Moment} year
    * @return {Promise.<DistanceTimeDataPoints>}
    */
-  graphYearDistanceTime(leaf, customerInfo, date) {
-    return this.graphYear(leaf, customerInfo, date, 'CARKARTE_MONTHLY_DISTTIME')
+  graphYearDistanceTime(leaf, customerInfo, year) {
+    return this.graphYear(leaf, customerInfo, year, 'CARKARTE_MONTHLY_DISTTIME')
         .then(res => GraphResponse.distanceTime(res));
   }
 
@@ -205,11 +205,11 @@ class RecordApi {
    * Energy usage in kwh
    * @param {Leaf} leaf
    * @param {CustomerInfo} customerInfo
-   * @param {moment.Moment} date
+   * @param {moment.Moment} year
    * @return {Promise.<GraphDataPoints>}
    */
-  graphYearEnergyUsage(leaf, customerInfo, date) {
-    return this.graphYear(leaf, customerInfo, date, 'CARKARTE_MONTHLY_CONSUME')
+  graphYearEnergyUsage(leaf, customerInfo, year) {
+    return this.graphYear(leaf, customerInfo, year, 'CARKARTE_MONTHLY_CONSUME')
         .then(res => GraphResponse.singleSet(res));
   }
 
@@ -218,22 +218,22 @@ class RecordApi {
    * Economy in miles/kwh
    * @param {Leaf} leaf
    * @param {CustomerInfo} customerInfo
-   * @param {moment.Moment} date
+   * @param {moment.Moment} year
    * @return {Promise.<DistanceEconomyDataPoints>}
    */
-  graphYearDistanceEconomy(leaf, customerInfo, date) {
-    return this.graphYear(leaf, customerInfo, date, 'CARKARTE_MONTHLY_DISTMILEAGE')
+  graphYearDistanceEconomy(leaf, customerInfo, year) {
+    return this.graphYear(leaf, customerInfo, year, 'CARKARTE_MONTHLY_DISTMILEAGE')
         .then(res => GraphResponse.distanceEconomy(res));
   }
 
   /**
    * @param {Leaf} leaf
    * @param {CustomerInfo} customerInfo
-   * @param {moment.Moment} date
+   * @param {moment.Moment} year
    * @param {string} type
    * @return {Promise.<BaseGraphResponse>}
    */
-  graphYear(leaf, customerInfo, date, type) {
+  graphYear(leaf, customerInfo, year, type) {
     this.api.log('graph year ' + type);
     return this.api.requestHtml(Config.endPoints.carMapGraph, {
       lg: customerInfo.language,
@@ -242,7 +242,7 @@ class RecordApi {
       VIN: leaf.vin,
       tz: customerInfo.timezone,
       custom_sessionid: leaf.sessionId,
-      TargetYear: date.format('YYYY'),
+      TargetYear: year.format('YYYY'),
       GraphType: type
     })
         .then(res => GraphResponse.parse(res));
