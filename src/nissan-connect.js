@@ -1,4 +1,6 @@
 const moment = require('moment');
+
+const Logger = require('./logger');
 const Api = require('./nissan-connect-api');
 
 /**
@@ -18,6 +20,8 @@ class NissanConnect {
     this.api = new Api(region);
     this.username = username;
     this.password = password;
+
+    this.logger = new Logger(this.constructor.name);
     /**
      * @type {Leaf|null}
      */
@@ -44,7 +48,7 @@ class NissanConnect {
   async login() {
     this.loggingIn = true;
     let res = await this.api.login(this.username, this.password);
-    NissanConnect.log('logged in');
+    this.logger.log('logged in');
     this.leaf = res.leaf;
     this.customerInfo = res.customerInfo;
     this.sessionId = res.sessionId;
@@ -61,7 +65,7 @@ class NissanConnect {
     const key = await this.api.battery.requestStatus(this.leaf, this.customerInfo);
     let updateInfo = await this.api.battery.requestStatusResult(this.leaf, this.customerInfo, key);
     while (updateInfo === null) {
-      NissanConnect.log('retrying requestBatteryStatusResult');
+      this.logger.log('retrying requestBatteryStatusResult');
       [updateInfo] = await Promise.all([
         this.api.battery.requestStatusResult(this.leaf, this.customerInfo, key),
         NissanConnect.timeout(5000) //wait 5 seconds before continuing
@@ -95,7 +99,7 @@ class NissanConnect {
     const key = await this.api.ac.requestOn(this.leaf, this.customerInfo);
     let updateInfo = await this.api.ac.requestOnResult(this.leaf, this.customerInfo, key);
     while (updateInfo === null) {
-      NissanConnect.log('retrying ac requestResult');
+      this.logger.log('retrying ac requestResult');
       [updateInfo] = await Promise.all([
         this.api.ac.requestOnResult(this.leaf, this.customerInfo, key),
         NissanConnect.timeout(5000) //wait 5 seconds before continuing
@@ -112,7 +116,7 @@ class NissanConnect {
     const key = await this.api.ac.requestOff(this.leaf, this.customerInfo);
     let updateInfo = await this.api.ac.requestOffResult(this.leaf, this.customerInfo, key);
     while (updateInfo === null) {
-      NissanConnect.log('retrying ac requestResult');
+      this.logger.log('retrying ac requestResult');
       [updateInfo] = await Promise.all([
         this.api.ac.requestOffResult(this.leaf, this.customerInfo, key),
         NissanConnect.timeout(5000) //wait 5 seconds before continuing
@@ -316,7 +320,7 @@ class NissanConnect {
    * @return {Promise}
    */
   async checkLogin() {
-    NissanConnect.log('checkLogin loggedIn = ' + this.loggedIn);
+    this.logger.log('checkLogin loggedIn = ' + this.loggedIn);
     if (this.loggedIn) {
       return;
     }
@@ -325,14 +329,6 @@ class NissanConnect {
       return this.checkLogin();
     }
     await this.login();
-  }
-
-  static log(message) {
-    console.log('[NissanConnect] ' + message);
-  }
-
-  static error(message) {
-    console.error('[NissanConnect] ' + message);
   }
 
   static timeout(ms) {

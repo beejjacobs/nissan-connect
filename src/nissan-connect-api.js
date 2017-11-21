@@ -1,5 +1,6 @@
 const request = require('request-promise-native');
 const crypto = require('crypto');
+const Logger = require('./logger');
 const Config = require('./config');
 const AcApi = require('./ac/ac-api');
 const BatteryApi = require('./battery/battery-api');
@@ -18,6 +19,7 @@ class NissanConnectApi {
    */
   constructor(region) {
     this.region = region;
+    this.logger = new Logger(this.constructor.name);
     /**
      * @type {AcApi}
      */
@@ -41,7 +43,7 @@ class NissanConnectApi {
    * @returns {Promise.<string>}
    */
   async connect() {
-    NissanConnectApi.log('connecting');
+    this.logger.log('connecting');
     let res = await this.request(Config.endPoints.app, {
       lg: 'en-US',
     });
@@ -56,7 +58,7 @@ class NissanConnectApi {
    */
   async login(username, password) {
     const key = await this.connect();
-    NissanConnectApi.log('logging in');
+    this.logger.log('logging in');
     let res = await this.request(Config.endPoints.login, {
       UserId: username,
       Password: NissanConnectApi.encryptPassword(password, key)
@@ -71,7 +73,7 @@ class NissanConnectApi {
    * @returns {Promise.<VehicleInfo>}
    */
   async getVehicleInfo(leaf, customerInfo) {
-    NissanConnectApi.log('vehicle info');
+    this.logger.log('vehicle info');
     let res = await this.request(Config.endPoints.vehicleInfo, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
@@ -88,7 +90,7 @@ class NissanConnectApi {
    * @returns {Promise.<*>}
    */
   async getCountries(leaf, customerInfo) {
-    NissanConnectApi.log('countries');
+    this.logger.log('countries');
     return this.request(Config.endPoints.countrySetting, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
@@ -103,7 +105,7 @@ class NissanConnectApi {
    * @returns {Promise.<*>}
    */
   async getRegionSettings(leaf, customerInfo) {
-    NissanConnectApi.log('region');
+    this.logger.log('region');
     return this.request(Config.endPoints.regionSetting, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
@@ -120,7 +122,7 @@ class NissanConnectApi {
    * @returns {Promise.<*>}
    */
   async getContactNumbers(leaf, customerInfo) {
-    NissanConnectApi.log('contact numbers');
+    this.logger.log('contact numbers');
     return this.request(Config.endPoints.contactNumber, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
@@ -136,7 +138,7 @@ class NissanConnectApi {
    * @returns {Promise.<*>}
    */
   async getDisplayDate(leaf, customerInfo) {
-    NissanConnectApi.log('display date');
+    this.logger.log('display date');
     return this.request(Config.endPoints.dateFormat, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
@@ -196,17 +198,13 @@ class NissanConnectApi {
   }
 
   log(message) {
-    NissanConnectApi.log(message);
+    this.logger.log(message);
   }
 
   static encryptPassword(password, key) {
     const cipher = crypto.createCipheriv('bf-ecb', new Buffer(key), new Buffer(''));
 
     return cipher.update(password, 'utf8', 'base64') + cipher.final('base64');
-  }
-
-  static log(message) {
-    console.log('[NissanConnectApi] ' + message);
   }
 }
 
