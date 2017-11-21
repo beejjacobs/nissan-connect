@@ -22,15 +22,15 @@ class BatteryApi {
    */
   async requestStatus(leaf, customerInfo) {
     this.api.log('requesting battery status');
-    return this.api.request(Config.endPoints.batteryStatus, {
+    let res = await this.api.request(Config.endPoints.batteryStatus, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
       VIN: leaf.vin,
       tz: customerInfo.timezone,
       UserId: leaf.gdcUserId,
       custom_sessionid: leaf.sessionId
-    })
-        .then(res => res.resultKey);
+    });
+    return res.resultKey;
   }
 
   /**
@@ -42,17 +42,15 @@ class BatteryApi {
    */
   async requestStatusResult(leaf, customerInfo, resultKey) {
     this.api.log('requesting battery status result');
-    return this.api.request(Config.endPoints.batteryStatusResult, {
+    let res = await this.api.request(Config.endPoints.batteryStatusResult, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
       VIN: leaf.vin,
       tz: customerInfo.timezone,
       resultKey: resultKey,
       custom_sessionid: leaf.sessionId
-    })
-        .then(res => {
-          return res.responseFlag === '1' ? new BatteryStatusResponse(res) : null;
-        });
+    });
+    return res.responseFlag === '1' ? new BatteryStatusResponse(res) : null;
   }
 
   /**
@@ -62,14 +60,14 @@ class BatteryApi {
    */
   async getStatusRecord(leaf, customerInfo) {
     this.api.log('battery status record');
-    return this.api.request(Config.endPoints.batteryStatusRecords, {
+    let res = await this.api.request(Config.endPoints.batteryStatusRecords, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
       VIN: leaf.vin,
       tz: customerInfo.timezone,
       custom_sessionid: leaf.sessionId
-    })
-        .then(res => new BatteryStatusLast(res));
+    });
+    return new BatteryStatusLast(res);
   }
 
   /**

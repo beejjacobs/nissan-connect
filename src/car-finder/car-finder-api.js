@@ -41,17 +41,15 @@ class CarFinderApi  {
    */
   async requestResult(leaf, customerInfo, resultKey) {
     this.api.log('car finder result');
-    return this.api.request(Config.endPoints.carFinderResult, {
+    let res = this.api.request(Config.endPoints.carFinderResult, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
       VIN: leaf.vin,
       tz: customerInfo.timezone,
       resultKey: resultKey,
       custom_sessionid: leaf.sessionId
-    })
-        .then(res => {
-          return res.responseFlag === '1' ? res : null;
-        });
+    });
+    return res.responseFlag === '1' ? res : null;
   }
 
   /**

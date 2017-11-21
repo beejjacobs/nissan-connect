@@ -31,14 +31,14 @@ class DriveApi {
    */
   async getAnalysis(leaf, customerInfo) {
     this.api.log('get driving analysis');
-    return this.api.request(Config.endPoints.driveAnalysis, {
+    let res = await this.api.request(Config.endPoints.driveAnalysis, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
       VIN: leaf.vin,
       tz: customerInfo.timezone,
       custom_sessionid: leaf.sessionId
-    })
-        .then(res => new DriveAnalysis(res));
+    });
+    return new DriveAnalysis(res);
   }
 
   /**
@@ -50,15 +50,15 @@ class DriveApi {
    */
   async getAnalysisDetail(leaf, customerInfo, date) {
     this.api.log('get driving analysis detail');
-    return this.api.request(Config.endPoints.driveAnalysisDetail, {
+    let res = await this.api.request(Config.endPoints.driveAnalysisDetail, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
       VIN: leaf.vin,
       tz: customerInfo.timezone,
       custom_sessionid: leaf.sessionId,
       TargetDate: date.format('YYYY-MM-DD')
-    })
-        .then(res => new DriveAnalysisWeekSummary(res));
+    });
+    return new DriveAnalysisWeekSummary(res);
   }
 
 }

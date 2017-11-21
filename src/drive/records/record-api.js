@@ -19,17 +19,17 @@ class RecordApi {
    * @param {moment.Moment} date
    * @return {Promise.<DrivingRecord>}
    */
-  getFor(leaf, customerInfo, date) {
+  async getFor(leaf, customerInfo, date) {
     this.api.log('get record');
-    return this.api.request(Config.endPoints.carMapDetailInfo, {
+    let res = await this.api.request(Config.endPoints.carMapDetailInfo, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
       VIN: leaf.vin,
       tz: customerInfo.timezone,
       custom_sessionid: leaf.sessionId,
       TargetDate: date.format('YYYY-MM-DD')
-    })
-        .then(res => new DrivingRecord(res));
+    });
+    return new DrivingRecord(res);
   }
 
   /**
@@ -38,17 +38,17 @@ class RecordApi {
    * @param {moment.Moment} month
    * @return {Promise.<Calendar>}
    */
-  getAvailableDays(leaf, customerInfo, month) {
+  async getAvailableDays(leaf, customerInfo, month) {
     this.api.log('get available days');
-    return this.api.request(Config.endPoints.carMapDetailCalender, {
+    let res = await this.api.request(Config.endPoints.carMapDetailCalender, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
       VIN: leaf.vin,
       tz: customerInfo.timezone,
       custom_sessionid: leaf.sessionId,
       TargetMonth: month.format('YYYYMM')
-    })
-        .then(res => new Calendar(res));
+    });
+    return new Calendar(res);
   }
 
   /**
@@ -77,9 +77,9 @@ class RecordApi {
    * @param {moment.Moment} month
    * @return {Promise.<DrivingRecordMonth>}
    */
-  graphInfoMonth(leaf, customerInfo, month) {
+  async graphInfoMonth(leaf, customerInfo, month) {
     this.api.log('graph info month');
-    return this.api.request(Config.endPoints.carMapGraphInfo, {
+    let res = await this.api.request(Config.endPoints.carMapGraphInfo, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
       VIN: leaf.vin,
@@ -87,8 +87,8 @@ class RecordApi {
       custom_sessionid: leaf.sessionId,
       TargetMonth: month.format('YYYYMM'),
       DateRangeLevel: 'DAILY'
-    })
-        .then(res => new DrivingRecordMonth(res));
+    });
+    return new DrivingRecordMonth(res);
   }
 
   /**
@@ -97,9 +97,9 @@ class RecordApi {
    * @param {moment.Moment} year
    * @return {Promise.<DrivingRecordYear>}
    */
-  graphInfoYear(leaf, customerInfo, year) {
+  async graphInfoYear(leaf, customerInfo, year) {
     this.api.log('graph info year');
-    return this.api.request(Config.endPoints.carMapGraphInfo, {
+    let res = await this.api.request(Config.endPoints.carMapGraphInfo, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
       VIN: leaf.vin,
@@ -107,8 +107,8 @@ class RecordApi {
       custom_sessionid: leaf.sessionId,
       TargetYear: year.format('YYYY'),
       DateRangeLevel: 'MONTHLY'
-    })
-        .then(res => new DrivingRecordYear(res));
+    });
+    return new DrivingRecordYear(res);
   }
 
   /**
@@ -117,9 +117,9 @@ class RecordApi {
    * @param {moment.Moment} month
    * @return {Promise.<GraphDataPoints>}
    */
-  graphMonthTrips(leaf, customerInfo, month) {
-    return this.graphMonth(leaf, customerInfo, month, 'CARKARTE_DAILY_TRIPS')
-        .then(res => GraphResponse.singleSet(res));
+  async graphMonthTrips(leaf, customerInfo, month) {
+    let res = await this.graphMonth(leaf, customerInfo, month, 'CARKARTE_DAILY_TRIPS');
+    return GraphResponse.singleSet(res);
   }
 
   /**
@@ -128,9 +128,9 @@ class RecordApi {
    * @param {moment.Moment} month
    * @return {Promise.<DistanceTimeDataPoints>}
    */
-  graphMonthDistanceTime(leaf, customerInfo, month) {
-    return this.graphMonth(leaf, customerInfo, month, 'CARKARTE_DAILY_DISTTIME')
-        .then(res => GraphResponse.distanceTime(res));
+  async graphMonthDistanceTime(leaf, customerInfo, month) {
+    let res = await this.graphMonth(leaf, customerInfo, month, 'CARKARTE_DAILY_DISTTIME');
+    return GraphResponse.distanceTime(res);
   }
 
   /**
@@ -139,9 +139,9 @@ class RecordApi {
    * @param {moment.Moment} month
    * @return {Promise.<GraphDataPoints>}
    */
-  graphMonthEnergyUsage(leaf, customerInfo, month) {
-    return this.graphMonth(leaf, customerInfo, month, 'CARKARTE_DAILY_CONSUME')
-        .then(res => GraphResponse.singleSet(res));
+  async graphMonthEnergyUsage(leaf, customerInfo, month) {
+    let res = await this.graphMonth(leaf, customerInfo, month, 'CARKARTE_DAILY_CONSUME');
+    return GraphResponse.singleSet(res);
   }
 
   /**
@@ -150,9 +150,9 @@ class RecordApi {
    * @param {moment.Moment} month
    * @return {Promise.<DistanceEconomyDataPoints>}
    */
-  graphMonthDistanceEconomy(leaf, customerInfo, month) {
-    return this.graphMonth(leaf, customerInfo, month, 'CARKARTE_DAILY_DISTMILEAGE')
-        .then(res => GraphResponse.distanceEconomy(res));
+  async graphMonthDistanceEconomy(leaf, customerInfo, month) {
+    let res = await this.graphMonth(leaf, customerInfo, month, 'CARKARTE_DAILY_DISTMILEAGE');
+    return GraphResponse.distanceEconomy(res);
   }
 
   /**
@@ -162,9 +162,9 @@ class RecordApi {
    * @param {string} type
    * @return {Promise.<BaseGraphResponse>}
    */
-  graphMonth(leaf, customerInfo, month, type) {
+  async graphMonth(leaf, customerInfo, month, type) {
     this.api.log('graph month ' + type);
-    return this.api.requestHtml(Config.endPoints.carMapGraph, {
+    let res = await this.api.requestHtml(Config.endPoints.carMapGraph, {
       lg: customerInfo.language,
       lng: customerInfo.language,
       DCMID: leaf.dmcId,
@@ -173,8 +173,8 @@ class RecordApi {
       custom_sessionid: leaf.sessionId,
       TargetMonth: month.format('YYYYMM'),
       GraphType: type
-    })
-        .then(res => GraphResponse.parse(res));
+    });
+    return GraphResponse.parse(res);
   }
 
   /**
@@ -183,9 +183,9 @@ class RecordApi {
    * @param {moment.Moment} year
    * @return {Promise.<GraphDataPoints>}
    */
-  graphYearTrips(leaf, customerInfo, year) {
-    return this.graphYear(leaf, customerInfo, year, 'CARKARTE_MONTHLY_TRIPS')
-        .then(res => GraphResponse.singleSet(res));
+  async graphYearTrips(leaf, customerInfo, year) {
+    let res = await this.graphYear(leaf, customerInfo, year, 'CARKARTE_MONTHLY_TRIPS');
+    return GraphResponse.singleSet(res);
   }
 
   /**
@@ -196,9 +196,9 @@ class RecordApi {
    * @param {moment.Moment} year
    * @return {Promise.<DistanceTimeDataPoints>}
    */
-  graphYearDistanceTime(leaf, customerInfo, year) {
-    return this.graphYear(leaf, customerInfo, year, 'CARKARTE_MONTHLY_DISTTIME')
-        .then(res => GraphResponse.distanceTime(res));
+  async graphYearDistanceTime(leaf, customerInfo, year) {
+    let res = await this.graphYear(leaf, customerInfo, year, 'CARKARTE_MONTHLY_DISTTIME');
+    return GraphResponse.distanceTime(res);
   }
 
   /**
@@ -208,9 +208,9 @@ class RecordApi {
    * @param {moment.Moment} year
    * @return {Promise.<GraphDataPoints>}
    */
-  graphYearEnergyUsage(leaf, customerInfo, year) {
-    return this.graphYear(leaf, customerInfo, year, 'CARKARTE_MONTHLY_CONSUME')
-        .then(res => GraphResponse.singleSet(res));
+  async graphYearEnergyUsage(leaf, customerInfo, year) {
+    let res = await this.graphYear(leaf, customerInfo, year, 'CARKARTE_MONTHLY_CONSUME');
+    return GraphResponse.singleSet(res);
   }
 
   /**
@@ -221,9 +221,9 @@ class RecordApi {
    * @param {moment.Moment} year
    * @return {Promise.<DistanceEconomyDataPoints>}
    */
-  graphYearDistanceEconomy(leaf, customerInfo, year) {
-    return this.graphYear(leaf, customerInfo, year, 'CARKARTE_MONTHLY_DISTMILEAGE')
-        .then(res => GraphResponse.distanceEconomy(res));
+  async graphYearDistanceEconomy(leaf, customerInfo, year) {
+    let res = await this.graphYear(leaf, customerInfo, year, 'CARKARTE_MONTHLY_DISTMILEAGE');
+    return GraphResponse.distanceEconomy(res);
   }
 
   /**
@@ -233,9 +233,9 @@ class RecordApi {
    * @param {string} type
    * @return {Promise.<BaseGraphResponse>}
    */
-  graphYear(leaf, customerInfo, year, type) {
+  async graphYear(leaf, customerInfo, year, type) {
     this.api.log('graph year ' + type);
-    return this.api.requestHtml(Config.endPoints.carMapGraph, {
+    let res = await this.api.requestHtml(Config.endPoints.carMapGraph, {
       lg: customerInfo.language,
       lng: customerInfo.language,
       DCMID: leaf.dmcId,
@@ -244,8 +244,8 @@ class RecordApi {
       custom_sessionid: leaf.sessionId,
       TargetYear: year.format('YYYY'),
       GraphType: type
-    })
-        .then(res => GraphResponse.parse(res));
+    });
+    return GraphResponse.parse(res);
   }
 }
 

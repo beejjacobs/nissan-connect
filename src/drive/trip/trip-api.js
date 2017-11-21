@@ -18,17 +18,17 @@ class TripApi {
    * @param {moment.Moment} month
    * @return {Promise.<TripSummaryMonth>}
    */
-  getMonthTripSummary(leaf, customerInfo, month) {
+  async getMonthTripSummary(leaf, customerInfo, month) {
     this.api.log('get trip summary');
-    return this.api.request(Config.endPoints.priceSimulator, {
+    let res = await this.api.request(Config.endPoints.priceSimulator, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
       VIN: leaf.vin,
       tz: customerInfo.timezone,
       custom_sessionid: leaf.sessionId,
       TargetMonth: month.format('YYYYMM')
-    })
-        .then(res => new TripSummaryMonth(res));
+    });
+    return new TripSummaryMonth(res);
   }
 }
 

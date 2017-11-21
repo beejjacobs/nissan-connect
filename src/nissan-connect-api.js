@@ -42,10 +42,10 @@ class NissanConnectApi {
    */
   async connect() {
     NissanConnectApi.log('connecting');
-    return this.request(Config.endPoints.app, {
-        lg: 'en-US',
-    })
-        .then(res => res.baseprm);
+    let res = await this.request(Config.endPoints.app, {
+      lg: 'en-US',
+    });
+    return res['baseprm'];
   }
 
   /**
@@ -57,11 +57,11 @@ class NissanConnectApi {
   async login(username, password) {
     const key = await this.connect();
     NissanConnectApi.log('logging in');
-    return this.request(Config.endPoints.login, {
+    let res = await this.request(Config.endPoints.login, {
       UserId: username,
       Password: NissanConnectApi.encryptPassword(password, key)
-    })
-        .then(res => new LoginResponse(res));
+    });
+    return new LoginResponse(res);
   }
 
   /**
@@ -72,13 +72,13 @@ class NissanConnectApi {
    */
   async getVehicleInfo(leaf, customerInfo) {
     NissanConnectApi.log('vehicle info');
-    return this.request(Config.endPoints.vehicleInfo, {
+    let res = await this.request(Config.endPoints.vehicleInfo, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
       VIN: leaf.vin,
       custom_sessionid: leaf.sessionId
-    })
-        .then(res => new VehicleInfo(res));
+    });
+    return new VehicleInfo(res);
   }
 
   /**

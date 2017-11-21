@@ -21,15 +21,15 @@ class AcApi  {
    * @param {CustomerInfo} customerInfo
    * @returns {Promise.<AcSchedule>}
    */
-  getSchedule(leaf, customerInfo) {
+  async getSchedule(leaf, customerInfo) {
     this.api.log('get ac scheduled');
-    return this.api.request(Config.endPoints.scheduledACRemote, {
+    let res = await this.api.request(Config.endPoints.scheduledACRemote, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
       VIN: leaf.vin,
       custom_sessionid: leaf.sessionId
-    })
-        .then(res => new AcSchedule(res));
+    });
+    return new AcSchedule(res);
   }
 
   /**
@@ -38,16 +38,16 @@ class AcApi  {
    * @param {moment.Moment} dateTime
    * @returns {Promise.<AcSchedule>}
    */
-  setSchedule(leaf, customerInfo, dateTime) {
+  async setSchedule(leaf, customerInfo, dateTime) {
     this.api.log('set schedule');
-    return this.api.request(Config.endPoints.acRemoteNew, {
+    let res = await this.api.request(Config.endPoints.acRemoteNew, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
       VIN: leaf.vin,
       custom_sessionid: leaf.sessionId,
       ExecuteTime: dateTime.format('YYYY-MM-DD HH:mm:ss')
-    })
-        .then(res => new AcSchedule(res));
+    });
+    return new AcSchedule(res);
   }
 
   /**
@@ -58,16 +58,16 @@ class AcApi  {
    * @param {moment.Moment} dateTime
    * @returns {Promise.<AcSchedule>}
    */
-  updateSchedule(leaf, customerInfo, dateTime) {
+  async updateSchedule(leaf, customerInfo, dateTime) {
     this.api.log('update schedule');
-    return this.api.request(Config.endPoints.acRemoteUpdate, {
+    let res = await this.api.request(Config.endPoints.acRemoteUpdate, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
       VIN: leaf.vin,
       custom_sessionid: leaf.sessionId,
       ExecuteTime: dateTime.format('YYYY-MM-DD HH:mm:ss')
-    })
-        .then(res => new AcSchedule(res));
+    });
+    return new AcSchedule(res);
   }
 
   /**
@@ -105,15 +105,15 @@ class AcApi  {
    * @param {CustomerInfo} customerInfo
    * @returns {Promise.<string>}
    */
-  requestOn(leaf, customerInfo) {
+  async requestOn(leaf, customerInfo) {
     this.api.log('ac request');
-    return this.api.request(Config.endPoints.acRemote, {
+    let res = await this.api.request(Config.endPoints.acRemote, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
       VIN: leaf.vin,
       custom_sessionid: leaf.sessionId
-    })
-        .then(res => res.resultKey);
+    });
+    return res.resultKey;
   }
 
   /**
@@ -122,16 +122,16 @@ class AcApi  {
    * @param {string} resultKey
    * @returns {Promise.<AcOn|null>}
    */
-  requestOnResult(leaf, customerInfo, resultKey) {
+  async requestOnResult(leaf, customerInfo, resultKey) {
     this.api.log('ac request result');
-    return this.api.request(Config.endPoints.acRemoteResult, {
+    let res = await this.api.request(Config.endPoints.acRemoteResult, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
       VIN: leaf.vin,
       custom_sessionid: leaf.sessionId,
       resultKey: resultKey
-    })
-        .then(res => res.responseFlag === '1' ? new AcOn(res) : null);
+    });
+    return res.responseFlag === '1' ? new AcOn(res) : null;
   }
 
   /**
@@ -139,15 +139,15 @@ class AcApi  {
    * @param {CustomerInfo} customerInfo
    * @returns {Promise.<string>}
    */
-  requestOff(leaf, customerInfo) {
+  async requestOff(leaf, customerInfo) {
     this.api.log('ac request');
-    return this.api.request(Config.endPoints.acRemoteOff, {
+    let res = await this.api.request(Config.endPoints.acRemoteOff, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
       VIN: leaf.vin,
       custom_sessionid: leaf.sessionId
-    })
-        .then(res => res.resultKey);
+    });
+    return res.resultKey;
   }
 
   /**
@@ -156,16 +156,16 @@ class AcApi  {
    * @param {string} resultKey
    * @returns {Promise.<AcOff|null>}
    */
-  requestOffResult(leaf, customerInfo, resultKey) {
+  async requestOffResult(leaf, customerInfo, resultKey) {
     this.api.log('ac request result');
-    return this.api.request(Config.endPoints.acRemoteOffResult, {
+    let res = await this.api.request(Config.endPoints.acRemoteOffResult, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
       VIN: leaf.vin,
       custom_sessionid: leaf.sessionId,
       resultKey: resultKey
-    })
-        .then(res => res.responseFlag === '1' ? new AcOff(res) : null);
+    });
+    return res.responseFlag === '1' ? new AcOff(res) : null;
   }
 }
 
