@@ -1,5 +1,5 @@
 const Calendar = require('./calendar');
-const DrivingRecord = require('./driving-record');
+const DrivingRecordDay = require('./driving-record-day');
 const DrivingRecordMonth = require('./driving-record-month');
 const DrivingRecordYear = require('./driving-record-year');
 const GraphResponse = require('./graph-response');
@@ -17,7 +17,7 @@ class RecordApi {
    * @param {Leaf} leaf
    * @param {CustomerInfo} customerInfo
    * @param {moment.Moment} date
-   * @return {Promise.<DrivingRecord>}
+   * @return {Promise.<DrivingRecordDay>}
    */
   async getFor(leaf, customerInfo, date) {
     this.api.log('get record');
@@ -29,7 +29,7 @@ class RecordApi {
       custom_sessionid: leaf.sessionId,
       TargetDate: date.format('YYYY-MM-DD')
     });
-    return new DrivingRecord(res);
+    return new DrivingRecordDay(res);
   }
 
   /**

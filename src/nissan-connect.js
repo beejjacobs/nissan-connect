@@ -169,7 +169,7 @@ class NissanConnect {
   }
 
   /**
-   * @return {Promise.<DrivingRecord>}
+   * @return {Promise.<DrivingRecordDay>}
    */
   async getDriveRecordsToday() {
     await this.checkLogin();
@@ -178,7 +178,7 @@ class NissanConnect {
 
   /**
    * @param {string|moment.Moment} date
-   * @return {Promise.<DrivingRecord>}
+   * @return {Promise.<DrivingRecordDay>}
    */
   async getDriveRecords(date) {
     await this.checkLogin();
