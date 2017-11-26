@@ -49,7 +49,7 @@ class Calendar {
    * @returns {moment.Moment[]}
    */
   get availableDates() {
-    return this.availableDays.map(day => this.date.day(day));
+    return this.availableDays.map(day => this.date.date(day));
   }
 }
 
