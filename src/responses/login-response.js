@@ -11,6 +11,12 @@ const Leaf = require('./leaf');
  */
 
 /**
+ * @typedef {object} VehicleInfoList
+ * @property {VehicleInfoResponse[]} vehicleInfo
+ * @property {VehicleInfoResponse[]} VehicleInfo
+ */
+
+/**
  * @typedef {object} VehicleResponse
  * @property {ProfileResponse} profile
  */
@@ -43,15 +49,24 @@ const Leaf = require('./leaf');
  */
 
 /**
+ * @typedef {LoginResponseJson} LoginResponseJson2
+ * @property {VehicleInfoList} VehicleInfoList
+ */
+
+/**
  *
  */
 class LoginResponse {
   /**
    *
-   * @param {LoginResponseJson} responseJson
+   * @param {LoginResponseJson|LoginResponseJson2} responseJson
    */
   constructor(responseJson) {
     this.res = responseJson;
+
+    if (this.res.hasOwnProperty('VehicleInfoList')) {
+      this.res.vehicleInfo = this.res.VehicleInfoList.vehicleInfo;
+    }
 
     if (!this.res.hasOwnProperty('vehicleInfo')) {
       throw new Error('no vehicle info');
