@@ -35,7 +35,9 @@ class DriveAnalysisWeekSummary {
      * @type {DriveAnalysisDaySummary[]}
      */
     this.days = this.dateSummaries.map(summary => {
-      summary.TargetDate = yearMonth + summary.TargetDate;
+      if (summary.TargetDate.length === 2) {
+        summary.TargetDate = yearMonth + summary.TargetDate;
+      }
       return new DriveAnalysisDaySummary(summary);
     });
   }
