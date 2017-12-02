@@ -82,7 +82,13 @@ class GraphResponse {
     /**
      * @type {Array}
      */
-    let array = JSON.parse(match);
+    let array;
+
+    try {
+      array = JSON.parse(match);
+    } catch (e) {
+      return [];
+    }
 
     return array.map(val => {
       return {
