@@ -92,6 +92,27 @@ class BatteryStatus {
   }
 
   /**
+   * @return {boolean}
+   */
+  get hasTimeToFull() {
+    return this.info.hasOwnProperty('TimeRequiredToFull');
+  }
+
+  /**
+   * @return {boolean}
+   */
+  get hasTimeToFull3kW() {
+    return this.info.hasOwnProperty('TimeRequiredToFull200');
+  }
+
+  /**
+   * @return {boolean}
+   */
+  get hasTimeToFull6kW() {
+    return this.info.hasOwnProperty('TimeRequiredToFull200_6kW');
+  }
+
+  /**
    * @returns {moment.Duration}
    */
   get timeToFull() {

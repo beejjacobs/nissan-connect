@@ -89,6 +89,27 @@ class BatteryStatusLast {
   }
 
   /**
+   * @return {boolean}
+   */
+  get hasTimeToFull() {
+    return this.data.hasOwnProperty('TimeRequiredToFull');
+  }
+
+  /**
+   * @return {boolean}
+   */
+  get hasTimeToFull3kW() {
+    return this.data.hasOwnProperty('TimeRequiredToFull200');
+  }
+
+  /**
+   * @return {boolean}
+   */
+  get hasTimeToFull6kW() {
+    return this.data.hasOwnProperty('TimeRequiredToFull200_6kW');
+  }
+
+  /**
    * @returns {moment.Duration}
    */
   get timeToFull() {
