@@ -45,6 +45,13 @@ class BatteryStatusLast {
   }
 
   /**
+   * @return {string}
+   */
+  get updateTime() {
+    return this.data.TargetDate;
+  }
+
+  /**
    * Range in metres
    * @returns {number}
    */
