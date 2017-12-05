@@ -1,6 +1,6 @@
 {
   "name": "@beejjacobs/nissan-connect",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Nissan Connect API wrapper",
   "main": "index.js",
   "scripts": {
