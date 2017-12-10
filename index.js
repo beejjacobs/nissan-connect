@@ -1,5 +1,6 @@
 const AcOff = require('./src/ac/ac-off');
 const AcOn = require('./src/ac/ac-on');
+const AcRecord = require('./src/ac/ac-record');
 const AcSchedule = require('./src/ac/ac-schedule');
 const BatteryStatus = require('./src/battery/battery-status');
 const BatteryStatusLast = require('./src/battery/battery-status-last');
@@ -26,6 +27,7 @@ const VehicleInfo = require('./src/responses/vehicle-info');
 module.exports = {
   AcOff,
   AcOn,
+  AcRecord,
   AcSchedule,
   BatteryStatus,
   BatteryStatusLast,
