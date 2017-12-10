@@ -62,7 +62,8 @@ class NissanConnect {
    */
   async getBatteryStatus() {
     await this.checkLogin();
-    const key = await this.api.battery.requestStatus(this.leaf, this.customerInfo);
+    let api = this.api.battery;
+    const key = await this.request(api, api.requestStatus);
     let updateInfo = await this.api.battery.requestStatusResult(this.leaf, this.customerInfo, key);
     while (updateInfo === null) {
       this.logger.log('retrying requestBatteryStatusResult');
@@ -79,16 +80,16 @@ class NissanConnect {
    * @returns {Promise.<BatteryStatusLast>}
    */
   async getLastBatteryStatus() {
-    await this.checkLogin();
-    return this.api.battery.getStatusRecord(this.leaf, this.customerInfo);
+    let api = this.api.battery;
+    return this.request(api, api.getStatusRecord);
   }
 
   /**
    * @return {Promise}
    */
   async startCharging() {
-    await this.checkLogin();
-    return this.api.battery.startCharging(this.leaf, this.customerInfo);
+    let api = this.api.battery;
+    return this.request(api, api.startCharging);
   }
 
   /**
@@ -96,7 +97,8 @@ class NissanConnect {
    */
   async acOn() {
     await this.checkLogin();
-    const key = await this.api.ac.requestOn(this.leaf, this.customerInfo);
+    let api = this.api.ac;
+    const key = await this.request(api, api.requestOn);
     let updateInfo = await this.api.ac.requestOnResult(this.leaf, this.customerInfo, key);
     while (updateInfo === null) {
       this.logger.log('retrying ac requestResult');
@@ -113,7 +115,8 @@ class NissanConnect {
    */
   async acOff() {
     await this.checkLogin();
-    const key = await this.api.ac.requestOff(this.leaf, this.customerInfo);
+    let api = this.api.ac;
+    const key = await this.request(api, api.requestOff);
     let updateInfo = await this.api.ac.requestOffResult(this.leaf, this.customerInfo, key);
     while (updateInfo === null) {
       this.logger.log('retrying ac requestResult');
@@ -129,8 +132,8 @@ class NissanConnect {
    * @returns {Promise.<AcSchedule>}
    */
   async getAcSchedule() {
-    await this.checkLogin();
-    return this.api.ac.getSchedule(this.leaf, this.customerInfo);
+    let api = this.api.ac;
+    return this.request(api, api.getSchedule);
   }
 
   /**
@@ -138,24 +141,24 @@ class NissanConnect {
    * @returns {Promise.<AcSchedule>}
    */
   async setAcSchedule(dateTime) {
-    await this.checkLogin();
-    return this.api.ac.setSchedule(this.leaf, this.customerInfo, moment(dateTime));
+    let api = this.api.ac;
+    return this.request(api, api.setSchedule, moment(dateTime));
   }
 
   /**
    * @returns {Promise}
    */
   async cancelAcSchedule() {
-    await this.checkLogin();
-    return this.api.ac.cancelSchedule(this.leaf, this.customerInfo);
+    let api = this.api.ac;
+    return this.request(api, api.cancelSchedule);
   }
 
   /**
    * @returns {Promise.<DriveAnalysis>}
    */
   async getDrivingAnalysisToday() {
-    await this.checkLogin();
-    return this.api.drive.getAnalysis(this.leaf, this.customerInfo);
+    let api = this.api.drive;
+    return this.request(api, api.getAnalysis);
   }
 
   /**
@@ -164,16 +167,16 @@ class NissanConnect {
    * @returns {Promise.<DriveAnalysisWeekSummary>}
    */
   async getDrivingAnalysisWeek(date) {
-    await this.checkLogin();
-    return this.api.drive.getAnalysisDetail(this.leaf, this.customerInfo, moment(date));
+    let api = this.api.drive;
+    return this.request(api, api.getAnalysisDetail, moment(date));
   }
 
   /**
    * @return {Promise.<DrivingRecordDay>}
    */
   async getDriveRecordsToday() {
-    await this.checkLogin();
-    return this.api.drive.records.getFor(this.leaf, this.customerInfo, moment());
+    let api = this.api.drive.records;
+    return this.request(api, api.getFor, moment());
   }
 
   /**
@@ -181,8 +184,8 @@ class NissanConnect {
    * @return {Promise.<DrivingRecordDay>}
    */
   async getDriveRecords(date) {
-    await this.checkLogin();
-    return this.api.drive.records.getFor(this.leaf, this.customerInfo, moment(date));
+    let api = this.api.drive.records;
+    return this.request(api, api.getFor, moment(date));
   }
 
   /**
@@ -190,8 +193,8 @@ class NissanConnect {
    * @return {Promise.<Calendar>}
    */
   async getDriveRecordDays(month) {
-    await this.checkLogin();
-    return this.api.drive.records.getAvailableDays(this.leaf, this.customerInfo, moment(month));
+    let api = this.api.drive.records;
+    return this.request(api, api.getAvailableDays, moment(month));
   }
 
   /**
@@ -199,8 +202,8 @@ class NissanConnect {
    * @return {Promise.<DrivingRecordMonth>}
    */
   async getDriveRecordsMonth(month) {
-    await this.checkLogin();
-    return this.api.drive.records.graphInfoMonth(this.leaf, this.customerInfo, moment(month));
+    let api = this.api.drive.records;
+    return this.request(api, api.graphInfoMonth, moment(month));
   }
 
   /**
@@ -208,8 +211,8 @@ class NissanConnect {
    * @return {Promise.<DrivingRecordYear>}
    */
   async getDriveRecordsYear(year) {
-    await this.checkLogin();
-    return this.api.drive.records.graphInfoYear(this.leaf, this.customerInfo, moment(year));
+    let api = this.api.drive.records;
+    return this.request(api, api.graphInfoYear, moment(year));
   }
 
   /**
@@ -218,8 +221,8 @@ class NissanConnect {
    * @return {Promise}
    */
   async addDriveRecordNote(date, note) {
-    await this.checkLogin();
-    return this.api.drive.records.addNote(this.leaf, this.customerInfo, moment(date), note);
+    let api = this.api.drive.records;
+    return this.request(api, api.addNote, [moment(date), note]);
   }
 
 
@@ -228,8 +231,8 @@ class NissanConnect {
    * @return {Promise.<GraphDataPoints>}
    */
   async getMonthlyTrips(month) {
-    await this.checkLogin();
-    return this.api.drive.records.graphMonthTrips(this.leaf, this.customerInfo, moment(month));
+    let api = this.api.drive.records;
+    return this.request(api, api.graphMonthTrips, moment(month));
   }
 
   /**
@@ -238,8 +241,8 @@ class NissanConnect {
    * @return {Promise.<DistanceEconomyDataPoints>}
    */
   async getMonthlyDistanceEconomy(month) {
-    await this.checkLogin();
-    return this.api.drive.records.graphMonthDistanceEconomy(this.leaf, this.customerInfo, moment(month));
+    let api = this.api.drive.records;
+    return this.request(api, api.graphMonthDistanceEconomy, moment(month));
   }
 
   /**
@@ -248,8 +251,8 @@ class NissanConnect {
    * @return {Promise.<DistanceTimeDataPoints>}
    */
   async getMonthlyDistanceTime(month) {
-    await this.checkLogin();
-    return this.api.drive.records.graphMonthDistanceTime(this.leaf, this.customerInfo, moment(month));
+    let api = this.api.drive.records;
+    return this.request(api, api.graphMonthDistanceTime, moment(month));
   }
 
   /**
@@ -258,8 +261,8 @@ class NissanConnect {
    * @return {Promise.<GraphDataPoints>}
    */
   async getMonthlyEnergyUsage(month) {
-    await this.checkLogin();
-    return this.api.drive.records.graphMonthEnergyUsage(this.leaf, this.customerInfo, moment(month));
+    let api = this.api.drive.records;
+    return this.request(api, api.graphMonthEnergyUsage, moment(month));
   }
 
   /**
@@ -267,8 +270,8 @@ class NissanConnect {
    * @return {Promise.<GraphDataPoints>}
    */
   async getYearlyTrips(year) {
-    await this.checkLogin();
-    return this.api.drive.records.graphYearTrips(this.leaf, this.customerInfo, moment(year));
+    let api = this.api.drive.records;
+    return this.request(api, api.graphYearTrips, moment(year));
   }
 
   /**
@@ -276,8 +279,8 @@ class NissanConnect {
    * @return {Promise.<DistanceEconomyDataPoints>}
    */
   async getYearlyDistanceEconomy(year) {
-    await this.checkLogin();
-    return this.api.drive.records.graphYearDistanceEconomy(this.leaf, this.customerInfo, moment(year));
+    let api = this.api.drive.records;
+    return this.request(api, api.graphYearDistanceEconomy, moment(year));
   }
 
   /**
@@ -285,8 +288,8 @@ class NissanConnect {
    * @return {Promise.<DistanceTimeDataPoints>}
    */
   async getYearlyDistanceTime(year) {
-    await this.checkLogin();
-    return this.api.drive.records.graphYearDistanceTime(this.leaf, this.customerInfo, moment(year));
+    let api = this.api.drive.records;
+    return this.request(api, api.graphYearDistanceTime, moment(year));
   }
 
   /**
@@ -294,8 +297,8 @@ class NissanConnect {
    * @return {Promise.<GraphDataPoints>}
    */
   async getYearlyEnergyUsage(year) {
-    await this.checkLogin();
-    return this.api.drive.records.graphYearEnergyUsage(this.leaf, this.customerInfo, moment(year));
+    let api = this.api.drive.records;
+    return this.request(api, api.graphYearEnergyUsage, moment(year));
   }
 
   /**
@@ -303,16 +306,40 @@ class NissanConnect {
    * @return {Promise.<TripSummaryMonth>}
    */
   async getMonthTripSummary(month) {
-    await this.checkLogin();
-    return this.api.drive.trip.getMonthTripSummary(this.leaf, this.customerInfo, moment(month));
+    let api = this.api.drive.trip;
+    return this.request(api, api.getMonthTripSummary, moment(month));
   }
 
   /**
    * @returns {Promise.<VehicleInfo>}
    */
   async getVehicleInfo() {
+    let api = this.api;
+    return this.request(api, api.getVehicleInfo);
+  }
+
+  /**
+   * @param {object} api
+   * @param {Function} func
+   * @param {[]|*} [args]
+   * @return {Promise<*>}
+   */
+  async request(api, func, args = []) {
     await this.checkLogin();
-    return this.api.getVehicleInfo(this.leaf, this.customerInfo);
+    let result;
+    if (!Array.isArray(args)) {
+      args = [args];
+    }
+    try {
+      result = await func.call(api, this.leaf, this.customerInfo, ...args);
+    } catch (e) {
+      if (e === 401) {
+        await this.reLogin();
+        return await func.call(api, this.leaf, this.customerInfo, ...args);
+      }
+      throw e;
+    }
+    return result;
   }
 
   /**
@@ -329,6 +356,12 @@ class NissanConnect {
       return this.checkLogin();
     }
     await this.login();
+  }
+
+  async reLogin() {
+    this.logger.log('not authorised, retrying');
+    this.loggedIn = false;
+    return this.checkLogin();
   }
 
   static timeout(ms) {
