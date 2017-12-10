@@ -154,6 +154,14 @@ class NissanConnect {
   }
 
   /**
+   * @return {Promise.<AcRecord>}
+   */
+  async getAcRecord() {
+    let api = this.api.ac;
+    return this.request(api, api.getRecord);
+  }
+
+  /**
    * @returns {Promise.<DriveAnalysis>}
    */
   async getDrivingAnalysisToday() {

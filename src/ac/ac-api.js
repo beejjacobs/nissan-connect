@@ -1,6 +1,7 @@
 const AcSchedule = require('./ac-schedule');
 const AcOn = require('./ac-on');
 const AcOff = require('./ac-off');
+const AcRecord = require('./ac-record');
 const Config = require('../config');
 
 /**
@@ -88,16 +89,17 @@ class AcApi  {
   /**
    * @param {Leaf} leaf
    * @param {CustomerInfo} customerInfo
-   * @returns {Promise.<*>}
+   * @returns {Promise.<AcRecord>}
    */
-  getRecord(leaf, customerInfo) {
+  async getRecord(leaf, customerInfo) {
     this.api.log('get ac record');
-    return this.api.request(Config.endPoints.acRemoteRecords, {
+    let res = await this.api.request(Config.endPoints.acRemoteRecords, {
       lg: customerInfo.language,
       DCMID: leaf.dmcId,
       VIN: leaf.vin,
       custom_sessionid: leaf.sessionId
     });
+    return new AcRecord(res);
   }
 
   /**
