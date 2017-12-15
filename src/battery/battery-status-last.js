@@ -48,6 +48,9 @@ class BatteryStatusLast {
    * @return {string}
    */
   get updateTime() {
+    if (!this.data) {
+      return '';
+    }
     return this.data.TargetDate;
   }
 
@@ -56,6 +59,9 @@ class BatteryStatusLast {
    * @returns {number}
    */
   get range() {
+    if (!this.data) {
+      return 0;
+    }
     return parseInt(this.data.CruisingRangeAcOff);
   }
 
@@ -64,6 +70,9 @@ class BatteryStatusLast {
    * @returns {number}
    */
   get rangeWithAc() {
+    if (!this.data) {
+      return 0;
+    }
     return parseInt(this.data.CruisingRangeAcOn);
   }
 
@@ -71,6 +80,9 @@ class BatteryStatusLast {
    * @returns {PluginStateEnum}
    */
   get pluginState() {
+    if (!this.data) {
+      return '';
+    }
     return this.data.PluginState;
   }
 
@@ -78,6 +90,9 @@ class BatteryStatusLast {
    * @returns {ChargeStatusEnum}
    */
   get chargeStatus() {
+    if (!this.data) {
+      return '';
+    }
     return this.data.BatteryStatus.BatteryChargingStatus;
   }
 
@@ -85,6 +100,9 @@ class BatteryStatusLast {
    * @returns {Number}
    */
   get capacity() {
+    if (!this.data) {
+      return 0;
+    }
     return parseInt(this.data.BatteryStatus.BatteryCapacity);
   }
 
@@ -92,6 +110,9 @@ class BatteryStatusLast {
    * @returns {Number}
    */
   get chargeState() {
+    if (!this.data) {
+      return 0;
+    }
     return parseInt(this.data.BatteryStatus.BatteryRemainingAmount);
   }
 
@@ -99,6 +120,9 @@ class BatteryStatusLast {
    * @return {boolean}
    */
   get hasTimeToFull() {
+    if (!this.data) {
+      return false;
+    }
     return this.data.hasOwnProperty('TimeRequiredToFull');
   }
 
@@ -106,6 +130,9 @@ class BatteryStatusLast {
    * @return {boolean}
    */
   get hasTimeToFull3kW() {
+    if (!this.data) {
+      return false;
+    }
     return this.data.hasOwnProperty('TimeRequiredToFull200');
   }
 
@@ -113,6 +140,9 @@ class BatteryStatusLast {
    * @return {boolean}
    */
   get hasTimeToFull6kW() {
+    if (!this.data) {
+      return false;
+    }
     return this.data.hasOwnProperty('TimeRequiredToFull200_6kW');
   }
 
