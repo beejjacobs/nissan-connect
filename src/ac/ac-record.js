@@ -46,6 +46,9 @@ class AcRecord {
    * @return {OperationResultEnum}
    */
   get operationResult() {
+    if (!this.data) {
+      return '';
+    }
     return this.data.OperationResult;
   }
 
@@ -59,6 +62,9 @@ class AcRecord {
    * @return {AcOperationEnum}
    */
   get acOperation() {
+    if (!this.data) {
+      return '';
+    }
     return this.data.RemoteACOperation;
   }
 
@@ -66,6 +72,9 @@ class AcRecord {
    * @return {PluginStateEnum}
    */
   get pluginState() {
+    if (!this.data) {
+      return '';
+    }
     return this.data.PluginState;
   }
 
