@@ -90,7 +90,7 @@ class BatteryStatusLast {
    * @returns {ChargeStatusEnum}
    */
   get chargeStatus() {
-    if (!this.data) {
+    if (!this.data || !this.data.BatteryStatus) {
       return '';
     }
     return this.data.BatteryStatus.BatteryChargingStatus;
@@ -100,7 +100,7 @@ class BatteryStatusLast {
    * @returns {Number}
    */
   get capacity() {
-    if (!this.data) {
+    if (!this.data || !this.data.BatteryStatus) {
       return 0;
     }
     return parseInt(this.data.BatteryStatus.BatteryCapacity);
@@ -110,7 +110,7 @@ class BatteryStatusLast {
    * @returns {Number}
    */
   get chargeState() {
-    if (!this.data) {
+    if (!this.data || !this.data.BatteryStatus) {
       return 0;
     }
     return parseInt(this.data.BatteryStatus.BatteryRemainingAmount);
@@ -150,6 +150,9 @@ class BatteryStatusLast {
    * @returns {moment.Duration}
    */
   get timeToFull() {
+    if (!this.data.TimeRequiredToFull) {
+      return moment.duration(0);
+    }
     return moment.duration({
       hours: this.data.TimeRequiredToFull.HourRequiredToFull,
       minutes: this.data.TimeRequiredToFull.MinutesRequiredToFull
@@ -160,6 +163,9 @@ class BatteryStatusLast {
    * @returns {moment.Duration}
    */
   get timeToFull3kW() {
+    if (!this.data.TimeRequiredToFull200) {
+      return moment.duration(0);
+    }
     return moment.duration({
       hours: this.data.TimeRequiredToFull200.HourRequiredToFull,
       minutes: this.data.TimeRequiredToFull200.MinutesRequiredToFull
@@ -170,6 +176,9 @@ class BatteryStatusLast {
    * @returns {moment.Duration}
    */
   get timeToFull6kW() {
+    if (!this.data.TimeRequiredToFull200_6kW) {
+      return moment.duration(0);
+    }
     return moment.duration({
       hours: this.data.TimeRequiredToFull200_6kW.HourRequiredToFull,
       minutes: this.data.TimeRequiredToFull200_6kW.MinutesRequiredToFull
