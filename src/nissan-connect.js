@@ -3,6 +3,7 @@ const moment = require('moment');
 const Logger = require('./logger');
 const Api = require('./nissan-connect-api');
 
+const MAX_RETRIES = 20;
 /**
  * Wrapper for the {@link NissanConnectApi} to make it more user friendly.
  */
@@ -61,18 +62,8 @@ class NissanConnect {
    * @returns {Promise.<BatteryStatusResponse>}
    */
   async getBatteryStatus() {
-    await this.checkLogin();
     let api = this.api.battery;
-    const key = await this.request(api, api.requestStatus);
-    let updateInfo = await this.api.battery.requestStatusResult(this.leaf, this.customerInfo, key);
-    while (updateInfo === null) {
-      this.logger.log('retrying requestBatteryStatusResult');
-      [updateInfo] = await Promise.all([
-        this.api.battery.requestStatusResult(this.leaf, this.customerInfo, key),
-        NissanConnect.timeout(5000) //wait 5 seconds before continuing
-      ]);
-    }
-    return updateInfo;
+    return await this._runCommandAndRetryForResult(api, api.requestStatus, api.requestStatusResult);
   }
 
   /**
@@ -96,36 +87,16 @@ class NissanConnect {
    * @returns {Promise.<AcOn>}
    */
   async acOn() {
-    await this.checkLogin();
     let api = this.api.ac;
-    const key = await this.request(api, api.requestOn);
-    let updateInfo = await this.api.ac.requestOnResult(this.leaf, this.customerInfo, key);
-    while (updateInfo === null) {
-      this.logger.log('retrying ac requestResult');
-      [updateInfo] = await Promise.all([
-        this.api.ac.requestOnResult(this.leaf, this.customerInfo, key),
-        NissanConnect.timeout(5000) //wait 5 seconds before continuing
-      ]);
-    }
-    return updateInfo;
+    return await this._runCommandAndRetryForResult(api, api.requestOn, api.requestOnResult);
   }
 
   /**
    * @returns {Promise.<AcOff>}
    */
   async acOff() {
-    await this.checkLogin();
     let api = this.api.ac;
-    const key = await this.request(api, api.requestOff);
-    let updateInfo = await this.api.ac.requestOffResult(this.leaf, this.customerInfo, key);
-    while (updateInfo === null) {
-      this.logger.log('retrying ac requestResult');
-      [updateInfo] = await Promise.all([
-        this.api.ac.requestOffResult(this.leaf, this.customerInfo, key),
-        NissanConnect.timeout(5000) //wait 5 seconds before continuing
-      ]);
-    }
-    return updateInfo;
+    return await this._runCommandAndRetryForResult(api, api.requestOff, api.requestOffResult);
   }
 
   /**
@@ -348,6 +319,32 @@ class NissanConnect {
       throw e;
     }
     return result;
+  }
+
+  /**
+   * @param {object} api
+   * @param {Function} func1 Command to run
+   * @param {Function} func2 Command to get the result. This will be retries ${MAX_RETRIES} times
+   * @returns {Promise<*>}
+   * @private
+   */
+  async _runCommandAndRetryForResult(api, func1, func2) {
+    await this.checkLogin();
+    const key = await this.request(api, func1);
+    let updateInfo = await func2.call(api, this.leaf, this.customerInfo, key);
+    let counter = 0;
+    while (updateInfo === null && counter < MAX_RETRIES) {
+      this.logger.log('retrying...');
+      counter++;
+      [updateInfo] = await Promise.all([
+        func2.call(api, this.leaf, this.customerInfo, key),
+        NissanConnect.timeout(5000) //wait 5 seconds before continuing
+      ]);
+    }
+    if (updateInfo === null) {
+      throw new Error('Server never answered.');
+    }
+    return updateInfo;
   }
 
   /**

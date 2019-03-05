@@ -2,7 +2,8 @@
  * @const
  */
 const Config = {
-  baseUrl: "https://gdcportalgw.its-mo.com/gworchest_160803EC/gdc/",
+  nnaBaseUrl: "https://gdcportalgw.its-mo.com/gworchest_160803EC/gdc/",
+  neBaseUrl: "https://gdcportalgw.its-mo.com/api_v180117_NE/gdc/",
   initialAppString: "geORNtsZe5I4lRGjG9GZiA",
   endPoints: {
     acRemote: "ACRemoteRequest.php",

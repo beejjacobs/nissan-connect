@@ -160,7 +160,7 @@ class NissanConnectApi {
       RegionCode: this.region
     };
     const options = {
-      uri: Config.baseUrl + endPoint,
+      uri: this.getBaseURL() + endPoint,
       method: 'POST',
       form: {},
       json: true
@@ -188,7 +188,7 @@ class NissanConnectApi {
       RegionCode: this.region
     };
     const options = {
-      uri: Config.baseUrl + endPoint,
+      uri: this.getBaseURL() + endPoint,
       method: 'POST',
       form: {},
       json: true
@@ -199,6 +199,10 @@ class NissanConnectApi {
 
   log(message) {
     this.logger.log(message);
+  }
+
+  getBaseURL() {
+    return this.region === 'NNA' ? Config.nnaBaseUrl : Config.neBaseUrl;
   }
 
   static encryptPassword(password, key) {
